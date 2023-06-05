@@ -7,15 +7,17 @@
     </head>
 
     <body>
-        <label>
-            <span class="textbox-001-label">Gmail(ID)</span>
-            <input type="text" class="textbox-001" placeholder="***@gmail.com"/>
-        </label><br>
-        <label>
-            <span class="textbox-002-label">password</span>
-            <input type="text" class="textbox-002" placeholder="password"/>
-        </label>
-        <button onclick="location.href='index.html'"></button>
+        <form method="POST">
+            <label>
+                <span class="textbox-001-label">Gmail</span>
+                <input type="text" name="email" class="textbox-001" placeholder="***@gmail.com"/>
+            </label><br>
+            <label>
+                <span class="textbox-002-label">password</span>
+                <input type="text" name="pass" class="textbox-002" placeholder="password"/>
+            </label>
+              <button type="submit" ></button><!--onclick="location.href='index.html'" -->
+        </form>    
         <p><a href="register.html">登録していない方はこちら</a></p>
         <p><a href="index.html">ゲストログイン</a></p>
     </body>
