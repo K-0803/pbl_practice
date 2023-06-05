@@ -1,0 +1,89 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+  background-color: #D8D8D8;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+.btn--mypage,
+a.btn--mypage ,
+.btn--postLog:hover,
+a.btn--postLog:hover,
+.btn--Wtemplate,
+a.btn--Wtemplate {
+  color: #545454;
+  background-color: #F6F6F6;
+}
+
+.btn--mypage:hover,
+a.btn--mypage:hover,
+.btn--postLog,
+a.btn--postLog,
+.btn--Wtemplate,
+a.btn--Wtemplate {
+  color: #545454;
+  background: #F6F6F6;
+}
+
+.btn--Ptemplate,
+a.btn--Ptemplate {
+  color: #F6F6F6;
+  background: #202020;
+}
+
+.btn--Ptemplate:hover,
+a.btn--Ptemplate:hover {
+  color: #F6F6F6;
+  background: #202020;
+}
+
+.btn--colorSample,
+a.btn--colorSample,
+.btn--webCreate,
+a.btn--webCreate,
+.btn--termCictionary,
+a.btn--termCictionary {
+  color: #545454;
+  background: #BDFF00;
+}
+
+.btn--colorSample:hover,
+a.btn--colorSample:hover,
+.btn--webCreate:hover,
+a.btn--webCreate:hover,
+.btn--termCictionary,
+a.btn--termCictionary {
+  color: #545454;
+  background: #BDFF00;
+}
