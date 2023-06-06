@@ -49,7 +49,7 @@ function InsData(){
 const {Client} = require("pg");
 const client = new Client({
     user: "postgres",//ユーザー名
-    host: "database-1.c8lfh7qeqrkx.us-east-1.rds.amazonaws.com",//ホスト
+    host: "database-springfw1.ccscu6v1ahrd.us-east-1.rds.amazonaws.com",//ホスト
     database: "postgres",//DB名
     password: "shirokuma123",//ユーザーパスワード
     port: 5432, 
