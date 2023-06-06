@@ -50,7 +50,7 @@ const {Client} = require("pg");
 const client = new Client({
     user: "postgres",//ユーザー名
     host: "database-springfw1.ccscu6v1ahrd.us-east-1.rds.amazonaws.com",//ホスト
-    database: "postgres",//DB名
+    database: "Account",//DB名
     password: "shirokuma123",//ユーザーパスワード
     port: 5432, 
 });
