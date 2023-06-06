@@ -1,10 +1,10 @@
 
 var http = require('http');
-var html = require('fs').readFileSync('register.html');
-var Account = [GmailTxt,passTxt,repassTxt,UserArea];
+var html = require('fs').readFileSync('../designDictionary/html/register.html');
+var Account = [];
 
 http.createServer(function(req, res){
-    
+    var data = '';
     var flag = false;
     if(req.method === 'GET'){
         res.writeHead(200, {'Content-Type' : 'text/html'});
