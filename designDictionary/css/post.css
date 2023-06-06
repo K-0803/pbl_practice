@@ -1,0 +1,15 @@
+.textbox-webpost {
+    width: 70%;
+    border: none;
+    margin-left: 15%;
+    border-radius: 20px;
+    background: #f6f6f6;
+    color: #777777;
+    font-size: 1em;
+    line-height: 1.5;
+    height: 15em;
+}
+
+.textbox-webpost::placeholder {
+    color: #777777;
+}

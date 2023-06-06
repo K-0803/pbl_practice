@@ -4,29 +4,29 @@
         <meta charset="utf-8">
         <title>新規登録</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
+        <link href="../css/login.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
         <form method="POST">
         <label>
             <span class="textbox-login-gmail">Gmail(ID)</span>
-            <input type="text" class="gmail" placeholder="***@gmail.com"/>
+            <input name="adc1" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
             <span class="textbox-login-pw">password</span>
-            <input type="text" class="pw" placeholder="password"/>
+            <input name="adc2" type="text" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-re-pw">re:password</span>
-            <input type="text" class="re-pw" placeholder="password"/>
+            <span class="textbox-login-repw">re:password</span>
+            <input name="adc3" type="text" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-username">UserName</span>
-            <input type="text" class="username" placeholder="username"/>
+            <span class="textbox-login-name">UserName</span>
+            <input name="adc4" type="text" class="textbox-name" placeholder="username"/>
         </label>
-        <button type="submit">送信</button>
-    </form>
-        <button onclick="location.href='index.html'"></button>
+        <button  type="submit">送信</button>
+        </form>
+        <button  onclick="location.href='index.html'"></button>
     </body>
-    <script src="C:\Users\shibahara\pbl_practice\Backend\register.js"></script>
 </html>
