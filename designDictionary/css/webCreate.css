@@ -7,3 +7,17 @@ h1 {
     color: #777777;
     background: #BDFF00;
   }
+
+.post{
+    text-align: left;
+    
+}
+
+.postLog{
+    width: 100px;
+    background: #BDFF00;
+}
+
+.mypage{
+    text-align: right;
+}
