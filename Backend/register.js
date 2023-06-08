@@ -21,12 +21,10 @@ http.createServer(function(req, res){
                 for(var i = 0;i <= data.length;i++){
                     console.log("変数dataの値は!" + data[i]);
                     if(flag === true){
-                        console.log("if成功");
                             for(var j = i;j <= data.length;j++){
                               console.log("成功");
                             if(data[j] === "&" || j == data.length){
                                 flag = false
-                                console.log("d flag")
                                 Account[x] = [data.substring(i,j)]
                                 x++;
                                 break;
@@ -54,8 +52,7 @@ http.createServer(function(req, res){
 
 function InsData(Account){
     
-    
-const {Client} = require("pg");
+    const {Client} = require("pg");
 const client = new Client({
     user: "postgres",//ユーザー名
     host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
@@ -64,33 +61,10 @@ const client = new Client({
     port: 5432, 
 });
 client.connect();
-console.log(Account[0],Account[1],Account[2],Account[3]);
-
-const overlap = {
-    text: "SELECT address,COUNT ($1) FROM user_info GROUP BY (address)",
-    values:Account[0]
-};
-
 const query = {
-    text: "INSERT INTO user_info( user_name, pwd, address) VALUES($3,$2,$1)",
-values:[Account[0],Account[1],Account[3]]
-   
+    text: 'INSERT INTO user_info(user_name, pwd, address) SELECT $3,$2,CAST($1 AS VARCHAR) WHERE NOT EXISTS (SELECT 1 FROM user_info WHERE address = $1)',
+    values: [Account[0],Account[1],Account[3]],
 };
-
-client
-    .query(overlap)
-    .then((res) => {
-    if(res===0){
-        
-        client.end();
-    }
-    else{
-        indexDocument = indexDocument.replace('Gmail','Gmail 登録されたメールアドレスです' );
-    console.log(res);
-        
-    }
-
-})
 
 client
     .query(query)
@@ -100,3 +74,29 @@ client
     })
     .catch((e) => console.error(e.stack));
 }
+
+// const {Client} = require("pg");
+// const client = new Client({
+
+// });
+// client.connect();
+// console.log(Account[0],Account[1],Account[2],Account[3]);
+
+
+
+// const query = {
+//     
+   
+// };
+
+// client
+// .query(query)
+// .then((res) => {
+//     console.log(res);
+//     client.end();
+// })
+// .catch((e) => console.error(e.stack));
+
+//     client.end();
+
+// }
