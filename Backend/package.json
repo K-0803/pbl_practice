@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "",
 <<<<<<< HEAD
+  "main": "register.js" ,
+=======
+<<<<<<< HEAD
   "main": "register.js",
 =======
   "main": "loginProcess.js",
 >>>>>>> e63d139dcb663a7d861315cda879195627d78fae
+>>>>>>> 29b632fa54277f669b93f3383fa4732400a35e79
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
