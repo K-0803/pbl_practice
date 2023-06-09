@@ -40,6 +40,7 @@ http.createServer(function(req, res){
                 }
                 console.log("変数dataの値は" + data);
                 console.log(Account[0],Account[1],Account[2],Account[3]);
+                
                 InsData(Account);
             })
             .on('end', function(){
@@ -74,29 +75,3 @@ client
     })
     .catch((e) => console.error(e.stack));
 }
-
-// const {Client} = require("pg");
-// const client = new Client({
-
-// });
-// client.connect();
-// console.log(Account[0],Account[1],Account[2],Account[3]);
-
-
-
-// const query = {
-//     
-   
-// };
-
-// client
-// .query(query)
-// .then((res) => {
-//     console.log(res);
-//     client.end();
-// })
-// .catch((e) => console.error(e.stack));
-
-//     client.end();
-
-// }

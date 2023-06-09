@@ -10,15 +10,15 @@
     <body>
         <form method="POST">
         <label>
-            <span class="textbox-login-gmail">Gmail</span><br>
+            <span class="textbox-login-gmail">Gmail</span> <br>
             <input name="adc1" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
-            <span class="textbox-login-pw">password</span><br>
+            <span class="textbox-login-pw" id="pass">password</span><span id="pmiss"></span><br>
             <input name="adc2" type="text" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-repw">re:password</span><br>
+            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"></span><br>
             <input name="adc3" type="text" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
@@ -26,12 +26,22 @@
             <input name="adc4" type="text" class="textbox-name" placeholder="username"/>
         </label><br>
         <p id="text1"></p>
-        <button  type="submit">送信</button>
+        <button  type="submit" >送信</button>
         </form>
         <button  onclick="location.href='index.html'"></button>
     </body>
     <script>
-        // let text1 = document.getElementById('text1');
-        //  text1.innerHTML = ;
+         let pass = document.getElementById('pass');
+         let repass = document.getElementById('repass');
+         let pmiss = document.getElementById('pmiss');
+         let repmiss = document.getElementById('repmiss');
+
+         if(pass===repass){
+
+          }
+        else{
+            pmiss.innerHTML = "もう一度入力してください";
+            repmiss.innerHTML = "もう一度入力してください";
+        }
     </script>
 </html>
