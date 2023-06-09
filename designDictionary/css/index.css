@@ -1,89 +1,158 @@
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-  box-sizing: inherit;
+.outside {
+  display: flex;
+  margin-top: 40px;
 }
 
-html {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  font-size: 62.5%;
-  background-color: #D8D8D8;
+.insidep button{
+  width: 270px;
+  margin-top: 18px;
+  margin-left: 60px;
+  margin-bottom: 17px;
 }
 
-.btn,
-a.btn,
-button.btn {
-  font-size: 1.6rem;
-  font-weight: 700;
-  line-height: 1.5;
-  position: relative;
-  display: inline-block;
-  padding: 1rem 4rem;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-  text-align: center;
-  vertical-align: middle;
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  color: #212529;
-  border-radius: 0.5rem;
+.insideq button{
+  width: 270px;
+  margin-bottom: 17px;
 }
 
-.btn--mypage,
-a.btn--mypage ,
-.btn--postLog:hover,
-a.btn--postLog:hover,
-.btn--Wtemplate,
-a.btn--Wtemplate {
+.insider button{
+  width: 270px;
+  margin-bottom: 17px;
+  margin-right: 45px;
+}
+
+
+.button-mypage {
+  height: 165px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #f6f6f6;
   color: #545454;
-  background-color: #F6F6F6;
+  font-weight: 600;
+  font-size: 1.2em;
 }
 
-.btn--mypage:hover,
-a.btn--mypage:hover,
-.btn--postLog,
-a.btn--postLog,
-.btn--Wtemplate,
-a.btn--Wtemplate {
-  color: #545454;
-  background: #F6F6F6;
+.button-mypage:hover {
+  background-color: #e6e6e6;
 }
 
-.btn--Ptemplate,
-a.btn--Ptemplate {
+
+.button-Ptemp {
+  height: 350px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #202020;
   color: #F6F6F6;
-  background: #202020;
+  font-weight: 600;
+  font-size: 1.2em;
 }
 
-.btn--Ptemplate:hover,
-a.btn--Ptemplate:hover {
+.button-Ptemp:hover {
+  background-color: #101010;
+}
+
+
+.button-postLog {
+  height: 350px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #f6f6f6;
+  color: #545454;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.button-postLog:hover {
+  background-color: #e6e6e6;
+}
+
+
+.button-colorSample {
+  height: 200px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #bdff00;
+  color: #545454;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.button-colorSample:hover {
+  background-color: #adef00;
+}
+
+
+.button-webCreate {
+  height: 500px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #bdff00;
+  color: #545454;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.button-webCreate:hover {
+  background-color: #adef00;
+}
+
+
+.button-Wtemp {
+  height: 350px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #f6f6f6;
+  color: #545454;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.button-Wtemp:hover {
+  background-color: #e6e6e6;
+}
+
+
+.button-termDic {
+  height: 350px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #bdff00;
+  color: #545454;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.button-termDic:hover {
+  background-color: #adef00;
+}
+
+
+.button-null {
+  height: 500px;
+  padding: .9em 2em;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+  background-color: #202020;
   color: #F6F6F6;
-  background: #202020;
+  font-weight: 600;
+  font-size: 1.2em;
 }
 
-.btn--colorSample,
-a.btn--colorSample,
-.btn--webCreate,
-a.btn--webCreate,
-.btn--termCictionary,
-a.btn--termCictionary {
-  color: #545454;
-  background: #BDFF00;
-}
-
-.btn--colorSample:hover,
-a.btn--colorSample:hover,
-.btn--webCreate:hover,
-a.btn--webCreate:hover,
-.btn--termCictionary,
-a.btn--termCictionary {
-  color: #545454;
-  background: #BDFF00;
+.button-null:hover {
+  background-color: #101010;
 }
