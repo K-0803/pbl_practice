@@ -6,10 +6,45 @@
     background: #f6f6f6;
     color: #777777;
     font-size: 1em;
-    line-height: 1.5;
+    line-height: 2.0;
     height: 15em;
 }
 
 .textbox-webpost::placeholder {
     color: #777777;
+}
+
+.button-copy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #777777;
+}
+
+.button-copy:hover {
+    background-color: #fff;
+}
+
+.button-copy:hover path {
+    fill: #777777;
+}
+
+.textbox-comment {
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: inherit;
+    border: none;
+    border-radius: 25px;
+    background: #f6f6f6;
+    color: #545454;
+    font-size: 1em;
+    line-height: 2.0;
+}
+
+.textbox-comment::placeholder {
+    color: #999;
 }
