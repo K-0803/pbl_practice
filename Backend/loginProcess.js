@@ -1,69 +1,116 @@
 const http = require('http');
 const notifier = require('node-notifier');
+// const fs = require('fs');
 const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const app = express();
 
 var html = require('fs').readFileSync('../designDictionary/html/login.html');
 var resultArray = [];
 var resultCnt = 0;
 // var reditFlag = false;
 
-http.createServer(function(req, res){
-    var data = '';
-    var data_test = [];
-    var flag = false;
-    var x = 0;
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(path.join('../designDictionary/html')));
+app.use(express.json());
 
-    if(req.method === 'GET'){
-        res.writeHead(200, {'Content-Type' : 'text/html'});
-        res.end(html);
-    }else if(req.method === 'POST'){    
-        req.on('data',function(chunk){
-            data += chunk;
-            console.log(data);
-            for(var i = 0;i < data.length;i++){
-                if(flag === true){
-                    for(var j = i;j <= data.length;j++){
-                        if(data[j] === "&" || j == data.length){
-                            flag = false;
-                            data_test[x] = data.substring(i,j);
-                            console.log("変数dataの値は!" + data_test[x] +",xの中身は" + x);
-                            x++;
-                            break;
-                        }
-                    }
-                }
-                if(data[i] === "="){
-                    flag = true;
-                    continue;
-                }
-
-            }
-
-            getPass(data_test[0], data_test[1])
-                .then(function(redUrl){
-                    console.log('値は=' + redUrl);
-                    if (redUrl === '/redirect') {
-                        res.writeHead(302, { Location: 'https://www.yahoo.co.jp/' });
-                        res.end();
-                    } else {
-                        res.end(html);
-                    }
-                    })
-                .catch((error) => {
-                    console.error(error);
-                    res.end(html);
-                });
-
-        })
+app.get('/login', function(req, res){
+    const filePath = path.join('../designDictionary/html/login.html');
+    console.log(filePath);
+    res.sendFile(filePath);
     
-           .on('end', function(){
-            console.log('受け取り完了');
-            res.end(html);
-        })
-    }
-}).listen(8080,function(){
-    console.log("server running!");
+    // res.writeHead(200, {'Content-Type' : 'text/html'});
+    res.end();
 });
+
+app.post('/login', function(req, res){
+    const {email, pass} = req.body;
+    console.log(email);
+    console.log(pass);
+
+    getPass(email, pass)
+        .then(function(redUrl){
+            console.log('値は=' + redUrl);
+            if (redUrl === '/redirect') {
+                res.redirect(req.baseUrl + '/index.html');
+                res.end();
+            } else {
+                res.end(html);
+            }
+            })
+        .catch((error) => {
+            console.error(error);
+            res.end(html);
+        });
+    
+})
+
+app.listen(8080, function(){
+    console.log('サーバーがポート8080で起動しました。');
+})
+
+
+// http.createServer(function(req, res){
+//     var data = '';
+//     var data_test = [];
+//     var flag = false;
+//     var x = 0;
+//     // var result = '';
+
+//     if(req.method === 'GET'){
+//         res.writeHead(200, {'Content-Type' : 'text/html'});
+//         res.end(html);
+//     }else if(req.method === 'POST'){    
+//         req.on('data',function(chunk){
+//             data += chunk;
+//             console.log(data);
+//             for(var i = 0;i < data.length;i++){
+//                 if(flag === true){
+//                     for(var j = i;j <= data.length;j++){
+//                         if(data[j] === "&" || j == data.length){
+//                             flag = false;
+//                             data_test[x] = data.substring(i,j);
+//                             console.log("変数dataの値は!" + data_test[x] +",xの中身は" + x);
+//                             x++;
+//                             break;
+//                         }
+//                     }
+//                 }
+//                 if(data[i] === "="){
+//                     flag = true;
+//                     continue;
+//                 }
+
+//             }
+
+//             getPass(data_test[0], data_test[1])
+//                 .then(function(redUrl){
+//                     console.log('値は=' + redUrl);
+//                     if (redUrl === '/redirect') {
+//                         res.writeHeader(302, { Location: '../designDictionary/html/index.html' });
+//                         res.end();
+//                     } else {
+//                         res.end(html);
+//                     }
+//                     })
+//                 .catch((error) => {
+//                     console.error(error);
+//                     res.end(html);
+//                 });
+                
+
+//         })
+    
+//            .on('end', function(){
+//             console.log('受け取り完了');
+//             res.end(html);
+//         })
+//     }
+// }).listen(8080,function(){
+//     console.log("server running!");
+// });
 
 function getPass(email, pass){
     const {Client} = require("pg");
@@ -88,7 +135,7 @@ function getPass(email, pass){
                 return client.query(query);
             })
             .then(function(res){
-                resultArray = res.rows[0].user_name;
+                
                 resultCnt = res.rowCount;
                 if(resultCnt == 0){
                     console.log("resultCnt = 0");
@@ -98,6 +145,7 @@ function getPass(email, pass){
                         message:"入力ミスがあります。再入力して下さい。"
                     });
                 }else{
+                    resultArray = res.rows[0].user_name;
                     console.log("resultCnt != 0")
                     redct = '/redirect';
                     notifier.notify({
