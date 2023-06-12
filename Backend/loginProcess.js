@@ -25,7 +25,7 @@ http.createServer(function(req, res){
                     for(var j = i;j <= data.length;j++){
                         if(data[j] === "&" || j == data.length){
                             flag = false;
-                            data_test[x] = [data.substring(i,j)];
+                            data_test[x] = data.substring(i,j);
                             console.log("変数dataの値は!" + data_test[x] +",xの中身は" + x);
                             x++;
                             break;
@@ -38,7 +38,21 @@ http.createServer(function(req, res){
                 }
 
             }
-            getPass(data_test[0], data_test[1]);
+
+            getPass(data_test[0], data_test[1])
+                .then(function(redUrl){
+                    console.log('値は=' + redUrl);
+                    if (redUrl === '/redirect') {
+                        res.writeHead(302, { Location: 'https://www.yahoo.co.jp/' });
+                        res.end();
+                    } else {
+                        res.end(html);
+                    }
+                    })
+                .catch((error) => {
+                    console.error(error);
+                    res.end(html);
+                });
 
         })
     
@@ -52,8 +66,6 @@ http.createServer(function(req, res){
 });
 
 function getPass(email, pass){
-    console.log(email);
-    console.log(pass);
     const {Client} = require("pg");
     const client = new Client({
         user: "postgres",//ユーザー名
@@ -62,34 +74,47 @@ function getPass(email, pass){
         password: "shirokuma123",//ユーザーパスワード
         port: 5432, 
     });
-    client.connect();
-    const query = {
-        text: "SELECT user_id from user_info where address = ($1) and pwd = ($2)",
-        values: [email, pass],
-    };
 
-    client
-        .query(query)
-        .then((res) => {
-            resultArray = res.rows;
-            resultCnt = res.rowCount;
-            if(resultCnt == 0){
-                console.log("resultCnt = 0");
-                notifier.notify({
-                    title: "エラー通知",
-                    message:"入力ミスがあります。再入力して下さい。"
-                });
-            }else{
-                console.log("resultCnt != 0")
-                res.redirect("/index.html");
-                notifier.notify({
-                    title: "ログイン通知",
-                    message:`ようこそ${resultArray}さん`
-                });
+    return new Promise(function(resolve, reject){
+        client
+            .connect()
+            .then(function(){
+                const query = {
+                    text: "SELECT user_id, user_name from user_info where address = ($1) and pwd = ($2)",
+                    values: [email, pass],
+                };
+
                 
-            }
-            console.log(resultArray);
-            client.end();
-        })
-        .catch((e) => console.error(e.stack));
+                return client.query(query);
+            })
+            .then(function(res){
+                resultArray = res.rows[0].user_name;
+                resultCnt = res.rowCount;
+                if(resultCnt == 0){
+                    console.log("resultCnt = 0");
+                    redct = 'error';
+                    notifier.notify({
+                        title: "エラー通知",
+                        message:"入力ミスがあります。再入力して下さい。"
+                    });
+                }else{
+                    console.log("resultCnt != 0")
+                    redct = '/redirect';
+                    notifier.notify({
+                        title: "ログイン通知",
+                        message:`ようこそ${resultArray}さん`
+                    });
+                    
+                }
+                console.log(resultArray);
+                console.log(redct);
+                client.end();
+                resolve(redct);
+            })
+            .catch(function(e){
+                console.error(e.stack);
+                reject(e);
+            });
+    });
+    
 }
