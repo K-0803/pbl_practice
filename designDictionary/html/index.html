@@ -7,13 +7,26 @@
         <link href="../css/index.css" rel="stylesheet" type="text/css">
     </head>
 
+
+    
     <body>
-        <a href="mypage.html" class="btn btn--mypage">MyPage</a>
-        <a href="Ptemplate.html" class="btn btn--Ptemplate">プレゼンテーションテンプレート</a>
-        <a href="postLog.html" class="btn btn--postLog">カスタマイズ投稿一覧</a>
-        <a href="colorSample.html" class="btn btn--colorSample">色見本</a>
-        <a href="webCreate.html" class="btn btn--webCreate">WEBサイト作成</a>
-        <a href="Wtemplate.html" class="btn btn--Wtemplate">WEBサイトテンプレート</a>
-        <a href="termDictionary.html" class="btn btn--termCictionary">用語辞典</a>
+        <div class="outside">
+            <div class="insidep">
+                <button onclick="location.href='mypage.html'" class="button-mypage">マイページ</button>
+                <button onclick="location.href='webCreate.html'" class="button-webCreate">WEBサイト作成</button>
+            </div>
+            <div class="insideq">
+                <button onclick="location.href='Ptemplate.html'" class="button-Ptemp">プレゼンテーションテンプレート</button>
+                <button onclick="location.href='Wtemplate.html'" class="button-Wtemp">WEBサイトテンプレート</button>
+            </div>
+            <div class="insideq">
+                <button onclick="location.href='postLog.html'" class="button-postLog">カスタマイズ投稿一覧</button>
+                <button onclick="location.href='termDictionary.html'" class="button-termDic">用語辞典</button>
+            </div>
+            <div class="insider">
+                <button onclick="location.href='colorSample.html'" class="button-colorSample">色見本</button>
+                <button class="button-null">空きボタン</button>
+            </div>
+        </div>
     </body>
 </html>
