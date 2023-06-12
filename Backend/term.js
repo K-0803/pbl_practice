@@ -35,7 +35,7 @@ const server = http.createServer((req, res) => {
           } else {
             // HTMLテーブルの作成
             let tableHTML = '<table>';
-            tableHTML += '<tr><th>カラム1</th><th>カラム2</th></tr>';
+            tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
 
             result.rows.forEach((row) => {
               tableHTML += `<tr><td>${row.css_code}</td><td>${row.css_summary}</td></tr>`;
