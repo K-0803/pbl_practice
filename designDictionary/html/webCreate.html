@@ -8,7 +8,20 @@
     </head>
 
     <body>
+        <!-- ハンバーガーメニュー -->
         <div class="openbtn"><span></span><span></span><span></span></div>
+        <nav id="g-nav">
+            <div id="g-nav-list">
+                <ul>
+                    <li><a href="mypage.html">マイページ</a></li> 
+                    <li><a href="index.html">目次</a></li> 
+                    <li><a href="#">ログアウト</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- ハンバーガーメニュー押下後の背景 -->
+        <div class="circle-bg"></div>
+
         <h1>WEBサイト作成</h1>
     
 
@@ -39,10 +52,9 @@
         <button type="submit"><img src="画像url" alt="作成" /></button>
 
         <a href="webPost.html"><img src="画像url" alt="カスタマイズ投稿"></a>
-        <a href="index.html"><img src="画像url" alt="目次"></a>
 
+        <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <!--自作のJS-->
         <script src="../js/main.js"></script>
     </body>
 </html>
