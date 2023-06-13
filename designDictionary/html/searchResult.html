@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ジャンル検索</title>
+    <title>検索結果</title>
     <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="../css/webCreate.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <!-- ハンバーガーメニュー -->
+    <div class="openbtn"><span></span><span></span><span></span></div>
+    <nav id="g-nav">
+        <div id="g-nav-list">
+            <ul>
+                <li><a href="mypage.html">マイページ</a></li> 
+                <li><a href="index.html">目次</a></li> 
+                <li><a href="#">ログアウト</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ハンバーガーメニュー押下後の背景 -->
+    <div class="circle-bg"></div>
 
     <h1>ジャンル検索</h1>
     <form action="サイトURL" method="get">
         <input type="search" name="search" placeholder="キーワードを入力">
         <input type="submit" name="submit" value="検索">
     </form>
-    <!--本のイラストを入れる-->
-    <button onclick="location.href='termDicitionary.html'"><input type="image" src=""></button>
-    <!--log inの画像を入れる-->
-    <button onclick="location.href='login.html'"><input type="image" src=""></button>
-</head>
-<body>
+
     <!--ラベルにはジャンル検索で検索に使用したジャンル名を「検索ワード」を上書きする形で入るように組んでください-->
-<h2>ジャンル：<label for="">検索ワード</label>の検索結果</h2>
-<!--ユーザーが入力不可のテキストボックスです。ここに検索結果を上書きする形で表示-->
-<table id="data-table">
-    {{table}}
-  </table>
+    <h2>ジャンル：<label for="">検索ワード</label>の検索結果</h2>
+    <!--ユーザーが入力不可のテキストボックスです。ここに検索結果を上書きする形で表示-->
+    <input name="kekka" type="text" value="disabled"/>
+
+    <!-- ハンバーガーメニュー用JQuery,js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="../js/main.js"></script>
 </body>
-<footer>
-    <!--画像のところにホームボタンを入れる-->
-    <button type=”button” onclick="location.href='index.html'"><input type="image" src="目次"></button>
-</footer>
 </html>
