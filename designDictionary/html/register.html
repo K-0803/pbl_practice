@@ -8,40 +8,47 @@
     </head>
 
     <body>
-        <form method="POST" >
+        <form method="POST" id="myForm">
         <label>
-            <span class="textbox-login-gmail">Gmail</span> <br>
+            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"></span><br>
             <input name="adc1" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
             <span class="textbox-login-pw" id="pass">password</span><span id="pmiss"></span><br>
-            <input name="adc2" type="text" class="textbox-pw" placeholder="password"/>
+            <input id="textpass" name="adc2" type="password" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
             <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"></span><br>
-            <input name="adc3" type="text" class="textbox-re-pw" placeholder="password"/>
+            <input id="textrepass" name="adc3" type="password" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
             <span class="textbox-login-name">UserName</span><br>
             <input name="adc4" type="text" class="textbox-name" placeholder="username"/>
         </label><br>
         <p id="text1"></p>
-        <button  type="submit" >送信</button>
+        <button type="submit">送信</button>
         </form>
-        <button  onclick="location.href='index.html'"></button>
+        <button onclick="location.href='index.html'">戻る</button>
     </body>
     <script>
-         let pass = document.getElementById('pass');
-         let repass = document.getElementById('repass');
-         let pmiss = document.getElementById('pmiss');
-         let repmiss = document.getElementById('repmiss');
 
-         if(pass===repass){
-5
-          }
-        else{
-            pmiss.innerHTML = "もう一度入力してください";
-            repmiss.innerHTML = "もう一度入力してください";
-        }
+        document.getElementById('myForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // フォームのデフォルトの送信をキャンセル
+
+            var textpass = document.getElementById('textpass').value;
+            var textrepass = document.getElementById('textrepass').value;
+            var pmiss = document.getElementById('pmiss');
+            var repmiss = document.getElementById('repmiss');
+
+            // 入力値と比較
+            if (textpass === textrepass) {
+                this.submit();
+                console.log("同じです");
+            } else {
+                console.log("同じじゃない");
+                pmiss.innerHTML = "もう一度入力してください";
+                repmiss.innerHTML = "もう一度入力してください";
+            }   
+        });
     </script>
 </html>
