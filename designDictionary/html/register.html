@@ -8,7 +8,7 @@
     </head>
 
     <body>
-        <form method="POST" id="myForm">
+        <form method="POST" id="myForm" action="">
         <label>
             <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"></span><br>
             <input name="adc1" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
@@ -32,8 +32,8 @@
     </body>
     <script>
 
-        document.getElementById('myForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // フォームのデフォルトの送信をキャンセル
+document.getElementById('myForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // フォームのデフォルトの送信をキャンセル
 
             var textpass = document.getElementById('textpass').value;
             var textrepass = document.getElementById('textrepass').value;
@@ -43,7 +43,6 @@
             // 入力値と比較
             if (textpass === textrepass) {
                 this.submit();
-                document.location.href = "localhosy:8080/rogin.html";
                 console.log("同じです");
             } else {
                 console.log("同じじゃない");

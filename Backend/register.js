@@ -65,15 +65,18 @@ function InsData(Account, res) {
           values: [Account[0], Account[1], Account[3]],
         };
         client.query(query)
-          .then((res) => {
-            console.log(res)
-            client.end();
-            // データベースへの登録が成功した場合に画面転移を行う
-            res.status(302).location('../designDictionary/html/rogin.html').end();
-          })
-          .catch((e) => {
-            console.error(e.stack);
-            client.end();
-          });
+        .then(() => {
+          // ...
+          client.query(query)
+            .then((res) => {
+              console.log(res);
+              client.end();
+              // 画面転移やレスポンスの処理を行う場合はここに記述する
+            })
+            .catch((e) => {
+              console.error(e.stack);
+              client.end();
+            });
+        });
     });
 }
