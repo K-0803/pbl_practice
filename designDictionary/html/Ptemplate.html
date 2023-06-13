@@ -8,7 +8,19 @@
     </head>
 
     <body>
-        <a href="mypage.html"><img src="画像url" alt="マイページ"></a>
+        <!-- ハンバーガーメニュー -->
+        <div class="openbtn"><span></span><span></span><span></span></div>
+        <nav id="g-nav">
+            <div id="g-nav-list">
+                <ul>
+                    <li><a href="mypage.html">マイページ</a></li> 
+                    <li><a href="index.html">目次</a></li> 
+                    <li><a href="#">ログアウト</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- ハンバーガーメニュー押下後の背景 -->
+        <div class="circle-bg"></div>
 
         <h1>プレゼンテーションテンプレート</h1>
 
@@ -33,6 +45,8 @@
             <p>最後テンプレ</p>
         </div>
 
-        <a href="index.html"><img src="画像url" alt="目次"></a>
+        <!-- ハンバーガーメニュー用JQuery,js -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="../js/main.js"></script>
     </body>
 </html>

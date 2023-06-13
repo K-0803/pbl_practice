@@ -2,7 +2,7 @@ const accepts = require('accepts');
 var http = require('http');
 var html = require('fs').readFileSync('../designDictionary/html/register.html');
 var Account = [];
-const router = require('../designDictionary/html/login.html');
+// const router = require('../designDictionary/html/login.html');
 
 http.createServer(function (req, res) {
   var data = '';
