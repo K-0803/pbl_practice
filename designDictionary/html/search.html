@@ -6,18 +6,29 @@
     <title>ジャンル検索</title>
     <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
     <link href="../css/webCreate.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <!-- ハンバーガーメニュー -->
+    <div class="openbtn"><span></span><span></span><span></span></div>
+    <nav id="g-nav">
+        <div id="g-nav-list">
+            <ul>
+                <li><a href="mypage.html">マイページ</a></li> 
+                <li><a href="index.html">目次</a></li> 
+                <li><a href="#">ログアウト</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- ハンバーガーメニュー押下後の背景 -->
+    <div class="circle-bg"></div>
+
     <h1>ジャンル検索</h1>
     <form action="サイトURL" method="get">
         <input type="search" name="search" placeholder="キーワードを入力">
         <input type="submit" name="submit" value="検索">
     </form>
-    <!--本のイラストを入れる-->
-    <button onclick="location.href='termDicitionary.html'"><input type="image" src=""></button>
-    <!--log inの画像を入れる-->
-    <button onclick="location.href='login.html'"><input type="image" src="マイページ"></button>
-</head>
-<body>
-    <br>
+
     <!--オンクリック属性に検索時の各JSでのメソッドを入れる-->
     <button type=”button” onclick="">テキスト</button>
     <button type=”button” onclick="">画像</button>
@@ -26,9 +37,9 @@
     <button type=”button” onclick="">フィルター</button>
     <button type=”button” onclick="">レイアウト</button>
     <button type=”button” onclick="">ボタン</button>
+
+    <!-- ハンバーガーメニュー用JQuery,js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="../js/main.js"></script>
 </body>
-<footer>
-    <!--画像のところにホームボタンを入れる-->
-    <button type=”button” onclick="location.href='index.html'"><input type="image" src="目次"></button>
-</footer>
 </html>
