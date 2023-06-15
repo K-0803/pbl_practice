@@ -1,53 +1,53 @@
-const accepts = require('accepts');
+
 var http = require('http');
 var html = require('fs').readFileSync('../designDictionary/html/register.html');
-var Account = [];
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const app = express();
+const resultArray = [];
 // const router = require('../designDictionary/html/login.html');
 
-http.createServer(function (req, res) {
-  var data = '';
-  var Account = [];
-  var flag = false;
-  var x = 0;
-  if (req.method === 'GET') {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(html);
-  } else if (req.method === 'POST') {
-    req
-      .on('data', function (chunk) {
-        data += chunk;
-        for (var i = 0; i <= data.length; i++) {
-          if (flag === true) {
-            for (var j = i; j <= data.length; j++) {
-              if (data[j] === "&" || j == data.length) {
-                flag = false
-                Account[x] = data.substring(i, j);
-                x++;
-                break;
-              }
-            }
-          }
-          if (data[i] === "=") {
-            flag = true;
-            continue;
-          }
-        }
-        InsData(Account, res);
-      }).on('end', function () {
-        // ...
-        res.end(html);
-      }).on('error', function (err) {
-        console.error(err);
-        if (err.message.includes('duplicate key value violates unique constraint "user_info_address_key"')) {
-            console.log("error成功");
-          errorMessage = '重複したアドレスです。';
-        } 
-        res.end(html);
-      });
-  }
-}).listen(8080);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../designDictionary/html')));
+app.use(express.json());
 
-function InsData(Account, res) {
+app.get('/register', function(req, res){
+  const filePath = path.join('../designDictionary/html/register.html');
+  console.log(filePath);
+  res.sendFile(filePath);
+
+  res.end();
+});
+
+  app.post('/register', function(req, res){
+    const {email, pass, name} = req.body;
+    console.log(email);
+    console.log(pass);
+    console.log(name);
+    InsData(email, pass , name )
+      .then(function(redUrl){
+        console.log('値は=' + redUrl);
+        if (redUrl === '/redirect') {
+            res.redirect(req.baseUrl + '/login.html');
+            res.end();
+           
+        } else {
+            res.end(html);
+        }
+        })
+    .catch((error) => {
+        console.error(error);
+        res.end(html);
+    });
+
+})
+app.listen(8080, function(){
+  console.log('サーバーがポート8080で起動しました。');
+})
+
+function InsData(email, pass , name ) {
 //postgres接続
   const { Client } = require("pg");
   const client = new Client({
@@ -58,25 +58,29 @@ function InsData(Account, res) {
     port: 5432,
   });
   //データベース追加
-  client.connect()
-    .then(() => {
-        const query = {
+  return new Promise(function(resolve, reject){
+    client
+        .connect()
+        .then(function(){
+            const query = {
           text: 'INSERT INTO user_info (user_name ,pwd, address ) VALUES ($3, $2, $1);',
-          values: [Account[0], Account[1], Account[3]],
+          values: [email, pass , name],
         };
-        client.query(query)
-        .then(() => {
-          // ...
-          client.query(query)
-            .then((res) => {
-              console.log(res);
-              client.end();
-              // 画面転移やレスポンスの処理を行う場合はここに記述する
-            })
-            .catch((e) => {
-              console.error(e.stack);
-              client.end();
-            });
-        });
-    });
+        return client.query(query);
+      })
+      .then(function(res){
+          
+          resultCnt = res.rowCount;
+          redct='/redirect';
+          console.log(resultArray);
+          console.log(redct);
+          client.end();
+          resolve(redct);
+      })
+      .catch(function(e){
+          console.error(e.stack);
+          reject(e);
+      });
+});
+
 }
