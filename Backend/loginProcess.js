@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
+const port = 80;
 
 var html = require('fs').readFileSync('../designDictionary/html/login.html');
 var resultArray = [];
@@ -47,7 +48,7 @@ app.post('/login', function(req, res){
     
 })
 
-app.listen(8080, function(){
+app.listen(port,'107.22.226.32' ,()=>{
     console.log('サーバーがポート8080で起動しました。');
 })
 
