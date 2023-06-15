@@ -1,9 +1,9 @@
-const http = require('http');
+// const http = require('http');
 const notifier = require('node-notifier');
 // const fs = require('fs');
 const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+const path = require('path');   //相対パスを使用可能にする
+const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
 const app = express();
 const port = 80;
 
@@ -12,22 +12,23 @@ var resultArray = [];
 var resultCnt = 0;
 // var reditFlag = false;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(express.static(path.join('../designDictionary/html')));
+//ミドルウェアの設定
+app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
+app.use(bodyParser.json());                             //
+app.use(express.static(path.join('../designDictionary/html'))); //相対パスを使用するためのミドルウェア
 app.use(express.json());
 
+//getリクエストの処理・ページを開いたときにhtmlが表示される
 app.get('/login', function(req, res){
     const filePath = path.join('../designDictionary/html/login.html');
     console.log(filePath);
     res.sendFile(filePath);
-    
-    // res.writeHead(200, {'Content-Type' : 'text/html'});
     res.end();
 });
 
+//postリクエストの処理
 app.post('/login', function(req, res){
-    const {email, pass} = req.body;
+    const {email, pass} = req.body; //リクエストボディのデータ取得
     console.log(email);
     console.log(pass);
 
