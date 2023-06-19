@@ -10,7 +10,7 @@ const resultArray = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../designDictionary/html')));
+app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.use(express.json());
 
 app.get('/register', function(req, res){
