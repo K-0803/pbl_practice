@@ -1,60 +1,70 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>WEBサイト作成</title>
-        <link href="./css/stylesheet.css" rel="stylesheet" type="text/css">
-        <link href="./css/webCreate.css" rel="stylesheet" type="text/css">
-    </head>
-
-    <body>
-        <!-- ハンバーガーメニュー -->
-        <div class="openbtn"><span></span><span></span><span></span></div>
-        <nav id="g-nav">
-            <div id="g-nav-list">
-                <ul>
-                    <li><a href="mypage.html">マイページ</a></li> 
-                    <li><a href="index.html">目次</a></li> 
-                    <li><a href="#">ログアウト</a></li>
-                </ul>
-            </div>
-        </nav>
-        <!-- ハンバーガーメニュー押下後の背景 -->
-        <div class="circle-bg"></div>
-
-        <h1>WEBサイト作成</h1>
-    
-
-        <label>
-            <h2>choose a color</h2>
-        </label>
-
-        <label>
-            <h2>selsct colors</h2>
-        </label>
-
-        <label>
-            <h2>select a sentence</h2>
-        </label>
-
-        <label>
-            <h2>font</h2>
-        </label>
-
-        <label>
-            <h2>choose the sentence color</h2>
-        </label>
-
-        <label>
-            <h2>typography</h2>
-        </label>
-
-        <button type="submit"><img src="画像url" alt="作成" /></button>
-
-        <a href="webPost.html"><img src="画像url" alt="カスタマイズ投稿"></a>
-
-        <!-- ハンバーガーメニュー用JQuery,js -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="../js/main.js"></script>
-    </body>
-</html>
+html {
+    background-color: #D8D8D8;
+  }
+  
+  h1 {
+    padding: 1rem 2rem;
+    color: #777777;
+    background: #BDFF00;
+  }
+  
+  /*==================================================
+  　5-2-6 3本線が回転して×に
+  ===================================*/
+  .openbtn{
+      /*ボタン内側の基点となるためrelativeを指定。
+  追従するナビゲーションの場合はfixed＋top、rightといった位置をセットで指定*/
+      position: relative;
+      background:#777777;
+      cursor: pointer;
+      width: 50px;
+      height:50px;
+      border-radius: 5px;
+  }
+  
+  /*ボタン内側*/
+  .openbtn span{
+      display: inline-block;
+      transition: all .4s;/*アニメーションの設定*/
+      position: absolute;
+      left: 14px;
+      height: 3px;
+      border-radius: 2px;
+      background: #D8D8D8;
+    }
+  
+  
+  .openbtn span:nth-of-type(1) {
+      top:15px;	
+        width: 45%;
+  }
+  
+  .openbtn span:nth-of-type(2) {
+      top:23px;
+        width: 35%;
+  }
+  
+  .openbtn span:nth-of-type(3) {
+      top:31px;
+        width: 20%;
+  }
+  
+  /*activeクラスが付与されると線が回転して×になる*/
+  
+  .openbtn.active span:nth-of-type(1) {
+      top: 18px;
+      left: 18px;
+      transform: translateY(6px) rotate(-135deg);
+      width: 30%;
+  }
+  
+  .openbtn.active span:nth-of-type(2) {
+      opacity: 0;
+  }
+  
+  .openbtn.active span:nth-of-type(3){
+      top: 30px;
+      left: 18px;
+      transform: translateY(-6px) rotate(135deg);
+      width: 30%;
+  }

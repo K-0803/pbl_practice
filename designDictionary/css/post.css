@@ -57,20 +57,9 @@
     color: #999;
 }
 
-.circle {
-    width: 80px;
-    height: 80px;
+.circle{
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    background: #222;
-    -moz-transition:All 1.5s;
-    -webkit-transition:All 1.5s;
-    transition:All 1.5s;
- }
- .circle:hover {
-    border-radius:0;
-    -webkit-border-radius:0;
-    -moz-border-radius:0;
- }
-
+    background: blue;/* 背景色 */
+  }
