@@ -48,3 +48,19 @@
 .textbox-comment::placeholder {
     color: #999;
 }
+
+.customCss {
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: inherit;
+    border: none;
+    border-radius: 25px;
+    background: #f6f6f6;
+    color: #545454;
+    font-size: 1em;
+    line-height: 2.0;
+}
+
+.customCss::placeholder {
+    color: #999;
+}
