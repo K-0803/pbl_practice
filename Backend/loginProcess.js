@@ -52,13 +52,14 @@ app.post('/login', function(req, res){
     
 })
 
-// app.listen(port,'107.22.226.32' ,()=>{
-//     console.log('サーバーが起動しました。');
-// })
 
-app.listen(8080, function(){
-    console.log("aaaaa!");
+app.listen(port,'107.22.226.32' ,()=>{
+    console.log('サーバーが起動しました。');
 })
+
+// app.listen(8080, function(){
+//     console.log("aaaaa!");
+// })
 
 function getPass(email, pass){
     const {Client} = require("pg");
