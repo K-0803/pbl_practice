@@ -24,15 +24,24 @@
 
         <h1>WEBサイト作成</h1>
         <div>
-            <h2>choose a color</h2>
-            <button></button>
+            <label for="color-select">色Aを選択:</label>
+            <select id="color-select" onchange="updateColors()">
+                <option value="0,0,0">黒</option>
+                <option value="255,0,0">赤</option>
+                <option value="0,0,255">青</option>
+                <option value="0,255,0">緑</option>
+                <option value="255,165,0">オレンジ</option>
+                <option value="128,0,128">紫</option>
+            </select>
         </div>
 
         <div>
-            <h2>selsct colors</h2>
-            <span><button></button><button></button></span>
-            <span><button></button><button></button></span>
-            <span><button></button><button></button></span>
+            <h2>select colors</h2>
+            <p id="colorA" class="color"></p>
+            <p id="colorB" class="color"></p>
+            <p id="colorC" class="color"></p>
+            <div class="circle">ボタン</div>
+
         </div>
 
         <div>
@@ -58,6 +67,70 @@
 
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script>
+            // 初期選択の色AのRGB値を取得
+            var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
+            var colorA = {
+                red: selectedColor[0],
+                green: selectedColor[1],
+                blue: selectedColor[2]
+            };
+
+            // 反対色Bと中間色Cを計算する関数
+            function calculateColors() {
+              // 反対色Bを計算
+              var colorB = {
+                red: 255 - colorA.red,
+                green: 255 - colorA.green,
+                blue: 255 - colorA.blue
+              };
+              
+              // 中間色Cを計算
+              var colorC = {
+                red: Math.round((colorA.red + colorB.red) / 2),
+                green: Math.round((colorA.green + colorB.green) / 2),
+                blue: Math.round((colorA.blue + colorB.blue) / 2)
+              };
+              
+              // 結果を表示
+              document.getElementById("colorA").textContent = "色A" + getColorCode(colorA);
+              document.getElementById("colorA").style.color = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+
+              document.getElementById("colorB").textContent = "反対色B"+ getColorCode(colorB);
+              document.getElementById("colorB").style.color = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+
+              document.getElementById("colorC").textContent = "中間色C"+ getColorCode(colorB);
+              document.getElementById("colorC").style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+            }
+
+            // プルダウンの選択が変更された時に呼ばれる関数
+            function updateColors() {
+              // 選択された色AのRGB値を更新
+              var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
+              colorA.red = selectedColor[0];
+              colorA.green = selectedColor[1];
+              colorA.blue = selectedColor[2];
+
+              // 反対色Bと中間色Cを再計算して表示
+              calculateColors();
+            }
+
+            // 初期表示時に色を計算して表示
+            document.addEventListener("DOMContentLoaded", function() {
+              calculateColors();
+            });
+
+            // カラーコードを取得する関数
+            function getColorCode(color) {
+             var red = color.red.toString(16).padStart(2, "0");
+             var green = color.green.toString(16).padStart(2, "0");
+             var blue = color.blue.toString(16).padStart(2, "0");
+             return "#" + red + green + blue;
+            }
+
+            var colorCircleClass = "color-circle";
+        </script>
+        
         <script src="../js/main.js"></script>
     </body>
 </html>

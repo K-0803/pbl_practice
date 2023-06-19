@@ -10,6 +10,14 @@
     height: 15em;
 }
 
+.color-circle {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
 .textbox-webpost::placeholder {
     color: #777777;
 }
@@ -48,3 +56,21 @@
 .textbox-comment::placeholder {
     color: #999;
 }
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    background: #222;
+    -moz-transition:All 1.5s;
+    -webkit-transition:All 1.5s;
+    transition:All 1.5s;
+ }
+ .circle:hover {
+    border-radius:0;
+    -webkit-border-radius:0;
+    -moz-border-radius:0;
+ }
+
