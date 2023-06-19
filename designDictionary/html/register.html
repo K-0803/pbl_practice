@@ -14,7 +14,7 @@
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
-            <span class="textbox-login-pw" id="pass">password</span><span id="pmiss"></span><br>
+            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"></span><br>
             <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
@@ -41,7 +41,14 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
             var repmiss = document.getElementById('repmiss');
 
             // 入力値と比較
-            if (textpass === textrepass) {
+            if (textpass == "" || textrepass == ""){
+                console.log("空白です");
+                if(textpass == ""){
+                    pmiss.innerHTML = "パスワードを入力してください";
+                }else{
+                    repmiss.innerHTML = "パスワードを入力してください";
+                }
+            } else if (textpass === textrepass) {
                 this.submit();
                 console.log("同じです");
             } else {
