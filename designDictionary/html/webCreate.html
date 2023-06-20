@@ -60,7 +60,7 @@
         <div>
             <h2>typography</h2>
         </div>
-
+        <div id="view" contenteditable="true"></div>
         <textarea class="html-webpost" placeholder="HTML文" id="code"></textarea>
         <textarea class="css-webpost" placeholder="CSSコード" id="code"></textarea>
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
@@ -134,6 +134,29 @@
             }
 
             var colorCircleClass = "color-circle";
+   
+        document.execCommand("DefaultParagraphSeparator", false, "p");
+        addEventListener('load', function () {
+            preview();
+        });
+        document.addEventListener('keyup', function () {
+            preview();
+        });
+        document.addEventListener('paste', function () {
+            window.setTimeout(preview, 0);
+        });
+        function preview() {
+            var obj = document.activeElement;
+            var view = document.getElementById('view');
+            var code = document.getElementById("code");
+            document.getElementById("view").style.height = window.innerHeight - 50 + "px";
+            document.getElementById("code").style.height = window.innerHeight - 50 + "px";
+            if (obj.id == "view") {
+                code.value = view.innerHTML;
+            } else {
+                view.innerHTML = code.value;
+            }
+        }
         </script>
         
         <script src="../js/main.js"></script>
