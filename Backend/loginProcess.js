@@ -15,7 +15,7 @@ var resultCnt = 0;
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
 app.use(bodyParser.json());                             //
-app.use(express.static(path.join('../designDictionary/html'))); //相対パスを使用するためのミドルウェア
+app.use(express.static(path.join('../designDictionary'))); //相対パスを使用するためのミドルウェア
 app.use(express.json());
 
 //getリクエストの処理・ページを開いたときにhtmlが表示される
@@ -49,7 +49,9 @@ app.post('/login', function(req, res){
     
 })
 
-app.listen(port,'107.22.226.32' ,()=>{
+// app.listen(port,'107.22.226.32' ,()=>{
+    app.listen(8080, function(){
+
     console.log('サーバーがポート8080で起動しました。');
 })
 

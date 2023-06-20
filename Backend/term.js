@@ -10,7 +10,7 @@ const app = express();
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
 app.use(bodyParser.json());                             //
-app.use(express.static(path.join('../designDictionary/html'))); //相対パスを使用するためのミドルウェア
+app.use(express.static(path.join('../designDictionary'))); //相対パスを使用するためのミドルウェア
 app.use(express.json());
 
 // データベースの接続情報
