@@ -1,6 +1,20 @@
+@font-face {
+  font-family: Hagrid;
+  src: url("Hagrid-Text-Trial-Extrabold/Hagrid-Regular-trial.ttf") format("truetype");
+}
+@font-face {
+  font-family: Corporate-Logo;
+  src: url("Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3.otf") format("opentype"),
+          url("Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3.ttf") format("truetype");
+}
+
 html {
   background-color: #D8D8D8;
-  font-family: "Suiryu Atlas Regular";
+  font-family: Hagrid , Corporate-Logo , sans-serif;
+}
+
+button{
+  font-family: Hagrid , Corporate-Logo , sans-serif;
 }
 
 h1 {
