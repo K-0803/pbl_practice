@@ -94,8 +94,53 @@ app.get('/siteURL', function(req, res){
       }
     });
   } else {
-    res.statusCode = 404;
-    res.end('Not Found');
+    // クエリの作成と実行
+    const query = ('SELECT * FROM css_model ')
+  
+    pool.query(query)
+      .then(result => {
+        const rows = result.rows;
+        console.log(rows); // 検索結果をJSON形式でレスポンスとして返す
+      })
+      .catch(err => {
+        console.error('エラーが発生しました', err);
+        res.status(500).send('エラーが発生しました'); // エラーレスポンスを返す
+      });
+    
+ 
+
+  // クエリを実行し、結果を取得
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error('クエリエラー:', err);
+      res.statusCode = 500;
+      res.end('データベースエラーが発生しました');
+    } else {
+      fs.readFile('../designDictionary/html/searchResult.html', 'utf8', (err, htmlContent) => {
+        if (err) {
+          console.error('HTML読み込みエラー:', err);
+          res.statusCode = 500;
+          res.end('HTMLファイルの読み込みエラーが発生しました');
+        } else {
+          // HTMLテーブルの作成
+          let tableHTML = '<table border="1">';
+          tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
+
+          result.rows.forEach((row) => {
+            tableHTML += `<tr><td>${row.css_code}</td><td>${row.css_summary}</td></tr>`;
+          });
+
+          tableHTML += '</table>';
+
+          // レスポンスとしてHTMLを返す
+          htmlContent = htmlContent.replace('{{table}}', tableHTML);
+          res.setHeader('Content-Type', 'text/html');
+          res.statusCode = 200;
+          res.end(htmlContent);
+        }
+      });
+    }
+  });
   }
 });
 // サーバーの起動
