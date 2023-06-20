@@ -60,6 +60,11 @@
         <div>
             <h2>typography</h2>
         </div>
+        <div id="view" contenteditable="true"></div>
+        <textarea class="html-webpost" placeholder="HTML文" id="code"></textarea>
+        <textarea class="css-webpost" placeholder="CSSコード" id="ccode"></textarea>
+        <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
+
 
         <textarea class="textbox-webpost" placeholder="投稿文"></textarea>
 
@@ -129,6 +134,34 @@
             }
 
             var colorCircleClass = "color-circle";
+
+
+            var obj = document.activeElement;
+            var view = document.getElementById('view');
+            var code = document.getElementById("code");
+            var ccode = document.getElementById("ccode");
+
+            code.addEventListener("input",preview);
+            ccode.addEventListener("input",preview);
+
+
+        function preview() {
+            document.getElementById("view").style.height = window.innerHeight - 50 + "px";
+            document.getElementById("code").style.height = window.innerHeight - 50 + "px";
+            document.getElementById("ccode").style.height = window.innerHeight - 50 + "px";
+
+
+        if (obj.id == "view") {;
+                code.value = view.innerHTML;
+                var styleTag = document.createElement("style");
+                styleTag.innerHTML = ccode;
+                view.appendChild(styleTag);
+            } else {
+                view.innerHTML =code.value;
+                
+            }
+        }
+
         </script>
         
         <script src="../js/main.js"></script>
