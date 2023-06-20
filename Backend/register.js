@@ -40,7 +40,7 @@ app.get('/register', function(req, res){
     .catch((error) => {
       console.log("functionError");
         console.error(error);
-        res.end(html);
+        res.render('register', { error });
     });
 
 })
@@ -82,6 +82,7 @@ function InsData(email, pass , name ) {
         console.log("SQLerror");
           console.error(e.stack);
           reject(e);
+      
       });
 });
 
