@@ -6,6 +6,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const app = express();
 const resultArray = [];
+const ejs = reqire('ejs');
+
+const register_page = fs.readFileSync('./designDictionary/views/register.ejs','utf8');
 // const router = require('../designDictionary/html/login.html');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,7 +17,7 @@ app.use(express.static(path.join(__dirname, '../designDictionary/html')));
 app.use(express.json());
 
 app.get('/register', function(req, res){
-  const filePath = path.join('../designDictionary/html/register.html');
+  const filePath = path.join('../designDictionary/views/register.ejs');
   console.log(filePath);
   res.sendFile(filePath);
 
