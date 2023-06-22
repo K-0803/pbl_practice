@@ -10,7 +10,7 @@
     <body>
         <form method="POST" id="myForm" action="/register">
         <label>
-            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= error %></span><br>
+            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"></span><br>
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
@@ -35,7 +35,7 @@
 document.getElementById('myForm').addEventListener('submit', function(event) {
   event.preventDefault(); // フォームのデフォルトの送信をキャンセル
 
-             var textpass = document.getElementById('textpass').value;
+            var textpass = document.getElementById('textpass').value;
             var textrepass = document.getElementById('textrepass').value;
             var pmiss = document.getElementById('pmiss');
             var repmiss = document.getElementById('repmiss');
@@ -55,20 +55,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
                 console.log("同じじゃない");
                 pmiss.innerHTML = "もう一度入力してください";
                 repmiss.innerHTML = "もう一度入力してください";
-            } 
-        })
-        fetch('/register', {
-          method: 'POST',
-          body: formData
-        })
-          .then(response => response.text())
-          .then(data => {
-
-            console.log("重 ");
-          })
-          .catch(error => {
-            // エラーハンドリング
-            console.error('Error:', error);
-          });
+            }   
+        });
     </script>
 </html>
