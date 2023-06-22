@@ -51,6 +51,12 @@
 
         <div>
             <h2>font</h2>
+            <select>
+                <option>#いい感じのフォント</option>
+                <option>#サンプルフォント</option>
+                <option>#サイコ～フォント</option>
+                <option>#フォントにほんと？</option>
+            </select>
         </div>
 
         <div>
@@ -59,10 +65,12 @@
 
         <div>
             <h2>typography</h2>
+            <button>左揃え</button><button>中央揃え</button><button>右揃え</button>
         </div>
+        <div><h4>preview</h4></div>
         <div id="view" contenteditable="true"></div>
-        <textarea class="html-webpost" placeholder="HTML文" id="code"></textarea>
-        <textarea class="css-webpost" placeholder="CSSコード" id="code"></textarea>
+        <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
+        <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
 
 
@@ -72,6 +80,8 @@
 
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="../js/main.js"></script>
+        
         <script>
             // 初期選択の色AのRGB値を取得
             var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
@@ -135,30 +145,27 @@
 
             var colorCircleClass = "color-circle";
    
-        document.execCommand("DefaultParagraphSeparator", false, "p");
-        addEventListener('load', function () {
-            preview();
-        });
-        document.addEventListener('keyup', function () {
-            preview();
-        });
-        document.addEventListener('paste', function () {
-            window.setTimeout(preview, 0);
-        });
-        function preview() {
-            var obj = document.activeElement;
-            var view = document.getElementById('view');
-            var code = document.getElementById("code");
-            document.getElementById("view").style.height = window.innerHeight - 50 + "px";
-            document.getElementById("code").style.height = window.innerHeight - 50 + "px";
-            if (obj.id == "view") {
-                code.value = view.innerHTML;
-            } else {
-                view.innerHTML = code.value;
-            }
-        }
-        </script>
         
-        <script src="../js/main.js"></script>
+            var obj = document.activeElement;
+       
+
+            code.addEventListener("input",preview);
+            ccode.addEventListener("input",preview);
+
+
+        function preview() {
+        // HTMLコードとCSSコードを取得
+        var htmlCode = document.getElementById("code").value;
+        var cssCode = document.getElementById("ccode").value;
+        // <div id="view"></div> 内にHTMLコードを挿入
+        document.getElementById("view").innerHTML = htmlCode;
+        // CSSルールを定義
+        var style = document.createElement("style");
+        style.innerHTML = cssCode;
+        // <div id="view"></div> 内にCSSルールを挿入
+        document.getElementById("view").appendChild(style);
+        }
+        
+        </script>
     </body>
 </html>
