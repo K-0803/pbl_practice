@@ -5,6 +5,7 @@
         <title>WEBサイト作成</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <link href="../css/post.css" rel="stylesheet" type="text/css">
+
     </head>
 
     <body>
@@ -67,13 +68,17 @@
             <h2>typography</h2>
             <button>左揃え</button><button>中央揃え</button><button>右揃え</button>
         </div>
-        <div><h4>preview</h4></div>
-        <div id="view" contenteditable="true"></div>
+        <!--ココからTHML・CSSコ表示系統-->
+        <!--プレビュー画面-->
+        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
+        </div>
+        <!--HTML入力部分-->
         <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
+        <!--CSS入力部分-->
         <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
+        <!--お気に入りボタン-->
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
-
-
+        <!--投稿関係-->
         <textarea class="textbox-webpost" placeholder="投稿文"></textarea>
 
         <button type="submit"><img src="画像url" alt="投稿" /></button>
@@ -144,7 +149,7 @@
             }
 
             var colorCircleClass = "color-circle";
-   
+            //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
             var obj = document.activeElement;
        
@@ -165,7 +170,8 @@
         // <div id="view"></div> 内にCSSルールを挿入
         document.getElementById("view").appendChild(style);
         }
-        
+        //ここまで
+
         </script>
     </body>
 </html>
