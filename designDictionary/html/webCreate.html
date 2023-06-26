@@ -47,21 +47,28 @@
 
         <div>
             <h2>select a sentence</h2>
-
+            <select id="sentence" onchange="sentenceValue()">
+                <option>働くか死ぬか、それが問題だ。</option>
+                <option> be , or not to be , that is the question.</option>
+                <option>納得はすべてに優先される。</option>
+                <option> Conviction trumps all</option>
+                <option>この社会には変革が必要だ</option>
+            </select>
         </div>
 
         <div>
             <h2>font</h2>
-            <select>
-                <option>#いい感じのフォント</option>
-                <option>#サンプルフォント</option>
-                <option>#サイコ～フォント</option>
-                <option>#フォントにほんと？</option>
+            <select id="mySelect" onchange="setInputValue()">
+                <option value="">#いい感じのフォント</option>
+                <option value="">#サンプルフォント</option>
+                <option value="">#サイコ～フォント</option>
+                <option value="">#フォントにほんと？</option>
             </select>
         </div>
 
         <div>
             <h2>choose the sentence color</h2>
+
         </div>
 
         <div>
@@ -149,6 +156,28 @@
             }
 
             var colorCircleClass = "color-circle";
+
+            //プルダウンメニューを反映する場合
+            function selectedValue() {
+                 var selectElement = document.getElementById("sentence");
+                var inputElement = document.getElementById("code");
+                var selectedValue = selectElement.value;
+    
+                var prefix = "<p> ";
+                var suffix = " </p>";
+                
+                var modifiedValue = prefix + selectedValue + suffix;
+                inputElement.value = modifiedValue;
+            }
+            //フォントを反映
+            function setInputValue() {
+            var selectElement = document.getElementById("mySelect");
+            var divElement = document.getElementById("view");
+            var selectedValue = selectElement.value;
+
+            divElement.style.fontFamily = selectedValue;
+        }
+
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
             var obj = document.activeElement;
