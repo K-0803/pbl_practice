@@ -1,8 +1,4 @@
 @font-face {
-  font-family: Hagrid;
-  src: url("Hagrid-Text-Trial-Extrabold/Hagrid-Regular-trial.ttf") format("truetype");
-}
-@font-face {
   font-family: Corporate-Logo;
   src: url("Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3.otf") format("opentype"),
           url("Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3/Corporate-Logo-Medium-ver3.ttf") format("truetype");
@@ -10,19 +6,20 @@
 
 html {
   background-color: #D8D8D8;
-  font-family: Hagrid , Corporate-Logo , sans-serif;
+  font-family: Corporate-Logo , sans-serif;
 }
 
 button{
-  font-family: Hagrid , Corporate-Logo , sans-serif;
+  font-family: Corporate-Logo , sans-serif;
 }
 
 h1 {
   padding: 1rem 2rem;
-  color: #777777;
+  color: #323232;
   background: #BDFF00;
   margin-top: 70px;
   width: 270px;
+  font-weight: lighter;
 }
 
 /*========= ハンバーガーメニュー ===============*/

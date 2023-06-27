@@ -5,6 +5,7 @@
         <title>WEBサイト作成</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <link href="../css/post.css" rel="stylesheet" type="text/css">
+
     </head>
 
     <body>
@@ -46,32 +47,53 @@
 
         <div>
             <h2>select a sentence</h2>
-
+            <select id="sentence" onchange="sentenceValue()">
+                <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
+                <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
+                <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
+                <option value="Conviction trumps all"> Conviction trumps all</option>
+                <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
+            </select>
         </div>
 
         <div>
             <h2>font</h2>
+            <select id="mySelect" onchange="setInputValue()">
+                <option value="いろは角クラシック Regular">いろは角クラシック Regular</option>
+                <option value="Old Standard">Old Standard</option>
+                <option value="">#サイコ～フォント</option>
+                <option value="">#フォントにほんと？</option>
+            </select>
         </div>
 
         <div>
             <h2>choose the sentence color</h2>
+
         </div>
 
         <div>
             <h2>typography</h2>
+            <button>左揃え</button><button>中央揃え</button><button>右揃え</button>
         </div>
-        <div id="view" contenteditable="true"></div>
-        <textarea class="html-webpost" placeholder="HTML文" id="code"></textarea>
-        <textarea class="css-webpost" placeholder="CSSコード" id="ccode"></textarea>
+        <!--ココからTHML・CSSコ表示系統-->
+        <!--プレビュー画面-->
+        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
+        </div>
+        <!--HTML入力部分-->
+        <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
+        <!--CSS入力部分-->
+        <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
+        <!--お気に入りボタン-->
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
-
-
+        <!--投稿関係-->
         <textarea class="textbox-webpost" placeholder="投稿文"></textarea>
 
         <button type="submit"><img src="画像url" alt="投稿" /></button>
 
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="../js/main.js"></script>
+        
         <script>
             // 初期選択の色AのRGB値を取得
             var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
@@ -135,35 +157,54 @@
 
             var colorCircleClass = "color-circle";
 
+            //プルダウンメニューを反映する場合
+            document.addEventListener("DOMContentLoaded", function() {
+        var selectElement = document.getElementById("sentence");
+        var inputElement = document.getElementById("code");
 
+        selectElement.addEventListener("change", function() {
+            var selectedValue = selectElement.value;
+            var prefix = "<p> ";
+            var suffix = " </p>";
+            var modifiedValue = prefix + selectedValue + suffix;
+
+            inputElement.value += modifiedValue;
+            selectElement.selectedIndex = 0; // 選択肢の初期化
+        });
+    });
+
+            //フォントを反映
+            function setInputValue() {
+            var selectElement = document.getElementById("mySelect");
+            var divElement = document.getElementById("view");
+            var selectedValue = selectElement.value;
+
+            divElement.style.fontFamily = selectedValue;
+        }
+
+            //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
+        
             var obj = document.activeElement;
-            var view = document.getElementById('view');
-            var code = document.getElementById("code");
-            var ccode = document.getElementById("ccode");
+       
 
             code.addEventListener("input",preview);
             ccode.addEventListener("input",preview);
 
 
         function preview() {
-            document.getElementById("view").style.height = window.innerHeight - 50 + "px";
-            document.getElementById("code").style.height = window.innerHeight - 50 + "px";
-            document.getElementById("ccode").style.height = window.innerHeight - 50 + "px";
-
-
-        if (obj.id == "view") {;
-                code.value = view.innerHTML;
-                var styleTag = document.createElement("style");
-                styleTag.innerHTML = ccode;
-                view.appendChild(styleTag);
-            } else {
-                view.innerHTML =code.value;
-                
-            }
+        // HTMLコードとCSSコードを取得
+        var htmlCode = document.getElementById("code").value;
+        var cssCode = document.getElementById("ccode").value;
+        // <div id="view"></div> 内にHTMLコードを挿入
+        document.getElementById("view").innerHTML = htmlCode;
+        // CSSルールを定義
+        var style = document.createElement("style");
+        style.innerHTML = cssCode;
+        // <div id="view"></div> 内にCSSルールを挿入
+        document.getElementById("view").appendChild(style);
         }
+        //ここまで
 
         </script>
-        
-        <script src="../js/main.js"></script>
     </body>
 </html>

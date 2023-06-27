@@ -10,7 +10,7 @@ const app = express();
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
 app.use(bodyParser.json());                             //
-app.use(express.static(path.join('../designDictionary/html'))); //相対パスを使用するためのミドルウェア
+app.use(express.static(path.join('../designDictionary'))); //相対パスを使用するためのミドルウェア
 app.use(express.json());
 
 // データベースの接続情報
@@ -45,7 +45,7 @@ app.get('/siteURL', function(req, res){
 
       // クエリの作成と実行
       const query = {
-        text: 'SELECT css_code , css_summary FROM css_model WHERE css_code = $1',
+        text: 'SELECT code , summary FROM term_model WHERE code = $1',
         values: [search],
       };
     
@@ -79,7 +79,7 @@ app.get('/siteURL', function(req, res){
             tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
 
             result.rows.forEach((row) => {
-              tableHTML += `<tr><td>${row.css_code}</td><td>${row.css_summary}</td></tr>`;
+              tableHTML += `<tr><td>${row.code}</td><td>${row.summary}</td></tr>`;
             });
 
             tableHTML += '</table>';
@@ -94,28 +94,7 @@ app.get('/siteURL', function(req, res){
       }
     });
   } else {
-    // クエリの作成と実行
-    const query = ('SELECT * FROM css_model ')
   
-    pool.query(query)
-      .then(result => {
-        const rows = result.rows;
-        console.log(rows); // 検索結果をJSON形式でレスポンスとして返す
-      })
-      .catch(err => {
-        console.error('エラーが発生しました', err);
-        res.status(500).send('エラーが発生しました'); // エラーレスポンスを返す
-      });
-    
- 
-
-  // クエリを実行し、結果を取得
-  pool.query(query, (err, result) => {
-    if (err) {
-      console.error('クエリエラー:', err);
-      res.statusCode = 500;
-      res.end('データベースエラーが発生しました');
-    } else {
       fs.readFile('../designDictionary/html/searchResult.html', 'utf8', (err, htmlContent) => {
         if (err) {
           console.error('HTML読み込みエラー:', err);
@@ -125,11 +104,7 @@ app.get('/siteURL', function(req, res){
           // HTMLテーブルの作成
           let tableHTML = '<table border="1">';
           tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
-
-          result.rows.forEach((row) => {
-            tableHTML += `<tr><td>${row.css_code}</td><td>${row.css_summary}</td></tr>`;
-          });
-
+            tableHTML += `<tr>検索結果:0件</tr>`;
           tableHTML += '</table>';
 
           // レスポンスとしてHTMLを返す
@@ -141,8 +116,6 @@ app.get('/siteURL', function(req, res){
       });
     }
   });
-  }
-});
 // サーバーの起動
 app.listen(8080, () => {
   console.log('サーバーがポート8080で起動しました');

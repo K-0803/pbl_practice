@@ -1,0 +1,157 @@
+.button.download {
+    --background: none;
+    --rectangle: #242836;
+    --success: #4BC793;
+  }
+  .button {
+    --text: #FFFFFF;
+    --arrow: #fff;
+    --checkmark: #fff;
+    overflow: hidden;
+    text-decoration: none;
+    border-radius: 8px;
+  }
+  .button > div {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: var(--rectangle);
+  }
+  .button > div:before, .button > div:after {
+    content: "";
+    display: block;
+    position: absolute;
+  }
+  .button > div:before {
+    border-radius: 1px;
+    width: 2px;
+    top: 50%;
+    left: 50%;
+    height: 17px;
+    margin: -9px 0 0 -1px;
+    background: var(--arrow);
+  }
+  .button > div:after {
+    width: 60px;
+    height: 60px;
+    transform-origin: 50% 0;
+    border-radius: 0 0 80% 80%;
+    background: var(--success);
+    top: 0;
+    left: 0;
+    transform: scaleY(0);
+  }
+  .button > div svg {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    margin: -9px 0 0 -10px;
+    fill: none;
+    z-index: 1;
+    stroke-width: 2px;
+    stroke: var(--arrow);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .button.loading > div:before {
+    animation: line calc(var(--duration) * 1ms) linear forwards calc(var(--duration) * .065ms);
+  }
+  .button.loading > div:after {
+    animation: background calc(var(--duration) * 1ms) linear forwards calc(var(--duration) * .065ms);
+  }
+  .button.loading > div svg {
+    animation: svg calc(var(--duration) * 1ms) linear forwards calc(var(--duration) * .065ms);
+  }
+  @keyframes line {
+    5%, 10% {
+      transform: translateY(-30px);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    65% {
+      transform: translateY(0);
+    }
+    75%, 100% {
+      transform: translateY(30px);
+    }
+  }
+  @keyframes svg {
+    0%, 20% {
+      stroke-dasharray: 0;
+      stroke-dashoffset: 0;
+    }
+    21%, 89% {
+      stroke-dasharray: 26px;
+      stroke-dashoffset: 26px;
+      stroke-width: 3px;
+      margin: -10px 0 0 -10px;
+      stroke: var(--checkmark);
+    }
+    100% {
+      stroke-dasharray: 26px;
+      stroke-dashoffset: 0;
+      margin: -10px 0 0 -10px;
+      stroke: var(--checkmark);
+    }
+    12% {
+      opacity: 1;
+    }
+    20%, 89% {
+      opacity: 0;
+    }
+    90%, 100% {
+      opacity: 1;
+    }
+  }
+  @keyframes background {
+    10% {
+      transform: scaleY(0);
+    }
+    40% {
+      transform: scaleY(0.15);
+    }
+    65% {
+      transform: scaleY(0.5);
+      border-radius: 0 0 50% 50%;
+    }
+    75% {
+      border-radius: 0 0 50% 50%;
+    }
+    90%, 100% {
+      border-radius: 0;
+    }
+    75%, 100% {
+      transform: scaleY(1);
+    }
+  }
+  html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+  * {
+    box-sizing: inherit;
+  }
+  *:before, *:after {
+    box-sizing: inherit;
+  }
+    .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .container > div {
+    flex-basis: 100%;
+    width: 0;
+  }
+  .container .button {
+    margin: 16px;
+  }
+  @media (max-width: 400px) {
+  .container .button {
+      margin: 12px;
+    }
+  }
