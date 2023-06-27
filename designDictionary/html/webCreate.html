@@ -159,13 +159,13 @@
 
             //プルダウンメニューを反映する場合
             function sentenceValue() {
-                 var selectElement = document.getElementById("sentence");
+                var selectElement = document.getElementById("sentence");
                 var inputElement = document.getElementById("code");
                 var selectedValue = selectElement.value;
-    
+
                 var prefix = "<p> ";
                 var suffix = " </p>";
-                
+
                 var modifiedValue = prefix + selectedValue + suffix;
                 inputElement.value = modifiedValue;
             }
