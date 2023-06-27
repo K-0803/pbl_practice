@@ -25,7 +25,7 @@ const client = new Client({
     port: 5432,
 });
 
-app.get('/html/customList.html', function(req, res){
+app.get('/customList', function(req, res){
     // const filePath = path.join('../designDictionary/html/customList.html');
     // console.log(filePath);
     // const userId = req.cookies.userId;
@@ -37,33 +37,27 @@ app.get('/html/customList.html', function(req, res){
         text: "SELECT chtml_code, ccss_code from web_create where user_id = ($1)",
         values: [userId],
     };
-
+    client.connect();
     client
-        .query(query, function(err, result){
-            if(err){
-                console.error('Error executing query', err);
-                res.status(500).send('Internal Server Error');
-                return;
-            }
-
+        .query(query)
+        .then(function(res){
             console.log(res);
+            res.rows.foreach(function(value){
+                const htmlCode = value.chtml_code;
+                const cssCode = value.ccss_code;
 
-            res.send(html);
+                
+            })
+            // HTMLテンプレートとCSSテンプレートを作成してデータを埋め込む
+
+            // レスポンスとしてHTMLを返す
+            res.render('index', {renderedHTML, renderedCSS});
+
+            res.end(html);
         })
-        // .then(function(res){
-        //     console.log(res);
-        //     // const htmlCode = res.rows[0].chtml_code;
-        //     // const cssCode = res.rows[0].ccss_code;
-        //     // // HTMLテンプレートとCSSテンプレートを作成してデータを埋め込む
-
-        //     // // レスポンスとしてHTMLを返す
-        //     // res.render('index', {renderedHTML, renderedCSS});
-
-        //     res.end(html);
-        // })
-        // .catch(function(e){
-        //     res.end();
-        // })
+        .catch(function(e){
+            res.end();
+        })
 })
 
 app.listen(8080, function(){

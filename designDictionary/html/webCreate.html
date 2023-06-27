@@ -77,19 +77,20 @@
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
-        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
-        </div>
-        <!--HTML入力部分-->
-        <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
-        <!--CSS入力部分-->
-        <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
-        <!--お気に入りボタン-->
-        <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
-        <!--投稿関係-->
-        <textarea class="textbox-webpost" placeholder="投稿文"></textarea>
+        <form method="POST" action="/generate">
+            <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
+            </div>
+            <!--HTML入力部分-->
+            <textarea name="htmlContent" class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
+            <!--CSS入力部分-->
+            <textarea name="cssContent" class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
+            <!--お気に入りボタン-->
+            <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
+            <!--投稿関係-->
+            <textarea name="comment" class="textbox-webpost" placeholder="投稿文"></textarea>
 
-        <button type="submit"><img src="画像url" alt="投稿" /></button>
-
+            <button type="submit"><img src="画像url" alt="投稿" /></button>
+        </form>
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="../js/main.js"></script>

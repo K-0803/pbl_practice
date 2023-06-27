@@ -6,11 +6,12 @@ const fs = require('fs');
 const {v4: uuidv4} = require('uuid');
 const {Client} = require("pg");
 const cookieParser = require('cookie-parser');
+
 // const router = require('../designDictionary/html/login.html');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../designDictionary/html')));
+app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
@@ -26,22 +27,24 @@ app.get('/', function(req, res){
 
 app.post('/generate', function(req, res){
   //cookieに保存されているuserIdを取得
-  const userId = req.cookies.userId;
+  // const userId = req.cookies.userId;
   //デバッグ用userId
-  // const userId = 1;
+  const userId = 3;
+
 
   //入力データの取得
   const {htmlContent, cssContent, comment} = req.body;
+
 
   //ファイル名を一意なIDとして生成
   const fileId = uuidv4();
 
   //HTMLファイルとCSSファイルを生成して保存
+  
   const htmlFilePath = `../saveFile/html/${fileId}.html`;
   const cssFilePath = `../saveFile/css/${fileId}.css`;
   fs.writeFileSync(htmlFilePath, htmlContent);
   fs.writeFileSync(cssFilePath, cssContent);
-
   
   const client = new Client({
       user: "postgres",//ユーザー名
