@@ -16,7 +16,7 @@
                 <ul>
                     <li><a href="mypage.html">マイページ</a></li> 
                     <li><a href="index.html">目次</a></li> 
-                    <li><a href="login.html">ログイン</a></li>
+                    <li><a href="#">ログアウト</a></li>
                 </ul>
             </div>
         </nav>
@@ -67,7 +67,14 @@
         </div>
 
         <div>
+            <!--仮でプルダウン式で作成しています-->
             <h2>choose the sentence color</h2>
+            <select id="colorSelect" onchange="getColorCode()">
+            <option value="" disabled selected>色を選択してください</option>
+            <option value="#ff0000" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+            <option value="#00ff00" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+            <option value="#0000ff" style="background-color: #ffffff; color: #ffffff;"></option>
+            </select>
 
         </div>
 
@@ -180,7 +187,17 @@
             var selectedValue = selectElement.value;
 
             divElement.style.fontFamily = selectedValue;
-        }
+            }
+            //センテンスカラー（仮）
+            function getColorCode() {
+            var colorSelect = document.getElementById("colorSelect");
+            var colorCodeElement = document.getElementById("ccode");
+            var selectedColorCode = colorSelect.value;
+
+            colorCodeElement.textContent = ".p{ color: " + selectedColorCode + " };";
+            selectElement.colorSelect = 0;
+            }
+
 
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
