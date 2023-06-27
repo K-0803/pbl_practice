@@ -19,13 +19,13 @@ app.get('/register', function(req, res) {
 });
 
 app.post('/register', function(req, res) {
-  const { email, pass, name ,boolean1 , boolean2} = req.body;
+  const { email, pass, name , repass ,boolean1 , boolean2} = req.body;
   console.log(email);
   console.log(pass);
   console.log(name);
   console.log(boolean1);
   console.log(boolean2);
-  InsData(email, pass, name)
+  InsData(email, pass, name ,repass)
     .then(function(redUrl) {
       console.log('値は=' + redUrl);
       if (redUrl === '/redirect') {
@@ -35,17 +35,19 @@ app.post('/register', function(req, res) {
       }
     })
     .catch((error) => {
-
+      let code ="";
+      if(error.code==23505){
+         code = "重複してます";
+      }else{
+         code = "";
+      }
     const inputerr = {
-       mail: error.code,
+       mail: code,
        pass: boolean1,
        repass: boolean2
     };
-      
-      if(error.code==23505){
         console.error(error.code);
       res.render('register', inputerr);
-      }
     });
 });
 
@@ -53,7 +55,7 @@ app.listen(8080, function() {
   console.log('サーバーがポート8080で起動しました。');
 });
 
-function InsData(email, pass, name) {
+function InsData(email, pass, name ,repass) {
   // postgres接続
   const { Client } = require('pg');
   const client = new Client({
@@ -70,8 +72,8 @@ function InsData(email, pass, name) {
       .connect()
       .then(function() {
         const query = {
-          text: 'INSERT INTO user_info (user_name, pwd, address) VALUES ($3, $2, $1);',
-          values: [email, pass, name],
+          text: 'INSERT INTO user_info (user_name, pwd, address) SELECT CAST($3 AS VARCHAR), CAST($2 AS VARCHAR), $1  WHERE NOT EXISTS (SELECT 1 FROM user_info WHERE address = $3) AND $2= $4;',
+          values: [email, pass, name, repass],
         };
         return client.query(query);
       })
