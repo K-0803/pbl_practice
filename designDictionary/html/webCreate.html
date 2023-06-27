@@ -158,24 +158,21 @@
             var colorCircleClass = "color-circle";
 
             //プルダウンメニューを反映する場合
-            function sentenceValue() {
-                var selectElement = document.getElementById("sentence");
-                var inputElement = document.getElementById("code");
-                var selectedValue = selectElement.value;
+            document.addEventListener("DOMContentLoaded", function() {
+        var selectElement = document.getElementById("sentence");
+        var inputElement = document.getElementById("code");
 
-                var prefix = "<p> ";
-                var suffix = " </p>";
+        selectElement.addEventListener("change", function() {
+            var selectedValue = selectElement.value;
+            var prefix = "<p> ";
+            var suffix = " </p>";
+            var modifiedValue = prefix + selectedValue + suffix;
 
-                var modifiedValue = prefix + selectedValue + suffix;
+            inputElement.value += modifiedValue;
+            selectElement.selectedIndex = 0; // 選択肢の初期化
+        });
+    });
 
-                // 既存の内容を取得
-                var existingValue = inputElement.value;
-
-                // 改行を追加して新しい行として結合
-                var newValue = existingValue + "<br>" + modifiedValue;
-
-                inputElement.innerHTML = newValue;
-            }
             //フォントを反映
             function setInputValue() {
             var selectElement = document.getElementById("mySelect");
