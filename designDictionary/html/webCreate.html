@@ -167,7 +167,14 @@
                 var suffix = " </p>";
 
                 var modifiedValue = prefix + selectedValue + suffix;
-                inputElement.value = modifiedValue;
+
+                // 既存の内容を取得
+                var existingValue = inputElement.value;
+
+                // 改行を追加して新しい行として結合
+                var newValue = existingValue + "<br>" + modifiedValue;
+
+                inputElement.innerHTML = newValue;
             }
             //フォントを反映
             function setInputValue() {
