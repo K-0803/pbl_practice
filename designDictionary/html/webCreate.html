@@ -71,9 +71,9 @@
             <h2>choose the sentence color</h2>
             <select id="colorSelect" onchange="getColorCode()">
             <option value="" disabled selected>色を選択してください</option>
-            <option value="#ff0000" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
-            <option value="#00ff00" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
-            <option value="#0000ff" style="background-color: #ffffff; color: #ffffff;"></option>
+            <option value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+            <option value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+            <option value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
             </select>
 
         </div>
@@ -194,7 +194,7 @@
             var colorCodeElement = document.getElementById("ccode");
             var selectedColorCode = colorSelect.value;
 
-            colorCodeElement.textContent = ".p{ color: " + selectedColorCode + " };";
+            colorCodeElement.textContent = "p{ color: " + selectedColorCode + " };";
             selectElement.colorSelect = 0;
             }
 
