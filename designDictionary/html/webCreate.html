@@ -80,7 +80,9 @@
 
         <div>
             <h2>typography</h2>
-            <button>左揃え</button><button>中央揃え</button><button>右揃え</button>
+            <button id="leftButton" value="left">左揃え</button>
+            <button id="centerButton" value="center">中央揃え</button>
+            <button id="rightButton" value="right">右揃え</button>
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
@@ -198,7 +200,17 @@
             selectElement.colorSelect = 0;
             }
 
-
+            //揃え
+            function getButtonText(alignment) {
+            var resultElement = document.getElementById("ccode");
+            var buttonId = alignment + "Button";
+            var buttonElement = document.getElementById(buttonId);
+            var buttonText = buttonElement.innerText;
+            
+            resultElements = "p{" + buttonText + "}";
+            resultElement.value+=resultElements;
+            
+        }
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
             var obj = document.activeElement;
