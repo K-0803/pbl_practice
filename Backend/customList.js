@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
-const ejs = require('ejs');
+const fs = require('fs');
+// const ejs = require('ejs');
 const path = require('path');   //相対パスを使用可能にする
 const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
 
@@ -16,6 +17,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 // app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../designDictionary/html/views'));
+// app.engine('ejs', require('ejs').__express);
 
 const client = new Client({
     user: "postgres",//ユーザー名
@@ -25,13 +28,17 @@ const client = new Client({
     port: 5432,
 });
 
-app.get('/customList', function(req, res){
-    // const filePath = path.join('../designDictionary/html/customList.html');
-    // console.log(filePath);
+app.get('/', function(req, res){
+    const filePath = path.join('../designDictionary/html/customList.html');
+    console.log(filePath);
+    res.sendFile(filePath);
+    res.end();
+})
+
+app.post('/customList', function(req, res){
     // const userId = req.cookies.userId;
     //デバッグ用userId
     const userId = 1;
-    console.log(userId);
 
     const query = {
         text: "SELECT chtml_code, ccss_code from web_create where user_id = ($1)",
@@ -40,24 +47,68 @@ app.get('/customList', function(req, res){
     client.connect();
     client
         .query(query)
-        .then(function(res){
-            console.log(res);
-            res.rows.foreach(function(value){
-                const htmlCode = value.chtml_code;
-                const cssCode = value.ccss_code;
+        .then(function(result){
+            console.log(result);
+            const resultArray = result.rows;
 
-                
-            })
-            // HTMLテンプレートとCSSテンプレートを作成してデータを埋め込む
+            const htmlCodes = resultArray.map(value => value.chtml_code );
+            const cssCodes = resultArray.map(value => value.ccss_code );
 
-            // レスポンスとしてHTMLを返す
-            res.render('index', {renderedHTML, renderedCSS});
+            const htmlTags = [];
+            const cssTags = [];
 
-            res.end(html);
+            const readFilePromises = htmlCodes.map(function(htmlCode, index){
+                const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
+                const cssFilePath = `../designDictionary/saveFile/css/${cssCodes[index]}.css`;
+
+                return Promise.all([
+                    fs.promises.readFile(htmlFilePath, 'utf8'),
+                    fs.promises.readFile(cssFilePath, 'utf8')
+                ])
+                    .then(function([htmlContent, cssContent]){
+                        let htmlTag = `<br><div id="htmlCode" oninput="preview"><textarea>${htmlContent}</textarea></div>`;
+                        let cssTag = `<br><div id="cssCode" oninput="preview"><textarea><style>${cssContent}</style><textarea></div>`;
+                        htmlTags.push(htmlTag);
+                        cssTags.push(cssTag);
+                    })
+                    .catch(function(err){
+                        console.error(err);
+                        res.status(500).send('Internal Server Error');
+                    });
+            });
+
+            Promise.all(readFilePromises)
+                .then(function(){
+                    fs.readFile('../designDictionary/html/customList.html', 'utf8', function(err, originContent){
+                        if(err){
+                            console.error(err);
+                            res.statusCode = 500;
+                            res.end();
+                        }else{
+                            const renderedHTML = htmlTags.join('');
+                            const renderedCSS = cssTags.join('');
+                            console.log(originContent);
+                            htmlTxt = originContent.replace('{{customhtml}}', renderedHTML).replace('{{customcss}}', renderedCSS);
+                            console.log(htmlTxt);
+                            res.setHeader('Content-Type', 'text/html');
+                            res.statusCode = 200;
+                            res.end(htmlTxt);
+                        }
+                    });
+                })
+                .catch(function(err){
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                });
         })
         .catch(function(e){
-            res.end();
+            console.error(e);
+            res.status(500).send('Internal Server Error');
         })
+        .finally(function(){
+            client.end();
+        })       
+            
 })
 
 app.listen(8080, function(){
