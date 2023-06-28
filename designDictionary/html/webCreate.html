@@ -203,9 +203,8 @@
             //揃え
             function getButtonText(alignment) {
             var resultElement = document.getElementById("ccode");
-            var buttonId = alignment + "Button";
             var buttonElement = document.getElementById(buttonId);
-            var buttonText = buttonElement.innerText;
+            var buttonText = buttonElement.value;
             
             resultElements = "p{" + buttonText + "}";
             
