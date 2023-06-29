@@ -86,7 +86,7 @@
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
-        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
+        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
         </div>
         <!--HTML入力部分-->
         <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
@@ -95,7 +95,7 @@
         <!--お気に入りボタン-->
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
         <!--投稿関係-->
-        <textarea class="textbox-webpost" placeholder="投稿文"></textarea>
+        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" required></textarea>
 
         <button type="submit"><img src="画像url" alt="投稿" /></button>
 
@@ -234,5 +234,13 @@
         //ここまで
 
         </script>
+        <!--プレビュー画面の枠のCSS-->
+        <style>
+            .preview{
+                padding: 0.5em 1em;
+                margin: 2em 0;
+                border: double 5px #BDFF00;
+            }
+        </style>
     </body>
 </html>
