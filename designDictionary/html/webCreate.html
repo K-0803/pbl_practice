@@ -187,10 +187,11 @@
             //フォントを反映
             function setFont() {
             var selectElement = document.getElementById("myfont");
-            var divElement = document.getElementById("view");
+            var textBoxElement = document.getElementById("ccode");
             var selectedValue = selectElement.value;
 
-            divElement.style.fontFamily = selectedValue;
+            var newStyle = "p { font-family: " + selectedValue + "; }";
+             textBoxElement.value += newStyle;
             }
             //センテンスカラー（仮）
             function getColorCode() {
