@@ -48,6 +48,7 @@
         <div>
             <h2>select a sentence</h2>
             <select id="sentence" onchange="sentenceValue()">
+                <option disabled selected hidden>文章を選択してください</option>
                 <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
                 <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
                 <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
@@ -58,8 +59,9 @@
 
         <div>
             <h2>font</h2>
-            <select id="mySelect" onchange="setInputValue()">
-                <option value="いろは角クラシック Regular">いろは角クラシック Regular</option>
+            <select id="myfont" onchange="setFont()">
+                <option disabled selected hidden>フォントを選択してください</option>
+                <option value="いろは角クラシック">いろは角クラシック Regular</option>
                 <option value="Old Standard">Old Standard</option>
                 <option value="">#サイコ～フォント</option>
                 <option value="">#フォントにほんと？</option>
@@ -67,26 +69,37 @@
         </div>
 
         <div>
+            <!--仮でプルダウン式で作成しています-->
             <h2>choose the sentence color</h2>
+            <select id="colorSelect" onchange="getColorCode()">
+            <option value="" disabled selected>色を選択してください</option>
+            <option value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+            <option value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+            <option value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
+            </select>
 
         </div>
 
         <div>
             <h2>typography</h2>
-            <button>左揃え</button><button>中央揃え</button><button>右揃え</button>
+            <button id="leftButton" value="left">左揃え</button>
+            <button id="centerButton" value="center">中央揃え</button>
+            <button id="rightButton" value="right">右揃え</button>
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
-        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
+        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
         </div>
+        <span>
         <!--HTML入力部分-->
-        <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
+        <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea></span>
+        <span>
         <!--CSS入力部分-->
-        <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
+        <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span>
         <!--お気に入りボタン-->
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
         <!--投稿関係-->
-        <textarea class="textbox-webpost" placeholder="投稿文"></textarea>
+        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" required></textarea>
 
         <button type="submit"><img src="画像url" alt="投稿" /></button>
 
@@ -174,14 +187,34 @@
     });
 
             //フォントを反映
-            function setInputValue() {
-            var selectElement = document.getElementById("mySelect");
-            var divElement = document.getElementById("view");
+            function setFont() {
+            var selectElement = document.getElementById("myfont");
+            var textBoxElement = document.getElementById("ccode");
             var selectedValue = selectElement.value;
 
-            divElement.style.fontFamily = selectedValue;
-        }
+            var newStyle = 'p{font-family:"' + selectedValue + '"};';
+             textBoxElement.value += newStyle;
+            }
+            //センテンスカラー（仮）
+            function getColorCode() {
+            var colorSelect = document.getElementById("colorSelect");
+            var colorCodeElement = document.getElementById("ccode");
+            var selectedColorCode = colorSelect.value;
 
+            colorCodeElement.textContent = "p{ color: " + selectedColorCode + " };";
+            selectElement.colorSelect = 0;
+            }
+
+            //揃え
+            function getButtonText(alignment) {
+            var resultElement = document.getElementById("ccode");
+            var buttonElement = document.getElementById(buttonId);
+            var buttonText = buttonElement.value;
+            
+            resultElements = "p{" + buttonText + "}";
+            
+            
+        }
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
             var obj = document.activeElement;
@@ -206,5 +239,13 @@
         //ここまで
 
         </script>
+        <!--プレビュー画面の枠のCSS-->
+        <style>
+            .preview{
+                padding: 0.5em 1em;
+                margin: 2em 0;
+                border: double 5px #BDFF00;
+            }
+        </style>
     </body>
 </html>
