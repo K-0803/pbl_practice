@@ -10,7 +10,7 @@ const app = express();
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
 app.use(bodyParser.json());                             //
-app.use(express.static(path.join('../designDictionary'))); //相対パスを使用するためのミドルウェア
+app.use(express.static(path.join(__dirname, '../designDictionary')));; //相対パスを使用するためのミドルウェア
 app.use(express.json());
 
 // データベースの接続情報
@@ -24,16 +24,10 @@ const dbConfig = {
 // データベース接続
 const pool = new Pool(dbConfig);
 
-app.get('/termDictionary', function(req, res){
-
-  //ページが開かれたときにhtmlを表示する処理
-  const filePath = path.join('../designDictionary/html/termDictionary.html');
-  console.log(filePath);
-  res.sendFile(filePath);
-
-  res.end();
+app.get('/termDictionary', (req, res) => {
+  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
+  console.log(sendFile);
 });
-
 
 
   app.post('/termDictionary',function(req,res){
@@ -50,8 +44,8 @@ app.get('/termDictionary', function(req, res){
       .then(results => {
         const cssRows = results[0].rows;
         const htmlRows = results[1].rows;
-        console.log(cssRows);
-        console.log(htmlRows);
+        // console.log(cssRows);
+        // console.log(htmlRows);
   
         fs.readFile('../designDictionary/html/termDictionary.html', 'utf8', (err, htmlContent) => {
           if (err) {
