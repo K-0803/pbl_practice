@@ -5,6 +5,9 @@
         <title>WEBサイト作成</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <link href="../css/post.css" rel="stylesheet" type="text/css">
+        <!--フォント適用のため-->
+        <link href="https://fonts.googleapis.com/css?family=Ravi+Prakash" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 
     </head>
 
@@ -82,9 +85,9 @@
 
         <div>
             <h2>typography</h2>
-            <button id="leftButton" value="left">左揃え</button>
-            <button id="centerButton" value="center">中央揃え</button>
-            <button id="rightButton" value="right">右揃え</button>
+            <button id="buttonId" value="left">左揃え</button>
+            <button id="buttonId" value="center">中央揃え</button>
+            <button id="buttonId" value="right">右揃え</button>
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
@@ -192,7 +195,7 @@
             var textBoxElement = document.getElementById("ccode");
             var selectedValue = selectElement.value;
 
-            var newStyle = 'p{font-family:"' + selectedValue + '"};';
+            var newStyle = 'p{font-family:"' + selectedValue + '";}';
              textBoxElement.value += newStyle;
             }
             //センテンスカラー（仮）
@@ -201,20 +204,29 @@
             var colorCodeElement = document.getElementById("ccode");
             var selectedColorCode = colorSelect.value;
 
-            colorCodeElement.textContent = "p{ color: " + selectedColorCode + " };";
-            selectElement.colorSelect = 0;
+            var currentStyles = colorCodeElement.value;
+            var newStyles = "p { color: " + selectedColorCode + "; }";
+            
+            // 「p{color: }」の部分を削除
+            var updatedStyles = currentStyles.replace(/p\s*\{\s*color:\s*[^;]*;\s*\}/g, "");
+            
+            // テキストの末尾に新しいスタイル定義を追加
+            updatedStyles += newStyles;
+            
+            colorCodeElement.value = updatedStyles;
             }
 
+
             //揃え
-            function getButtonText(alignment) {
-            var resultElement = document.getElementById("ccode");
+            function getButtonText() {
+            var aliElement = document.getElementById("ccode");
             var buttonElement = document.getElementById(buttonId);
             var buttonText = buttonElement.value;
-            
-            resultElements = "p{" + buttonText + "}";
-            
-            
-        }
+
+            var newStyl1 = "p { text-align: " + buttonText + "; }";
+            aliElement.value = aliElement.value ? aliElement.value + "\n" + newStyle1 :  newStyle1;
+            }
+
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
             var obj = document.activeElement;
