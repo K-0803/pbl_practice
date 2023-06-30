@@ -61,7 +61,7 @@
             <h2>font</h2>
             <select id="myfont" onchange="setFont()">
                 <option disabled selected hidden>フォントを選択してください</option>
-                <option value="irohakakuC-Regular">いろは角クラシック Regular</option>
+                <option value="いろは角クラシック">いろは角クラシック Regular</option>
                 <option value="Old Standard">Old Standard</option>
                 <option value="">#サイコ～フォント</option>
                 <option value="">#フォントにほんと？</option>
@@ -192,7 +192,7 @@
             var textBoxElement = document.getElementById("ccode");
             var selectedValue = selectElement.value;
 
-            var newStyle = "p{ font-family:" + selectedValue + "};";
+            var newStyle = 'p{font-family:"' + selectedValue + '"};';
              textBoxElement.value += newStyle;
             }
             //センテンスカラー（仮）
