@@ -8,17 +8,23 @@
     </head>
 
     <body>
-        <form method="POST" action="/login">
-            <label>
-                <span class="textbox-login-gmail">Gmail</span>
-                <input type="text" name="email" class="textbox-gmail" placeholder="***@gmail.com"/>
-            </label><br>
-            <label>
-                <span class="textbox-login-pw">password</span>
-                <input type="text" name="pass" class="textbox-pw" placeholder="password"/>
-            </label>
-              <button type="submit" ></button><!--onclick="location.href='index.html'" -->
-        </form>    
+         <div class="login">
+            <h2 class="active"> sign in </h2>
+            <form method="POST" action="/login">
+                <span>gmail</span>
+                <div class="mailblock">
+                  <input type="text" class="email" name="email">
+                  <p>@gmail</p>
+                </div>
+                  <span>password</span>
+                  <input type="password" class="text" name="pass">
+                  <button class="signin">Sign In</button>
+                  <hr>
+                  <a href="register.html">Create Account</a>
+                  <a href="index.html">Guest Login</a>
+                </form>
+            </form>
+         </div> 
         <p><a href="register.html">登録していない方はこちら</a></p>
         <p><a href="index.html">ゲストログイン</a></p>
     </body>
