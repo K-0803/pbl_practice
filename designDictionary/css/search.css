@@ -1,9 +1,10 @@
 .genrebutton{
-    padding-left: 4.7%;
+    padding: 5.7%;
 }
 
 .genre{
-    height: 300px;
-    width: 350px;
-    margin: 10px 10px 10px 10px;
+    height: 280px;
+    width: 330px;
+    margin: 15px 15px 15px 15px;
+    border: none;
 }
