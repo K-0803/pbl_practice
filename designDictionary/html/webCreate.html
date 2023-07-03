@@ -74,31 +74,32 @@
         <div>
             <!--仮でプルダウン式で作成しています-->
             <h2>choose the sentence color</h2>
-            <select id="colorSelect" onchange="getColorCode()">
-            <option value="" disabled selected>色を選択してください</option>
-            <option value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
-            <option value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
-            <option value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
+            <select id="colorSelect" onchange="getColorCode()" >
+            <option value="" disabled selected hidden>色を選択してください</option>
+            <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+            <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+            <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
+ 
             </select>
 
         </div>
 
         <div>
             <h2>typography</h2>
-            <button id="buttonId" value="left">左揃え</button>
-            <button id="buttonId" value="center">中央揃え</button>
-            <button id="buttonId" value="right">右揃え</button>
+            <button id="buttonId" value="left" onclick="getButtonText()">左揃え</button>
+            <button id="buttonId" value="center" onclick="getButtonText()">中央揃え</button>
+            <button id="buttonId" value="right" onclick="getButtonText()">右揃え</button>
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
         <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
         </div>
-        <span>
+        <div class="container"><span>
         <!--HTML入力部分-->
-        <textarea class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea></span>
+        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" oninput="preview"></textarea></span>
         <span>
         <!--CSS入力部分-->
-        <textarea class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span>
+        <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span></div>
         <!--お気に入りボタン-->
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
         <!--投稿関係-->
@@ -144,6 +145,18 @@
 
               document.getElementById("colorC").textContent = "中間色C"+ getColorCode(colorB);
               document.getElementById("colorC").style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+
+              optionA.style.backgroundColor = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+                optionA.style.color = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+                optionA.value = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+
+                optionB.style.backgroundColor = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+                optionB.style.color = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+                optionB.value = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+
+                optionC.style.backgroundColor = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+                optionC.style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+                optionC.value = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
             }
 
             // プルダウンの選択が変更された時に呼ばれる関数
@@ -172,22 +185,73 @@
             }
 
             var colorCircleClass = "color-circle";
+            //プルダウン内のカラーを変動させるためのコード
+            // var colorSelect = document.getElementById("colorSelect");
+            // colorSelect.addEventListener("change", updatColors);
 
             //プルダウンメニューを反映する場合
-            document.addEventListener("DOMContentLoaded", function() {
+    //         document.addEventListener("DOMContentLoaded", function() {
+    //     var selectElement = document.getElementById("sentence");
+    //     var inputElement = document.getElementById("code");
+
+    //     selectElement.addEventListener("change", function() {
+    //         var selectedValue = selectElement.value;
+    //         var prefix = "<p> ";
+    //         var suffix = " </p>";
+    //         var modifiedValue = prefix + selectedValue + suffix;
+
+    //         inputElement.value += modifiedValue;
+    //         selectElement.selectedIndex = 0; // 選択肢の初期化
+    //     });
+    // });
+    function sentenceValue() {
         var selectElement = document.getElementById("sentence");
-        var inputElement = document.getElementById("code");
+     var inputElement = document.getElementById("code");
+    var selectedValue = selectElement.value;
+    
+    // 選択された文に基づく処理を実行する
+    if (selectedValue === "働くか死ぬか、それが問題だ。") {
+       var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
 
-        selectElement.addEventListener("change", function() {
-            var selectedValue = selectElement.value;
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "be , or not to be , that is the question.") {
+                var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
+
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "納得はすべてに優先される。") {
+                var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
+
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "Conviction trumps all") {
+                var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
+
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "この社会には変革が必要だ") {
             var prefix = "<p> ";
-            var suffix = " </p>";
-            var modifiedValue = prefix + selectedValue + suffix;
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
 
-            inputElement.value += modifiedValue;
-            selectElement.selectedIndex = 0; // 選択肢の初期化
-        });
-    });
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            }
+        }
 
             //フォントを反映
             function setFont() {
@@ -220,11 +284,12 @@
             //揃え
             function getButtonText() {
             var aliElement = document.getElementById("ccode");
-            var buttonElement = document.getElementById(buttonId);
+            var buttonElement = document.getElementById("buttonId");
             var buttonText = buttonElement.value;
 
             var newStyl1 = "p { text-align: " + buttonText + "; }";
-            aliElement.value = aliElement.value ? aliElement.value + "\n" + newStyle1 :  newStyle1;
+           updatedStyl += newStyl1;
+           aliElement.value=updatedStyl;
             }
 
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
@@ -247,7 +312,15 @@
         style.innerHTML = cssCode;
         // <div id="view"></div> 内にCSSルールを挿入
         document.getElementById("view").appendChild(style);
+
         }
+        //セレクトのフォーカスを外す為のコード
+        const selectElement = document.querySelector('select');
+
+        selectElement.addEventListener('change', () => {
+        selectElement.blur();
+        });
+
         //ここまで
 
         </script>
@@ -257,6 +330,21 @@
                 padding: 0.5em 1em;
                 margin: 2em 0;
                 border: double 5px #BDFF00;
+            }
+            .container {
+                border: none;
+                margin-left: 20%;
+                border-radius: 35px;
+                font-size: 1em;
+                line-height: 2.0;
+            }
+            textarea.html-webpost{
+                resize:vertical;
+                width: 40%;
+            }
+            textarea.css-webpost{
+                resize:vertical;
+                width: 40%;
             }
         </style>
     </body>
