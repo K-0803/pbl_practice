@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ジャンル検索</title>
     <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
-    <link href="../css/webCreate.css" rel="stylesheet" type="text/css">
+    <link href="../css/search.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -24,19 +24,21 @@
     <div class="circle-bg"></div>
 
     <h1>ジャンル検索</h1>
-    <form action="/siteURL" method="post">
+    <form action="サイトURL" method="get">
         <input type="search" name="search" placeholder="キーワードを入力">
         <input type="submit" name="submit" value="検索">
     </form>
 
-    <!--オンクリック属性に検索時の各JSでのメソッドを入れる-->
-    <button type=”button” onclick="">テキスト</button>
-    <button type=”button” onclick="">画像</button>
-    <button type=”button” onclick="">テーブル</button>
-    <br>
-    <button type=”button” onclick="">フィルター</button>
-    <button type=”button” onclick="">レイアウト</button>
-    <button type=”button” onclick="">ボタン</button>
+    <div class="genrebutton">
+        <!--オンクリック属性に検索時の各JSでのメソッドを入れる-->
+        <button type=”button” class="genre" onclick="">テキスト</button>
+        <button type=”button” class="genre" onclick="">画像</button>
+        <button type=”button” class="genre" onclick="">テーブル</button>
+        <br>
+        <button type=”button” class="genre" onclick="">フィルター</button>
+        <button type=”button” class="genre" onclick="">レイアウト</button>
+        <button type=”button” class="genre" onclick="">ボタン</button>
+    </div>
 
     <!-- ハンバーガーメニュー用JQuery,js -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
