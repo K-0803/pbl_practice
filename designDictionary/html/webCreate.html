@@ -25,8 +25,8 @@
         </nav>
         <!-- ハンバーガーメニュー押下後の背景 -->
         <div class="circle-bg"></div>
-
         <h1>WEBサイト作成</h1>
+        <div class="left">
         <div>
             <label for="color-select">色Aを選択:</label>
             <select id="color-select" onchange="updateColors()">
@@ -59,7 +59,8 @@
                 <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
             </select>
         </div>
-
+        </div>
+        <div class="right">
         <div>
             <h2>font</h2>
             <select id="myfont" onchange="setFont()">
@@ -82,6 +83,8 @@
  
             </select>
 
+         </div>
+        
         </div>
 
         <div>
@@ -89,15 +92,20 @@
             <button id="buttonId" value="left" onclick="getButtonText()">左揃え</button>
             <button id="buttonId" value="center" onclick="getButtonText()">中央揃え</button>
             <button id="buttonId" value="right" onclick="getButtonText()">右揃え</button>
-        </div>
+        </div></div>
+
         <!--ココからTHML・CSSコ表示系統-->
+        <div class="clear">
         <!--プレビュー画面-->
+        <div class="divcontainer">
         <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
         </div>
-        <div class="container"><span>
+        </div>
+        <div class="container">
+   
         <!--HTML入力部分-->
-        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" oninput="preview"></textarea></span>
-        <span>
+        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" oninput="preview"></textarea>
+        
         <!--CSS入力部分-->
         <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span></div>
         <!--お気に入りボタン-->
@@ -106,6 +114,7 @@
         <textarea class="textbox-webpost" placeholder="投稿文" id="posting" required></textarea>
 
         <button type="submit"><img src="画像url" alt="投稿" /></button>
+        </div>
 
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -234,7 +243,7 @@
         inputElement.value += modifiedValue;
         selectElement.selectedIndex = 0; // 選択肢の初期化
 
-            } else if (selectedValue === "Conviction trumps all") {
+            } else if (selectedValue === "Conviction trumps all.") {
                 var prefix = "<p> ";
         var suffix = " </p>";
         var modifiedValue = prefix + selectedValue + suffix;
@@ -242,7 +251,7 @@
         inputElement.value += modifiedValue;
         selectElement.selectedIndex = 0; // 選択肢の初期化
 
-            } else if (selectedValue === "この社会には変革が必要だ") {
+            } else if (selectedValue === "この社会には変革が必要だ。") {
             var prefix = "<p> ";
         var suffix = " </p>";
         var modifiedValue = prefix + selectedValue + suffix;
@@ -269,16 +278,19 @@
             var selectedColorCode = colorSelect.value;
 
             var currentStyles = colorCodeElement.value;
+           
             var newStyles = "p { color: " + selectedColorCode + "; }";
             
             // 「p{color: }」の部分を削除
             var updatedStyles = currentStyles.replace(/p\s*\{\s*color:\s*[^;]*;\s*\}/g, "");
             
             // テキストの末尾に新しいスタイル定義を追加
-            updatedStyles += newStyles;
-            
-            colorCodeElement.value = updatedStyles;
+            if (selectedColorCode !== "") {
+                updatedStyles += newStyles;
             }
+
+            colorCodeElement.value = updatedStyles;
+                    }
 
 
             //揃え
@@ -326,14 +338,48 @@
         </script>
         <!--プレビュー画面の枠のCSS-->
         <style>
+            .allbox{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                
+            }
+            .left{
+                float: left;
+                margin-left: 25%;
+                margin-right: auto;
+                width:30%
+             
+            }
+            .right{
+                
+                display: inline-block;
+                width: 30%
+           
+            }
+            .clear{
+                clear: both;
+            }
+            .divcontainer {
+                text-align: left;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
             .preview{
                 padding: 0.5em 1em;
                 margin: 2em 0;
                 border: double 5px #BDFF00;
+                resize: vertical;
+                width: 80%;
+                display: inline-block; /* 必要に応じて追加 */
+
             }
             .container {
                 border: none;
                 margin-left: 20%;
+                margin-right: auto;
                 border-radius: 35px;
                 font-size: 1em;
                 line-height: 2.0;
@@ -346,6 +392,7 @@
                 resize:vertical;
                 width: 40%;
             }
+
         </style>
     </body>
 </html>
