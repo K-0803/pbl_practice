@@ -5,6 +5,9 @@
         <title>WEBサイト作成</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <link href="../css/post.css" rel="stylesheet" type="text/css">
+        <!--フォント適用のため-->
+        <link href="https://fonts.googleapis.com/css?family=Ravi+Prakash" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/earlyaccess/kokoro.css" rel="stylesheet">
 
     </head>
 
@@ -48,6 +51,7 @@
         <div>
             <h2>select a sentence</h2>
             <select id="sentence" onchange="sentenceValue()">
+                <option disabled selected hidden>文章を選択してください</option>
                 <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
                 <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
                 <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
@@ -58,8 +62,9 @@
 
         <div>
             <h2>font</h2>
-            <select id="mySelect" onchange="setInputValue()">
-                <option value="いろは角クラシック Regular">いろは角クラシック Regular</option>
+            <select id="myfont" onchange="setFont()">
+                <option disabled selected hidden>フォントを選択してください</option>
+                <option value="いろは角クラシック">いろは角クラシック Regular</option>
                 <option value="Old Standard">Old Standard</option>
                 <option value="">#サイコ～フォント</option>
                 <option value="">#フォントにほんと？</option>
@@ -67,30 +72,41 @@
         </div>
 
         <div>
+            <!--仮でプルダウン式で作成しています-->
             <h2>choose the sentence color</h2>
+            <select id="colorSelect" onchange="getColorCode()" >
+            <option value="" disabled selected hidden>色を選択してください</option>
+            <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+            <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+            <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
+ 
+            </select>
 
         </div>
 
         <div>
             <h2>typography</h2>
-            <button>左揃え</button><button>中央揃え</button><button>右揃え</button>
+            <button id="buttonId" value="left" onclick="getButtonText()">左揃え</button>
+            <button id="buttonId" value="center" onclick="getButtonText()">中央揃え</button>
+            <button id="buttonId" value="right" onclick="getButtonText()">右揃え</button>
         </div>
         <!--ココからTHML・CSSコ表示系統-->
         <!--プレビュー画面-->
-        <form method="POST" action="/generate">
-            <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ">
-            </div>
-            <!--HTML入力部分-->
-            <textarea name="htmlContent" class="html-webpost" placeholder="HTML文" id="code" oninput="preview"></textarea>
-            <!--CSS入力部分-->
-            <textarea name="cssContent" class="css-webpost" placeholder="CSSコード" id="ccode" oninput="preview"></textarea>
-            <!--お気に入りボタン-->
-            <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
-            <!--投稿関係-->
-            <textarea name="comment" class="textbox-webpost" placeholder="投稿文"></textarea>
+        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
+        </div>
+        <div class="container"><span>
+        <!--HTML入力部分-->
+        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" oninput="preview"></textarea></span>
+        <span>
+        <!--CSS入力部分-->
+        <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span></div>
+        <!--お気に入りボタン-->
+        <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
+        <!--投稿関係-->
+        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" required></textarea>
 
-            <button type="submit"><img src="画像url" alt="投稿" /></button>
-        </form>
+        <button type="submit"><img src="画像url" alt="投稿" /></button>
+
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="../js/main.js"></script>
@@ -129,6 +145,18 @@
 
               document.getElementById("colorC").textContent = "中間色C"+ getColorCode(colorB);
               document.getElementById("colorC").style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+
+              optionA.style.backgroundColor = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+                optionA.style.color = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+                optionA.value = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+
+                optionB.style.backgroundColor = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+                optionB.style.color = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+                optionB.value = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
+
+                optionC.style.backgroundColor = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+                optionC.style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
+                optionC.value = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
             }
 
             // プルダウンの選択が変更された時に呼ばれる関数
@@ -157,31 +185,112 @@
             }
 
             var colorCircleClass = "color-circle";
+            //プルダウン内のカラーを変動させるためのコード
+            // var colorSelect = document.getElementById("colorSelect");
+            // colorSelect.addEventListener("change", updatColors);
 
             //プルダウンメニューを反映する場合
-            document.addEventListener("DOMContentLoaded", function() {
+    //         document.addEventListener("DOMContentLoaded", function() {
+    //     var selectElement = document.getElementById("sentence");
+    //     var inputElement = document.getElementById("code");
+
+    //     selectElement.addEventListener("change", function() {
+    //         var selectedValue = selectElement.value;
+    //         var prefix = "<p> ";
+    //         var suffix = " </p>";
+    //         var modifiedValue = prefix + selectedValue + suffix;
+
+    //         inputElement.value += modifiedValue;
+    //         selectElement.selectedIndex = 0; // 選択肢の初期化
+    //     });
+    // });
+    function sentenceValue() {
         var selectElement = document.getElementById("sentence");
-        var inputElement = document.getElementById("code");
+     var inputElement = document.getElementById("code");
+    var selectedValue = selectElement.value;
+    
+    // 選択された文に基づく処理を実行する
+    if (selectedValue === "働くか死ぬか、それが問題だ。") {
+       var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
 
-        selectElement.addEventListener("change", function() {
-            var selectedValue = selectElement.value;
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "be , or not to be , that is the question.") {
+                var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
+
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "納得はすべてに優先される。") {
+                var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
+
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "Conviction trumps all") {
+                var prefix = "<p> ";
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
+
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            } else if (selectedValue === "この社会には変革が必要だ") {
             var prefix = "<p> ";
-            var suffix = " </p>";
-            var modifiedValue = prefix + selectedValue + suffix;
+        var suffix = " </p>";
+        var modifiedValue = prefix + selectedValue + suffix;
 
-            inputElement.value += modifiedValue;
-            selectElement.selectedIndex = 0; // 選択肢の初期化
-        });
-    });
+        inputElement.value += modifiedValue;
+        selectElement.selectedIndex = 0; // 選択肢の初期化
+
+            }
+        }
 
             //フォントを反映
-            function setInputValue() {
-            var selectElement = document.getElementById("mySelect");
-            var divElement = document.getElementById("view");
+            function setFont() {
+            var selectElement = document.getElementById("myfont");
+            var textBoxElement = document.getElementById("ccode");
             var selectedValue = selectElement.value;
 
-            divElement.style.fontFamily = selectedValue;
-        }
+            var newStyle = 'p{font-family:"' + selectedValue + '";}';
+             textBoxElement.value += newStyle;
+            }
+            //センテンスカラー（仮）
+            function getColorCode() {
+            var colorSelect = document.getElementById("colorSelect");
+            var colorCodeElement = document.getElementById("ccode");
+            var selectedColorCode = colorSelect.value;
+
+            var currentStyles = colorCodeElement.value;
+            var newStyles = "p { color: " + selectedColorCode + "; }";
+            
+            // 「p{color: }」の部分を削除
+            var updatedStyles = currentStyles.replace(/p\s*\{\s*color:\s*[^;]*;\s*\}/g, "");
+            
+            // テキストの末尾に新しいスタイル定義を追加
+            updatedStyles += newStyles;
+            
+            colorCodeElement.value = updatedStyles;
+            }
+
+
+            //揃え
+            function getButtonText() {
+            var aliElement = document.getElementById("ccode");
+            var buttonElement = document.getElementById("buttonId");
+            var buttonText = buttonElement.value;
+
+            var newStyl1 = "p { text-align: " + buttonText + "; }";
+           updatedStyl += newStyl1;
+           aliElement.value=updatedStyl;
+            }
 
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
@@ -203,9 +312,40 @@
         style.innerHTML = cssCode;
         // <div id="view"></div> 内にCSSルールを挿入
         document.getElementById("view").appendChild(style);
+
         }
+        //セレクトのフォーカスを外す為のコード
+        const selectElement = document.querySelector('select');
+
+        selectElement.addEventListener('change', () => {
+        selectElement.blur();
+        });
+
         //ここまで
 
         </script>
+        <!--プレビュー画面の枠のCSS-->
+        <style>
+            .preview{
+                padding: 0.5em 1em;
+                margin: 2em 0;
+                border: double 5px #BDFF00;
+            }
+            .container {
+                border: none;
+                margin-left: 20%;
+                border-radius: 35px;
+                font-size: 1em;
+                line-height: 2.0;
+            }
+            textarea.html-webpost{
+                resize:vertical;
+                width: 40%;
+            }
+            textarea.css-webpost{
+                resize:vertical;
+                width: 40%;
+            }
+        </style>
     </body>
 </html>
