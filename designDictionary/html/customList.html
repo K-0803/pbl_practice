@@ -17,6 +17,7 @@
                 xhr.send();
             });
         </script>
+        
     </head>
 
     <body>
@@ -39,13 +40,13 @@
         
         <a href="postDetails.html"><img src="画像url" alt="WEBカスタム"></a>
         <button type="submit"><img src="画像url" alt="お気に入り" /></button>
+        
         <form action="/customList" method="POST">
             <input type="submit" value="送信">
-            <div id="viewArea" contenteditable="true">
-                
+            <div>
+                {{customhtml}}
+                <!-- {{customcss}} -->
             </div>
-            {{customhtml}}
-            {{customcss}}
         </form>
 
         <!-- ハンバーガーメニュー用JQuery,js -->
@@ -53,9 +54,9 @@
         <script src="../js/main.js"></script>
         <script>
             window.addEventListener('DOMContentLoaded', function(){
-                var htmlCode = document.getElementById("htmlCode").textContent;
-                var cssCode = document.getElementById("cssCode").textContent;
-                var viewArea = document.getElementById("viewArea");
+                var htmlCode = document.getElementsByClassName("htmlCode").textContent;
+                var cssCode = document.getElementByClassName("cssCode").textContent;
+                var viewArea = document.getElementByClassName("viewArea");
 
                 preview(htmlCode, cssCode, viewArea);
             });
