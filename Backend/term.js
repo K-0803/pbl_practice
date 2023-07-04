@@ -60,7 +60,7 @@ app.get('/siteURL', function(req, res){
         });
       
    
-
+        
     // クエリを実行し、結果を取得
     pool.query(query, (err, result) => {
       if (err) {
@@ -73,7 +73,7 @@ app.get('/siteURL', function(req, res){
             console.error('HTML読み込みエラー:', err);
             res.statusCode = 500;
             res.end('HTMLファイルの読み込みエラーが発生しました');
-          } else {
+          } else if(result.rows != ''){
             // HTMLテーブルの作成
             let tableHTML = '<table border="1">';
             tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
@@ -89,6 +89,17 @@ app.get('/siteURL', function(req, res){
             res.setHeader('Content-Type', 'text/html');
             res.statusCode = 200;
             res.end(htmlContent);
+          }else{
+            let tableHTML = '<table border="1">';
+          tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
+            tableHTML += `<tr>検索結果:0件</tr>`;
+          tableHTML += '</table>';
+
+          // レスポンスとしてHTMLを返す
+          htmlContent = htmlContent.replace('{{table}}', tableHTML);
+          res.setHeader('Content-Type', 'text/html');
+          res.statusCode = 200;
+          res.end(htmlContent);
           }
         });
       }
