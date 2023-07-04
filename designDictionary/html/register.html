@@ -37,28 +37,8 @@
     <script>
 
 document.getElementById('myForm').addEventListener('submit', function(event) {
-         event.preventDefault(); // フォームのデフォルトの送信をキャンセル
-     
-         var textpass = document.getElementById('textpass').value;
-         var textrepass = document.getElementById('textrepass').value;
 
-            if (textpass == "" || textrepass == ""){
-                document.getElementById('boolean1').value = 'パスワードを入力してください';
-                document.getElementById('boolean2').value = 'パスワードを入力してください';
-                if(textpass == ""){
-                    document.getElementById('boolean1').value = '';
-                    document.getElementById('boolean2').value = '入力してください';
-                }else{
-                    document.getElementById('boolean1').value = 'パスワードを入力してください';
-                    document.getElementById('boolean2').value = '';
-                }
-            } else if (textpass === textrepass) {
-            } else {
-                document.getElementById('boolean1').value = '同じ値を入力してください';
-                document.getElementById('boolean2').value = '同じ値を入力してください';
-            } 
-
-
+            this.submit();
         })
 </script>
 </html>

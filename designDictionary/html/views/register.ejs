@@ -14,20 +14,17 @@
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
-            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= pass %></span><br>
+            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= epass %></span><br>
             <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= repass %></span><br>
+            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= erepass %></span><br>
             <input id="textrepass" name="repass" type="password" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
             <span class="textbox-login-name">UserName</span><br>
             <input name="name" type="text" class="textbox-name" placeholder="username"/>
         </label><br>
-
-        <input type="hidden" id="boolean1" name="boolean1" value="">
-        <input type="hidden" id="boolean2" name="boolean2" value="">
 
         <p id="text1"></p>
         <button type="submit">送信</button>
@@ -37,26 +34,7 @@
     <script>
 
 document.getElementById('myForm').addEventListener('submit', function(event) {
-         event.preventDefault(); // フォームのデフォルトの送信をキャンセル
-     
-         var textpass = document.getElementById('textpass').value;
-         var textrepass = document.getElementById('textrepass').value;
 
-            if (textpass == "" || textrepass == ""){
-                document.getElementById('boolean1').value = 'パスワードを入力してください';
-                document.getElementById('boolean2').value = 'パスワードを入力してください';
-                if(textpass == ""){
-                    document.getElementById('boolean1').value = '';
-                    document.getElementById('boolean2').value = '入力してください';
-                }else{
-                    document.getElementById('boolean1').value = 'パスワードを入力してください';
-                    document.getElementById('boolean2').value = '';
-                }
-            } else if (textpass === textrepass) {
-            } else {
-                document.getElementById('boolean1').value = '同じ値を入力してください';
-                document.getElementById('boolean2').value = '同じ値を入力してください';
-            } 
             this.submit();
 
         })
