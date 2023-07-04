@@ -3,28 +3,32 @@
     <head>
         <meta charset="utf-8">
         <title>新規登録</title>
-        <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
-        <link href="../css/login.css" rel="stylesheet" type="text/css">
+        <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
+        <link href="/css/login.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
         <form method="POST" id="myForm" action="/register">
         <label>
-            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"></span><br>
+            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= mail %></span><br>
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
-            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"></span><br>
+            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= pass %></span><br>
             <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"></span><br>
+            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= repass %></span><br>
             <input id="textrepass" name="repass" type="password" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
             <span class="textbox-login-name">UserName</span><br>
             <input name="name" type="text" class="textbox-name" placeholder="username"/>
         </label><br>
+
+        <input type="hidden" id="boolean1" name="boolean1" value="">
+        <input type="hidden" id="boolean2" name="boolean2" value="">
+
         <p id="text1"></p>
         <button type="submit">送信</button>
         </form>
@@ -33,29 +37,8 @@
     <script>
 
 document.getElementById('myForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // フォームのデフォルトの送信をキャンセル
 
-            var textpass = document.getElementById('textpass').value;
-            var textrepass = document.getElementById('textrepass').value;
-            var pmiss = document.getElementById('pmiss');
-            var repmiss = document.getElementById('repmiss');
-
-            // 入力値と比較
-            if (textpass == "" || textrepass == ""){
-                console.log("空白です");
-                if(textpass == ""){
-                    pmiss.innerHTML = "パスワードを入力してください";
-                }else{
-                    repmiss.innerHTML = "パスワードを入力してください";
-                }
-            } else if (textpass === textrepass) {
-                this.submit();
-                console.log("同じです");
-            } else {
-                console.log("同じじゃない");
-                pmiss.innerHTML = "もう一度入力してください";
-                repmiss.innerHTML = "もう一度入力してください";
-            }   
-        });
-    </script>
+            this.submit();
+        })
+</script>
 </html>
