@@ -6,6 +6,7 @@ const path = require('path');   //相対パスを使用可能にする
 const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
 const express = require('express');
 const app = express();
+const router = express.Router();
 
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
@@ -24,13 +25,13 @@ const dbConfig = {
 // データベース接続
 const pool = new Pool(dbConfig);
 
-app.get('/termDictionary', (req, res) => {
-  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
-  console.log(sendFile);
-});
+// router.get('/termDictionary', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
+//   console.log(sendFile);
+// });
 
 
-  app.post('/termDictionary',function(req,res){
+  router.post('/',function(req,res){
     const cssQuery = 'SELECT * FROM css_model';
     const htmlQuery = 'SELECT * FROM html_model';
   
@@ -65,7 +66,7 @@ app.get('/termDictionary', (req, res) => {
   
             // HTMLテーブルの作成
             let htmlTableHTML = '<table border="1">';
-            htmlTableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
+            htmlTableHTML += '<tr><th>タグ名</th><th>説明</th></tr>';
   
             htmlRows.forEach((row) => {
               htmlTableHTML += `<tr><td>${row.html_code}</td><td>${row.html_summary}</td></tr>`;
@@ -88,8 +89,9 @@ app.get('/termDictionary', (req, res) => {
         res.status(500).send('エラーが発生しました'); // エラーレスポンスを返す
       });
   });
+  module.exports =router;
 
-// サーバーの起動
-app.listen(8080, () => {
-  console.log('サーバーがポート8080で起動しました');
-});
+// // サーバーの起動
+// app.listen(8080, () => {
+//   console.log('サーバーがポート8080で起動しました');
+// });
