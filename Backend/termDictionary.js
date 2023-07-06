@@ -25,10 +25,10 @@ const dbConfig = {
 // データベース接続
 const pool = new Pool(dbConfig);
 
-// router.get('/termDictionary', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
-//   console.log(sendFile);
-// });
+router.get('/termDictionary', (req, res) => {
+  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
+  console.log(sendFile);
+});
 
 
   router.post('/',function(req,res){
