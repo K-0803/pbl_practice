@@ -5,12 +5,13 @@ const express = require('express');
 const path = require('path');   //相対パスを使用可能にする
 const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
 const app = express();
+const cookieParser = require('cookie-parser');
 const port = 80;
 
 var html = require('fs').readFileSync('../designDictionary/html/login.html');
 var resultArray = [];
 var resultCnt = 0;
-var resultId = 0;
+var resultId = null;
 // var reditFlag = false;
 
 //ミドルウェアの設定
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用す�
 app.use(bodyParser.json());                             //
 app.use(express.static(path.join('../designDictionary'))); 
 app.use(express.json());
+app.use(cookieParser());
 
 //getリクエストの処理・ページを開いたときにhtmlが表示される
 app.get('/login', function(req, res){
@@ -30,14 +32,13 @@ app.get('/login', function(req, res){
 //postリクエストの処理
 app.post('/login', function(req, res){
     const {email, pass} = req.body; //リクエストボディのデータ取得
-    console.log(email);
-    console.log(pass);
 
     getPass(email, pass)
-        .then(function(redUrl){
-            console.log('値は=' + redUrl);
-            if (redUrl === '/redirect') {
-                res.redirect(req.baseUrl + '/index.html');
+        .then(function(redId){
+            if (redId != null) {
+                res.cookie('userId', redId);
+                console.log("userIdは" + redId);
+                res.redirect(req.baseUrl + '/html/index.html');
                 res.end();
             } else {
                 res.end(html);
@@ -82,10 +83,11 @@ function getPass(email, pass){
                 return client.query(query);
             })
             .then(function(res){
-                // console.log(res);
+                console.log(res);
                 resultCnt = res.rowCount;
                 if(resultCnt == 0){
                     console.log("resultCnt = 0");
+                    resultId = null;
                     redct = 'error';
                     notifier.notify({
                         title: "エラー通知",
@@ -95,18 +97,16 @@ function getPass(email, pass){
                     resultArray = res.rows[0].user_name;
                     resultId = res.rows[0].user_id;
                     console.log("resultCnt != 0")
-                    redct = '/redirect';
                     notifier.notify({
                         title: "ログイン通知",
                         message:`ようこそ${resultArray}さん`
                     });
                     
                 }
-                console.log(resultArray);
                 console.log(resultId);
-                console.log(redct);
+
                 client.end();
-                resolve(redct, resultId);
+                resolve(resultId);
             })
             .catch(function(e){
                 console.error(e.stack);
@@ -116,57 +116,57 @@ function getPass(email, pass){
     
 }
 
-function getPass(email, pass){
-    const {Client} = require("pg");
-    const client = new Client({
-        user: "postgres",//ユーザー名
-        host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
-        database: "postgres",//DB名
-        password: "shirokuma123",//ユーザーパスワード
-        port: 5432, 
-    });
+// function getPass(email, pass){
+//     const {Client} = require("pg");
+//     const client = new Client({
+//         user: "postgres",//ユーザー名
+//         host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
+//         database: "postgres",//DB名
+//         password: "shirokuma123",//ユーザーパスワード
+//         port: 5432, 
+//     });
 
-    return new Promise(function(resolve, reject){
-        client
-            .connect()
-            .then(function(){
-                const query = {
-                    text: "SELECT user_id, user_name from user_info where address = ($1) and pwd = ($2)",
-                    values: [email, pass],
-                };
+//     return new Promise(function(resolve, reject){
+//         client
+//             .connect()
+//             .then(function(){
+//                 const query = {
+//                     text: "SELECT user_id, user_name from user_info where address = ($1) and pwd = ($2)",
+//                     values: [email, pass],
+//                 };
 
                 
-                return client.query(query);
-            })
-            .then(function(res){
+//                 return client.query(query);
+//             })
+//             .then(function(res){
                 
-                resultCnt = res.rowCount;
-                if(resultCnt == 0){
-                    console.log("resultCnt = 0");
-                    redct = 'error';
-                    notifier.notify({
-                        title: "エラー通知",
-                        message:"入力ミスがあります。再入力して下さい。"
-                    });
-                }else{
-                    resultArray = res.rows[0].user_name;
-                    console.log("resultCnt != 0")
-                    redct = '/redirect';
-                    notifier.notify({
-                        title: "ログイン通知",
-                        message:`ようこそ${resultArray}さん`
-                    });
+//                 resultCnt = res.rowCount;
+//                 if(resultCnt == 0){
+//                     console.log("resultCnt = 0");
+//                     redct = 'error';
+//                     notifier.notify({
+//                         title: "エラー通知",
+//                         message:"入力ミスがあります。再入力して下さい。"
+//                     });
+//                 }else{
+//                     resultArray = res.rows[0].user_name;
+//                     console.log("resultCnt != 0")
+//                     redct = '/redirect';
+//                     notifier.notify({
+//                         title: "ログイン通知",
+//                         message:`ようこそ${resultArray}さん`
+//                     });
                     
-                }
-                console.log(resultArray);
-                console.log(redct);
-                client.end();
-                resolve(redct);
-            })
-            .catch(function(e){
-                console.error(e.stack);
-                reject(e);
-            });
-    });
+//                 }
+//                 console.log(resultArray);
+//                 console.log(redct);
+//                 client.end();
+//                 resolve(redct);
+//             })
+//             .catch(function(e){
+//                 console.error(e.stack);
+//                 reject(e);
+//             });
+//     });
     
-}
+// }

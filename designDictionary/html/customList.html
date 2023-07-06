@@ -27,7 +27,7 @@
                 <ul>
                     <li><a href="mypage.html">マイページ</a></li> 
                     <li><a href="index.html">目次</a></li> 
-                    <li><a href="#">ログアウト</a></li>
+                    <li><a href="login.html">ログイン</a></li>
                 </ul>
             </div>
         </nav>
@@ -39,30 +39,43 @@
         
         <a href="postDetails.html"><img src="画像url" alt="WEBカスタム"></a>
         <button type="submit"><img src="画像url" alt="お気に入り" /></button>
-        <div id="viewArea" contenteditable="true">
-        </div>
+        <form action="/customList" method="POST">
+            <input type="submit" value="送信">
+            <div id="viewArea" contenteditable="true">
+                
+            </div>
+            {{customhtml}}
+            {{customcss}}
+        </form>
 
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="../js/main.js"></script>
         <script>
-            var obj = document.activeElement;
-       
-            code.addEventListener("input",preview);
-            ccode.addEventListener("input",preview);
+            window.addEventListener('DOMContentLoaded', function(){
+                var htmlCode = document.getElementById("htmlCode").textContent;
+                var cssCode = document.getElementById("cssCode").textContent;
+                var viewArea = document.getElementById("viewArea");
 
-            function preview() {
+                preview(htmlCode, cssCode, viewArea);
+            });
+       
+            htmlCode.addEventListener("input",preview);
+            cssCode.addEventListener("input",preview);
+
+            function preview(htmlCode, cssCode, viewArea) {
                 // HTMLコードとCSSコードを取得
-                var htmlCode = document.getElementById("code").value;
-                var cssCode = document.getElementById("ccode").value;
+                
                 // <div id="view"></div> 内にHTMLコードを挿入
-                document.getElementById("viewArea").innerHTML = htmlCode;
+                viewArea.innerHTML = htmlCode;
                 // CSSルールを定義
                 var style = document.createElement("style");
                 style.innerHTML = cssCode;
                 // <div id="view"></div> 内にCSSルールを挿入
-                document.getElementById("viewArea").appendChild(style);
+                viewArea.appendChild(style);
             }
+
+            
         </script>
     </body>
 </html>
