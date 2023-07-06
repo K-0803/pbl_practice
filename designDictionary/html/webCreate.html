@@ -89,13 +89,18 @@
 
         <div>
             <h2>typography</h2>
-            <button id="buttonId" value="left" onclick="getButtonText()">左揃え</button>
-            <button id="buttonId" value="center" onclick="getButtonText()">中央揃え</button>
-            <button id="buttonId" value="right" onclick="getButtonText()">右揃え</button>
-        </div></div>
+            <button id="leftButton" value="left" onclick="getButtonText('left')">左揃え</button>
+            <button id="centerButton" value="center" onclick="getButtonText('center')">中央揃え</button>
+            <button id="rightButton" value="right" onclick="getButtonText('right')">右揃え</button>
+        </div>
+        </div>
 
         <!--ココからTHML・CSSコ表示系統-->
-        <div class="clear">
+        <!--初期化ボタン-->
+        
+            <button onclick="resetTextAreas()" class="syokika">初期化</button>
+       
+        <div class="clear" >
         <!--プレビュー画面-->
         <div class="divcontainer">
         <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
@@ -121,6 +126,15 @@
         <script src="../js/main.js"></script>
         
         <script>
+            //初期化ボタンの処理
+            function resetTextAreas() {
+                var htmlTextArea = document.getElementById("code");
+                var cssTextArea = document.getElementById("ccode");
+
+                htmlTextArea.value = ""; // HTMLテキストエリアの内容を初期化
+                cssTextArea.value = ""; // CSSテキストエリアの内容を初期化
+            }
+
             // 初期選択の色AのRGB値を取得
             var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
             var colorA = {
@@ -294,15 +308,16 @@
 
 
             //揃え
-            function getButtonText() {
-            var aliElement = document.getElementById("ccode");
-            var buttonElement = document.getElementById("buttonId");
-            var buttonText = buttonElement.value;
+            function getButtonText(buttonValue) {
+                var aliElement = document.getElementById("ccode");
+                var buttonText = buttonValue;
 
-            var newStyl1 = "p { text-align: " + buttonText + "; }";
-           updatedStyl += newStyl1;
-           aliElement.value=updatedStyl;
+                var updatedStyl = aliElement.value; // 初期化
+                var newStyl1 = ".preview{ text-align: " + buttonText + "; }";
+                updatedStyl += newStyl1;
+                aliElement.value = updatedStyl;
             }
+
 
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
         
@@ -370,7 +385,11 @@
             .preview{
                 padding: 0.5em 1em;
                 margin: 2em 0;
-                border: double 5px #BDFF00;
+                background: white;
+                border-top: solid 5px #5d627b;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+                border-left: double 7px #bbff00;/*左線*/
+                border-right: double 7px #bbff00;/*右線*/
                 resize: vertical;
                 width: 80%;
                 display: inline-block; /* 必要に応じて追加 */
@@ -392,6 +411,15 @@
                 resize:vertical;
                 width: 40%;
             }
+            .shokika{
+                display: inline-block;
+                padding: 10px 20px;
+                border-radius: 50%;
+                background-color: lightcoral;
+
+            }
+
+
 
         </style>
     </body>
