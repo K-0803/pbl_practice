@@ -2,7 +2,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const router = require('.');
 const app = express();
+const router = express.Router();
 
 let sql = "";
 let value = "";
@@ -27,11 +29,11 @@ app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
-app.get('/register', function(req, res) {
+router.get('/', function(req, res) {
   res.render('register', inputerr); 
 });
 
-app.post('/register', function(req, res) {
+router.post('/', function(req, res) {
   const { email, pass, name, repass } = req.body;
   console.log(email);
   console.log(pass);
@@ -109,9 +111,9 @@ app.post('/register', function(req, res) {
 });
 
 
-app.listen(8080, function() {
-  console.log('サーバーがポート8080で起動しました。');
-});
+// app.listen(8080, function() {
+//   console.log('サーバーがポート8080で起動しました。');
+// });
 
 function InsData(sql, value) {
   // postgres接続
@@ -163,3 +165,5 @@ console.log(value);
       });
   });
 }
+
+module.exports =router;
