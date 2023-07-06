@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');  //req.bodyを使用できるよう�
 const app = express();
 const cookieParser = require('cookie-parser');
 const port = 80;
+const router = express.Router();
 
 var html = require('fs').readFileSync('../designDictionary/html/login.html');
 var resultArray = [];
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //getリクエストの処理・ページを開いたときにhtmlが表示される
-app.get('/login', function(req, res){
+router.get('/', function(req, res){
     const filePath = path.join('../designDictionary/html/login.html');
     console.log(filePath);
     res.sendFile(filePath);
@@ -30,7 +31,7 @@ app.get('/login', function(req, res){
 });
 
 //postリクエストの処理
-app.post('/login', function(req, res){
+router.post('/', function(req, res){
     const {email, pass} = req.body; //リクエストボディのデータ取得
 
     getPass(email, pass)
@@ -56,9 +57,9 @@ app.post('/login', function(req, res){
 //     console.log('サーバーが起動しました。');
 // })
 
-app.listen(8080, function(){
-    console.log("aaaaa!");
-})
+// app.listen(8080, function(){
+//     console.log("aaaaa!");
+// })
 
 function getPass(email, pass){
     const {Client} = require("pg");
@@ -116,6 +117,7 @@ function getPass(email, pass){
     
 }
 
+module.exports =router;
 // function getPass(email, pass){
 //     const {Client} = require("pg");
 //     const client = new Client({

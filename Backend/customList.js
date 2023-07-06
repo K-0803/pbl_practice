@@ -5,6 +5,7 @@ const fs = require('fs');
 // const ejs = require('ejs');
 const path = require('path');   //相対パスを使用可能にする
 const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
+const router = express.Router();
 
 var html = require('fs').readFileSync('../designDictionary/html/customList.html');
 const {Client} = require("pg");
@@ -28,14 +29,14 @@ const client = new Client({
     port: 5432,
 });
 
-app.get('/', function(req, res){
+router.get('/', function(req, res){
     const filePath = path.join('../designDictionary/html/customList.html');
     console.log(filePath);
     res.sendFile(filePath);
     res.end();
 })
 
-app.post('/customList', function(req, res){
+router.post('/', function(req, res){
     // const userId = req.cookies.userId;
     //デバッグ用userId
     const userId = 1;
@@ -111,6 +112,9 @@ app.post('/customList', function(req, res){
             
 })
 
-app.listen(8080, function(){
-    console.log("サーバーがポート8080で起動しました。");
-})
+module.exports =router;
+
+// app.listen(8080, function(){
+//     console.log("サーバーがポート8080で起動しました。");
+// })
+

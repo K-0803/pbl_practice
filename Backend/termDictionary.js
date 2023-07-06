@@ -6,6 +6,7 @@ const path = require('path');   //相対パスを使用可能にする
 const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
 const express = require('express');
 const app = express();
+const router = express.Router();
 
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
@@ -24,13 +25,13 @@ const dbConfig = {
 // データベース接続
 const pool = new Pool(dbConfig);
 
-app.get('/termDictionary', (req, res) => {
+router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
   console.log(sendFile);
 });
 
 
-  app.post('/termDictionary',function(req,res){
+  router.post('/',function(req,res){
     const cssQuery = 'SELECT * FROM css_model';
     const htmlQuery = 'SELECT * FROM html_model';
   
@@ -89,7 +90,9 @@ app.get('/termDictionary', (req, res) => {
       });
   });
 
+  module.exports =router;
+
 // サーバーの起動
-app.listen(8080, () => {
-  console.log('サーバーがポート8080で起動しました');
-});
+// app.listen(8080, () => {
+//   console.log('サーバーがポート8080で起動しました');
+// });

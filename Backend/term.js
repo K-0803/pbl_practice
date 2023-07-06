@@ -6,6 +6,7 @@ const path = require('path');   //相対パスを使用可能にする
 const bodyParser = require('body-parser');  //req.bodyを使用できるようにする
 const express = require('express');
 const app = express();
+const router = express.Router();
 
 //ミドルウェアの設定
 app.use(bodyParser.urlencoded({ extended: false }));    //req.bodyを使用するためのミドルウェア
@@ -25,7 +26,7 @@ const dbConfig = {
 const pool = new Pool(dbConfig);
 
 //getリクエストの処理
-app.get('/siteURL', function(req, res){
+router.get('/', function(req, res){
 
   //ページが開かれたときにhtmlを表示する処理
   const filePath = path.join('../designDictionary/html/searchResult.html');
@@ -35,7 +36,7 @@ app.get('/siteURL', function(req, res){
   res.end();
 });
 
-  app.post('/siteURL',function(req,res){
+  router.post('/',function(req,res){
     const {search} = req.body;//リクエストボディのデータ取得
     //console.log("serchの中身は:"+search);
   //if文の条件を変更。キーワード入力エリアが空白でない場合に処理実行
@@ -128,10 +129,11 @@ app.get('/siteURL', function(req, res){
     }
   });
 // サーバーの起動
-app.listen(8080, () => {
-  console.log('サーバーがポート8080で起動しました');
-});
+// app.listen(8080, () => {
+//   console.log('サーバーがポート8080で起動しました');
+// });
 
+module.exports =router;
 
 
 
