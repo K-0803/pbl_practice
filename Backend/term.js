@@ -37,8 +37,11 @@ router.get('/', function(req, res){
 });
 
   router.post('/',function(req,res){
-    const {search} = req.body;//リクエストボディのデータ取得
-    //console.log("serchの中身は:"+search);
+
+    console.log(req.body.search);
+
+    const {search} = req.body.search;//リクエストボディのデータ取得
+    //console.log("serchの中身は:"+search);}
   //if文の条件を変更。キーワード入力エリアが空白でない場合に処理実行
   if (search != '') {
     
