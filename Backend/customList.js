@@ -64,10 +64,11 @@ router.post('/', function(req, res){
                     fs.promises.readFile(cssFilePath, 'utf8')
                 ])
                     .then(function([htmlContent, cssContent]){
-                        let htmlTag = `<br><div id="htmlCode" oninput="preview"><textarea>${htmlContent}</textarea></div>`;
-                        let cssTag = `<br><div id="cssCode" oninput="preview"><textarea><style>${cssContent}</style><textarea></div>`;
+                        let htmlTag = `<div class="viewArea${index}" contenteditable="true"></div><br>
+                                        <div class="htmlCode" oninput="preview">${htmlContent}`;
+                        htmlTag += `<style>${cssContent}</style></div>`;
                         htmlTags.push(htmlTag);
-                        cssTags.push(cssTag);
+                        // cssTags.push(cssTag);
                     })
                     .catch(function(err){
                         console.error(err);
@@ -84,10 +85,17 @@ router.post('/', function(req, res){
                             res.end();
                         }else{
                             const renderedHTML = htmlTags.join('');
-                            const renderedCSS = cssTags.join('');
+                            // const renderedCSS = cssTags.join('');
                             console.log(originContent);
-                            htmlTxt = originContent.replace('{{customhtml}}', renderedHTML).replace('{{customcss}}', renderedCSS);
-                            console.log(htmlTxt);
+                            htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
+                            // .replace('</head>', `${renderedCSS}\n</head>`);
+
+                            // fs.writeFile(filePath, modifiedHtmlContent, htmlTxt, 'utf8', (err) =>{
+                            //     if(err){
+                            //         console.error(err);
+                            //         return;
+                            //     }
+                            // })
                             res.setHeader('Content-Type', 'text/html');
                             res.statusCode = 200;
                             res.end(htmlTxt);
