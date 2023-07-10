@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <title>マイページ</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
-        <link href="../css/webCreate.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/css/modaal.min.css">
+        <link href="../css/mypage.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
@@ -22,29 +23,34 @@
         <!-- ハンバーガーメニュー押下後の背景 -->
         <div class="circle-bg"></div>
 
-        <div class="post">
-            <h1 class="postLog">マイページ</h1>
-        </div>
+        <h1>マイページ</h1>
 
-        <div class="">
-            <img src="画像url" alt="gmail"><h2>登録したGmail</h2>
-        </div>
-        <div class="">
-            <img src="画像url" alt="logout"><h2>ログアウト</h2>
-        </div>
-        <div class="">
-            <img src="画像url" alt="favorite"><h2>お気に入り一覧</h2>
-        </div>
-        <div class="">
-            <img src="画像url" alt="custom"><h2>WEBサイトカスタム</h2>
-            <button onclick="location.href='customList.html'"></button>
-        </div>
-        <div class="">
-            <img src="画像url" alt="postlog"><h2>投稿履歴</h2>
+        <div class="acount item">
+            <h2 class="active"> profile </h2>
+            <section class="menu">
+                <p>username</p>
+                <p>gmail</p>
+            </section>
+            <hr>
+            <!-- モーダルウィンドウ -->
+            <a href="#logout" class="logout">
+                <dl>sign out</dl>
+            </a>
+            <section id="logout" class="hide-area">
+                <h2>sign out</h2><br>
+                <a href="index.html">yes</a>
+                <p>no</p>
+            </section>
+        </div> 
+        <div class="link item">
+            <a href="favorite.html">お気に入り一覧</a>
+            <a href="customLog.html">WEBサイトカスタマイズ履歴</a>
+            <a href="postLog.html">投稿履歴</a>
         </div>
         
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/js/modaal.min.js"></script>
         <script src="../js/main.js"></script>
     </body>
 </html>
