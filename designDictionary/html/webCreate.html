@@ -47,7 +47,6 @@
             <p class="circle"></p>
 
         </div>
-
         <div>
             <h2>select a sentence</h2>
             <select id="sentence" onchange="sentenceValue()">
@@ -67,8 +66,9 @@
                 <option disabled selected hidden>フォントを選択してください</option>
                 <option value="いろは角クラシック">いろは角クラシック Regular</option>
                 <option value="Old Standard">Old Standard</option>
-                <option value="">#サイコ～フォント</option>
-                <option value="">#フォントにほんと？</option>
+                <option value="けいふぉんと">けいふぉんと</option>
+                <option value="Times New Roman">Times New Roman</option>
+                
             </select>
         </div>
 
@@ -284,6 +284,7 @@
 
             var newStyle = 'p{font-family:"' + selectedValue + '";}';
              textBoxElement.value += newStyle;
+             element.style.fontFamily = selectElement;
             }
             //センテンスカラー（仮）
             function getColorCode() {
@@ -353,6 +354,11 @@
         </script>
         <!--プレビュー画面の枠のCSS-->
         <style>
+            .shokika{
+
+               width: 30%
+
+            }
             .allbox{
                 display: flex;
                 justify-content: center;
@@ -411,13 +417,7 @@
                 resize:vertical;
                 width: 40%;
             }
-            .shokika{
-                display: inline-block;
-                padding: 10px 20px;
-                border-radius: 50%;
-                background-color: lightcoral;
 
-            }
 
 
 
