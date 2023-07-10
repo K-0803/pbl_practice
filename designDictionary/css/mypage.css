@@ -1,0 +1,91 @@
+.item {
+    float: left;
+}
+
+.acount {
+  color: #fff;
+  font-size: 20px;  
+  letter-spacing: 1px;
+  height: 300px;
+  width: 35%;
+  margin-left: 15%;
+  padding: 50px 50px;
+  background: url(https://picsum.photos/id/1004/5616/3744) no-repeat   center center #505050;   
+  background-size: cover;
+}
+
+.active {
+  border-bottom: 2px solid #BDFF00;
+}
+
+.menu {
+    margin-top: 20px;
+}
+
+h2 {
+  padding-left: 12px;
+  margin-left: 20px;
+  font-size: 25px;
+  text-transform: uppercase;
+  padding-bottom: 5px;
+  letter-spacing: 2px;
+  display: inline-block;
+  font-weight: 100;
+}
+
+h2:first-child {
+  padding-left: 0px;
+}
+
+hr {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  top: 35px;
+  position: relative;
+}
+
+.logout {
+  text-align: center;
+  display: block;
+  top: 50px;
+  position: relative;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* hideエリアをはじめは非表示 */
+.hide-area{
+	display: none;
+}
+
+/* モーダルのボタンの色 */
+.modaal-close:after, 
+.modaal-close:before{
+	background:#ccc;	
+}
+
+.modaal-close:focus:after,
+.modaal-close:focus:before,
+.modaal-close:hover:after,
+.modaal-close:hover:before{
+	background:#666;
+}
+
+/* プロフ外リンク */
+.link {
+  padding-top: 40px;
+  padding-left: 40px;
+}
+
+.link a {
+  color: #505050;
+  font-size: 20px;
+  position: relative;
+  display: flex;
+  margin: 5px;
+  padding-top: 20px;
+  text-decoration: none;
+}
+
+.modaal-container {
+    width: 30%;
+}

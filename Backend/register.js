@@ -1,119 +1,108 @@
-
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const { check, validationResult } = require('express-validator');
 const app = express();
+const router = express.Router();
 
-let sql = "";
-let value = "";
-let passerr ="";
-let repasserr ="";
-let overlap = "true";
-let code ="";
-let passcheak ="true";
-
-let inputerr ={
-  mail: "",
-  epass: "",
-  erepass: ""
-}
-
+let messages = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../designDictionary')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
-app.get('/register', function(req, res) {
-  res.render('register', inputerr); 
+router.get('/',  async(req, res) => {
+  var data={
+    from: {name:'',email:'',epass:'',erepass:''}
+  }
+  res.render('register',data); 
 });
 
-app.post('/register', function(req, res) {
-  const { email, pass, name, repass } = req.body;
-  console.log(email);
-  console.log(pass);
-  console.log(name);
-  sql = 'SELECT address FROM user_info WHERE address = $1;';
-  value = [email];
-  
-
-  InsData(sql, value)
-    .then(function(truefalse) {
-      passlap();
-      if (truefalse === "true") {
-        if (passcheak == "false") {
-          sql ='INSERT INTO user_info (user_name, pwd, address) SELECT CAST($3 AS VARCHAR), CAST($2 AS VARCHAR), CAST($1 AS VARCHAR)  WHERE NOT EXISTS (SELECT 1 FROM user_info WHERE address = $1);';
-          value = [email, pass, name];
-          InsData(sql, value)
-            .then(function(redUrl) {
-              console.log('値は=' + redUrl);
-              if (redUrl === '/redirect') {
-                res.redirect(req.baseUrl + '/login.html');
-                res.end();
-              }
-            }).catch((error) => {
-              console.log(error);
-            });
-        } else if (passcheak == "true") {
-          code="";
-          inputerr = {
-            mail: code,
-            epass: passerr,
-            erepass: repasserr,
-          };
-          res.render('register', inputerr);
-        }
-      } else if (truefalse === "false") {
-        code = "重複しています";
-        inputerr = {
-          mail: code,
-          epass: passerr,
-          erepass: repasserr,
-        };
-        res.render('register', inputerr);
+router.post(
+'/',
+[
+  check('email').not().isEmpty().withMessage('この項目は必須入力です。'),
+  check('pass').not().isEmpty().withMessage('この項目は必須入力です。'),
+  //バリデーションをカスタムで作成
+  check('repass')
+    .custom((value, { req }) => {
+      //一致した場合trueを返す
+      if (req.body.pass === req.body.repass) {
+        return true;
       }
-      
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .withMessage('パスワードと一致しません。'),
+    check('name').not().isEmpty().withMessage('この項目は必須入力です。'),
+  ],
+function (req, res, next) {
+  const errors = validationResult(req);
+  const name = req.body.name;
+  const email = req.body.email;
+  const password = req.body.pass;
 
-  function passlap(){
-  if (typeof repass === 'string' && typeof pass === 'string' && pass === repass) {
-    if (pass.length === 0 && repass.length === 0) {
-      passerr = "パスワードを入力してください";
-      repasserr = "パスワードを入力してください";
-      passcheak = "true";
-    } else {
-      passerr ="";
-      repasserr ="";
-      passcheak = "false";
-    }
-  } else if (pass.length === 0) {
-    passerr = "パスワードを入力してください";
-    repasserr ="";
-    passcheak ="true";
-  } else if (repass.length === 0) {
-    repasserr = "パスワードを入力してください";
-    passerr ="";
-    passcheak = "true";
-  } else {
-    repasserr = "同じパスワードを入力してください";
-    passerr = "同じパスワードを入力してください";
-    passcheak = "true";
-  }}
- return(sql,value,passerr,repasserr,overlap);
-});
+  console.log(name,email,password);
+  
+  let sql ='SELECT address FROM user_info WHERE address = $1;';
+  let value = [email];
+  let count=['email','pass','repass','name'];
+      
+      let i = 0;
+      let condition = false;
+  //エラーオブジェクトをerrorsに格納。
+  if (!errors.isEmpty()) {
+      errors.errors.forEach((error) => {
+        console.log(error.path);
+        condition = false;
+      while (!condition) {
+        if (count[i]==error.path) {
+          messages[i]=(error.msg);
+          condition = true;
+          break;
+          }else{
+            i+= 1;
+          }       
+        }
+      });  
+        }
+        InsData(sql,value)
+        .then(function(over){
+          if(over == false&&email!==''){
+            console.log(messages);
+            messages[0] = "重複したメールアドレスです";
+          }
+            console.log("2");
+            console.log(messages);
+            res.render('register',{from:{email:messages[0],epass:messages[1],erepass:messages[2],name:messages[3]}});
+        }).catch(function(e){
+        console.log(e);
+        })
+
+          if(errors.isEmpty()){
+          sql ='INSERT INTO user_info (user_name, pwd, address) SELECT CAST($3 AS VARCHAR), CAST($2 AS VARCHAR), CAST($1 AS VARCHAR);',
+          value = [email,password,name];;
+         InsData(sql,value)
+         .then(function(over){
+          if(over==false){
+         res.redirect(req.baseUrl + '/login.html');
+         res.end();
+          }
+        }).catch(function(e){
+          console.log(e);
+        })
+        }
 
 
-app.listen(8080, function() {
-  console.log('サーバーがポート8080で起動しました。');
-});
 
-function InsData(sql, value) {
+})
+// app.listen(8080, function() {
+//   console.log('サーバーがポート8080で起動しました。');
+// });
+ function InsData(sql, value) {
   // postgres接続
   const { Client } = require('pg');
   const client = new Client({
@@ -123,9 +112,6 @@ function InsData(sql, value) {
     password: 'shirokuma123', // ユーザーパスワード
     port: 5432,
   });
-
-console.log(sql);
-console.log(value);
 
   // データベース追加
   return new Promise(function(resolve, reject) {
@@ -139,22 +125,17 @@ console.log(value);
         return client.query(query);
       })
       .then(function(res) {
-      console.log(res.rows.length);
-      if(passcheak=="true"&&res.rows.length == 0){
-        redct = "true";
+         let redct  = true;
+      console.log(res.rows.length );
+      if(res.rows.length > 0){
+        redct = false;
         client.end();
-        console.log();
         resolve(redct);
-      }else if(res.rows.length == 1){
-        redct = "false";
+      }else{
+        redct = true;
         client.end();
-        console.log();
         resolve(redct);
-      }else if(passcheak=="false"&&res.rows.length == 0){
-          redct = '/redirect';
-          client.end();
-          resolve(redct);
-        }
+      }
       })
       .catch(function(e) {
         console.log('SQLerror');
@@ -163,3 +144,5 @@ console.log(value);
       });
   });
 }
+
+module.exports =router;
