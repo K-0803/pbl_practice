@@ -4,6 +4,10 @@ const bodyParser = require('body-parser');
 const { check, validationResult } = require('express-validator');
 const app = express();
 
+
+
+let messages = [];
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
@@ -15,18 +19,15 @@ app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
-let messages = [];
-
-
-app.get('/register',  async(req, res) => {
+router.get('/',  async(req, res) => {
   var data={
     from: {name:'',email:'',epass:'',erepass:''}
   }
   res.render('register',data); 
 });
 
-app.post(
-'/register',
+router.post(
+'/',
 [
   check('email').not().isEmpty().withMessage('この項目は必須入力です。'),
   check('pass').not().isEmpty().withMessage('この項目は必須入力です。'),
@@ -101,9 +102,9 @@ function (req, res, next) {
         }
 
 })
-app.listen(8080, function() {
-  console.log('サーバーがポート8080で起動しました。');
-});
+// app.listen(8080, function() {
+//   console.log('サーバーがポート8080で起動しました。');
+// });
  function InsData(sql, value) {
   // postgres接続
   const { Client } = require('pg');
@@ -146,3 +147,5 @@ app.listen(8080, function() {
       });
   });
 }
+
+module.exports =router;

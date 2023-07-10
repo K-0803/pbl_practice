@@ -6,6 +6,7 @@ const fs = require('fs');
 const {v4: uuidv4} = require('uuid');
 const {Client} = require("pg");
 const cookieParser = require('cookie-parser');
+const router = express.Router();
 
 // const router = require('../designDictionary/html/login.html');
 
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
-app.get('/', function(req, res){
+router.get('/', function(req, res){
   const filePath = path.join('../designDictionary/html/webCreate.html');
   console.log(filePath);
   res.sendFile(filePath);
@@ -25,7 +26,7 @@ app.get('/', function(req, res){
   res.end();
 });
 
-app.post('/generate', function(req, res){
+router.post('/', function(req, res){
   //cookieに保存されているuserIdを取得
   // const userId = req.cookies.userId;
   //デバッグ用userId
@@ -71,6 +72,8 @@ app.post('/generate', function(req, res){
 
 })
 
-app.listen(8080, function(){
-  console.log('サーバーがポート8080で起動しました。');
-})
+module.exports =router;
+
+// app.listen(8080, function(){
+//   console.log('サーバーがポート8080で起動しました。');
+// })
