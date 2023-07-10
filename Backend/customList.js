@@ -30,10 +30,7 @@ const client = new Client({
 });
 
 router.get('/', function(req, res){
-    const filePath = path.join('../designDictionary/html/customList.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'customList.html'));
 })
 
 router.post('/', function(req, res){

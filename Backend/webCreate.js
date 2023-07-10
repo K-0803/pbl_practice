@@ -19,11 +19,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
 router.get('/', function(req, res){
-  const filePath = path.join('../designDictionary/html/webCreate.html');
-  console.log(filePath);
-  res.sendFile(filePath);
-
-  res.end();
+  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'webCreate.html'));
 });
 
 router.post('/', function(req, res){

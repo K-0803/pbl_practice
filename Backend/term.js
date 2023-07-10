@@ -29,7 +29,7 @@ const pool = new Pool(dbConfig);
 router.get('/', function(req, res){
 
   //ページが開かれたときにhtmlを表示する処理
-  const filePath = path.join('../designDictionary/html/searchResult.html');
+  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'searchResult.html'));
   console.log(filePath);
   res.sendFile(filePath);
 
