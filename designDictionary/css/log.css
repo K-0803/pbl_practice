@@ -1,0 +1,10 @@
+input {
+    display: none;
+  }
+label {
+    position: relative;
+    padding: 0 5px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 35px;
+  }
