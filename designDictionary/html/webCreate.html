@@ -90,23 +90,26 @@
             <button id="buttonId" value="center" onclick="getButtonText()">中央揃え</button>
             <button id="buttonId" value="right" onclick="getButtonText()">右揃え</button>
         </div>
-        <!--ココからTHML・CSSコ表示系統-->
+
+        <form action="/generate" method="POST">
+        <!--ココからHTML・CSSコ表示系統-->
         <!--プレビュー画面-->
         <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
         </div>
         <div class="container"><span>
         <!--HTML入力部分-->
-        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" oninput="preview"></textarea></span>
+        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" name="htmlContent" oninput="preview"></textarea></span>
         <span>
         <!--CSS入力部分-->
-        <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span></div>
+        <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" name="cssContent" oninput="preview"></textarea></span></div>
         <!--お気に入りボタン-->
         <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
         <!--投稿関係-->
-        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" required></textarea>
+        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" name="comment" required></textarea>
 
         <button type="submit"><img src="画像url" alt="投稿" /></button>
-
+        </form>
+        
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="../js/main.js"></script>
