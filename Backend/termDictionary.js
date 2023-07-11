@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
             res.end('HTMLファイルの読み込みエラーが発生しました');
           } else {
             // CSSテーブルの作成
-            let cssTableHTML = '<table border="1">';
+            let cssTableHTML = '<table border="1" class="css_table">';
             cssTableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
   
             cssRows.forEach((row) => {
@@ -65,7 +65,7 @@ router.get('/', (req, res) => {
             cssTableHTML += '</table>';
   
             // HTMLテーブルの作成
-            let htmlTableHTML = '<table border="1">';
+            let htmlTableHTML = '<table border="1" class="html_table">';
             htmlTableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
   
             htmlRows.forEach((row) => {

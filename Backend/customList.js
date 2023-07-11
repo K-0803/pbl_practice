@@ -34,13 +34,11 @@ router.get('/', function(req, res){
 })
 
 router.post('/', function(req, res){
-    // const userId = req.cookies.userId;
-    //デバッグ用userId
-    const userId = 1;
+    // const userName = req.cookies.userName;
 
     const query = {
-        text: "SELECT chtml_code, ccss_code from web_create where user_id = ($1)",
-        values: [userId],
+        text: "SELECT chtml_code from web_create order by user_name asc",
+        // values: [userName],
     };
     client.connect();
     client
@@ -48,26 +46,19 @@ router.post('/', function(req, res){
         .then(function(result){
             console.log(result);
             const resultArray = result.rows;
-
+            
             const htmlCodes = resultArray.map(value => value.chtml_code );
-            const cssCodes = resultArray.map(value => value.ccss_code );
 
-            const htmlTags = [];
-            const cssTags = [];
+            const customTags = [];
 
-            const readFilePromises = htmlCodes.map(function(htmlCode, index){
-                const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
-                const cssFilePath = `../designDictionary/saveFile/css/${cssCodes[index]}.css`;
+            const readFilePromises = htmlCodes.map(function(htmlCode){
+                const htmlId = `../saveFile/png/${htmlCode}.png`;
 
-                return Promise.all([
-                    fs.promises.readFile(htmlFilePath, 'utf8'),
-                    fs.promises.readFile(cssFilePath, 'utf8')
-                ])
-                    .then(function([htmlContent, cssContent]){
-                        let htmlTag = `<div class="viewArea${index}" contenteditable="true"></div><br>
-                                        <div class="htmlCode" oninput="preview">${htmlContent}`;
-                        htmlTag += `<style>${cssContent}</style></div>`;
-                        htmlTags.push(htmlTag);
+                return Promise.all([htmlId, htmlCode])
+                    .then(function(){
+                        let htmlTag = `<div class="createView" name="${htmlCode}"><a href="postDetails.html"><img src="${htmlId}" alt="WEBカスタム画像"></a>`;
+                        htmlTag += `<input type="submit"><label id="star">★</label></div><br>`;
+                        customTags.push(htmlTag);
                         // cssTags.push(cssTag);
                     })
                     .catch(function(err){
@@ -75,6 +66,27 @@ router.post('/', function(req, res){
                         res.status(500).send('Internal Server Error');
                     });
             });
+
+            // const readFilePromises = htmlCodes.map(function(htmlCode, index){
+            //     const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
+            //     const cssFilePath = `../designDictionary/saveFile/css/${cssCodes[index]}.css`;
+
+            //     return Promise.all([
+            //         fs.promises.readFile(htmlFilePath, 'utf8'),
+            //         fs.promises.readFile(cssFilePath, 'utf8')
+            //     ])
+            //         .then(function([htmlContent, cssContent]){
+            //             let htmlTag = `<div class="viewArea${index}" contenteditable="true"></div><br>
+            //                             <div class="htmlCode" oninput="preview">${htmlContent}`;
+            //             htmlTag += `<style>${cssContent}</style></div>`;
+            //             htmlTags.push(htmlTag);
+            //             // cssTags.push(cssTag);
+            //         })
+            //         .catch(function(err){
+            //             console.error(err);
+            //             res.status(500).send('Internal Server Error');
+            //         });
+            // });
 
             Promise.all(readFilePromises)
                 .then(function(){
@@ -84,7 +96,7 @@ router.post('/', function(req, res){
                             res.statusCode = 500;
                             res.end();
                         }else{
-                            const renderedHTML = htmlTags.join('');
+                            const renderedHTML = customTags.join('');
                             // const renderedCSS = cssTags.join('');
                             console.log(originContent);
                             htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
