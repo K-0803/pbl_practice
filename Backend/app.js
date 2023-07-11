@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 
 const app = express();
-
+const path = require('path');
 
 
 app.use(express.static(path.join(__dirname, '../designDictionary')));
@@ -36,8 +36,11 @@ app.use('/mypage', require('./mypage'));  //マイページ遷移
 app.use('/postDetails', require('./postDetails'));  //投稿履歴詳細ページ遷移
 
 
-
-const server = http.createServer(app);
-server.listen(8080, function() {
-  console.log('サーバーがポート8080で起動しました。');
+app.listen(8080 , () => {
+  console.log(`Server is listening on port 8080`);
 });
+
+// const server = http.createServer(app);
+// server.listen(8080, function() {
+//   console.log('サーバーがポート8080で起動しました。');
+// });
