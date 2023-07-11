@@ -1,38 +1,42 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>新規登録</title>
-        <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
-        <link href="/css/login.css" rel="stylesheet" type="text/css">
+        <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
+        <link href="../css/login.css" rel="stylesheet" type="text/css">
     </head>
 
     <body>
-        <form method="POST" id="myForm" action="/register">
-        <label>
-            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= mail %></span><br>
-            <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
-        </label><br>
-        <label>
-            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= pass %></span><br>
-            <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
-        </label><br>
-        <label>
-            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= repass %></span><br>
-            <input id="textrepass" name="repass" type="password" class="textbox-re-pw" placeholder="password"/>
-        </label><br>
-        <label>
-            <span class="textbox-login-name">UserName</span><br>
-            <input name="name" type="text" class="textbox-name" placeholder="username"/>
-        </label><br>
+        <div class="register">
+            <h2 class="active"> sign up </h2>
+            <form method="POST" id="myForm" action="/register">
 
-        <input type="hidden" id="boolean1" name="boolean1" value="">
-        <input type="hidden" id="boolean2" name="boolean2" value="">
+                <span class="item">gmail</span><span id="gmiss"><%= mail %></span>
+                <div class="mailblock">
+                    <input name="email" type="text" class="email"/>
+                    <p>@gmail.com</p>
+                </div>
 
-        <p id="text1"></p>
-        <button type="submit">送信</button>
-        </form>
-        <button onclick="location.href='index.html'">戻る</button>
+                <span class="item" id="pass">password</span><span id="pmiss"><%= pass %></span>
+                <input id="textpass" name="pass" type="password" class="text"/>
+                    
+                <span class="item outside" id="repass">re:password</span><span id="repmiss"><%= repass %></span>
+                <input id="textrepass" name="repass" type="password" class="text"/>
+                    
+                <span class="item outside">UserName</span><span id="namemiss"><%= from.name %></span>
+                <input name="name" type="text" class="text"/>
+
+                <input type="hidden" id="boolean1" name="boolean1" value="">
+                <input type="hidden" id="boolean2" name="boolean2" value="">
+
+                <p id="text1"></p>
+                <input type="submit" class="signup" onclick="location.href='login.html'" value="sign up"/>
+            </form>
+            <hr>
+            <a href="index.html">cancel</a>
+        </div>
     </body>
     <script>
 
