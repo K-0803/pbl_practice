@@ -1,13 +1,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const { check, validationResult } = require('express-validator');
+const { validationResult, body, check } = require('express-validator');
 const app = express();
 const router = express.Router();
-
-
-
-let messages = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -20,64 +16,58 @@ app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
-router.get('/',  async(req, res) => {
+router.get('/',  (req, res) => {
   var data={
     from: {name:'',email:'',epass:'',erepass:''}
   }
   res.render('register',data); 
 });
 
-router.post(
-'/',
-[
+router.post('/', [
   check('email').not().isEmpty().withMessage('この項目は必須入力です。'),
   check('pass').not().isEmpty().withMessage('この項目は必須入力です。'),
-  //バリデーションをカスタムで作成
-  check('repass')
-    .custom((value, { req }) => {
-      //一致した場合trueを返す
-      if (req.body.pass === req.body.repass) {
-        return true;
-      }
-    })
-    .withMessage('パスワードと一致しません。'),
-    check('name').not().isEmpty().withMessage('この項目は必須入力です。'),
+  check('repass').not().isEmpty().withMessage('この項目は必須入力です。'),
+  check('name').not().isEmpty().withMessage('この項目は必須入力です。'),
   ],
-function (req, res, next) {
-  const errors = validationResult(req);
+function (req, res) {
+  
   const name = req.body.name;
   const email = req.body.email;
   const password = req.body.pass;
 
   console.log(name,email,password);
-  
   let sql ='SELECT address FROM user_info WHERE address = $1;';
-  let value = [email];
   let count=['email','pass','repass','name'];
-      
-      let i = 0;
-      let condition = false;
+  let i = 0;
+  let condition = false;
+  let messages = [];
+  let value = [email];
   //エラーオブジェクトをerrorsに格納。
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
       errors.errors.forEach((error) => {
         console.log(error.path);
-        condition = false;
+        condition = false;  
       while (!condition) {
         if (count[i]==error.path) {
-          messages[i]=(error.msg);
+          console.log(error.msg); 
+          messages[i]=error.msg;
           condition = true;
           break;
           }else{
             i+= 1;
-          }       
+          }   
+        } 
+
+      }); 
+      console.log("start"); 
+ 
         }
-      });  
-        }
+        console.log(messages[3]);
         //emailに重複確認
         InsData(sql,value)
         .then(function(over){
           if(over == false&&email!==''){
-            console.log(messages);
             messages[0] = "重複したメールアドレスです";
           }
             console.log("2");
@@ -87,13 +77,16 @@ function (req, res, next) {
         console.log(e);
         })
 
+        
+       
+
         //入力値すべてにエラーがなければinsertする[]
           if(errors.isEmpty()){
           sql ='INSERT INTO user_info (user_name, pwd, address) SELECT CAST($3 AS VARCHAR), CAST($2 AS VARCHAR), CAST($1 AS VARCHAR);',
           value = [email,password,name];;
          InsData(sql,value)
          .then(function(over){
-          if(over==false){
+          if(over==true){
          res.redirect(req.baseUrl + '/login.html');
          res.end();
           }
@@ -103,6 +96,7 @@ function (req, res, next) {
         }
 
 })
+
 // app.listen(8080, function() {
 //   console.log('サーバーがポート8080で起動しました。');
 // });
