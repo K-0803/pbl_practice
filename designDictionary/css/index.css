@@ -3,6 +3,10 @@
   margin-top: 40px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .insidep button{
   width: 270px;
   margin-top: 18px;
