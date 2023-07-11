@@ -1,7 +1,9 @@
+/* テキストエリア */
 .textbox-webpost {
     width: 70%;
     border: none;
     margin-left: 15%;
+    margin-bottom: 2%;
     border-radius: 20px;
     background: #f6f6f6;
     color: #777777;
@@ -10,18 +12,11 @@
     height: 15em;
 }
 
-.color-circle {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-
 .textbox-webpost::placeholder {
     color: #777777;
 }
 
+/* コピーボタン */
 .button-copy {
     display: flex;
     justify-content: center;
@@ -31,6 +26,8 @@
     border: none;
     border-radius: 5px;
     background-color: #777777;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .button-copy:hover {
@@ -41,34 +38,53 @@
     fill: #777777;
 }
 
+/* コメント */
 .textbox-comment {
-    width: 70%;
+    width: 61%;
     margin-left: 15%;
-    margin-bottom: inherit;
+    margin-right: .5%;
+    margin-bottom: 2%;
     border: none;
     border-radius: 25px;
     background: #f6f6f6;
     color: #545454;
     font-size: 1em;
     line-height: 2.0;
+    height: 2.5em;
 }
 
 .textbox-comment::placeholder {
     color: #999;
 }
 
-.customCss {
-    width: 70%;
-    margin-left: 15%;
-    margin-bottom: inherit;
+/* 投稿ボタン */
+.poscom {
+    justify-content: center;
+    width: 100px;
+    padding: .58em 2em;
     border: none;
-    border-radius: 25px;
-    background: #f6f6f6;
-    color: #545454;
+    border-radius: 30px;
+    box-shadow: 0 2px 3px rgb(0 0 0 / 25%), 0 2px 3px -2px rgb(0 0 0 / 15%);
+    background-color: #777777;
+    color: #fff;
+    font-weight: 600;
     font-size: 1em;
-    line-height: 2.0;
+    transition: all 0.2s;
+    cursor: pointer;
 }
 
-.customCss::placeholder {
-    color: #999;
+.poscom:hover {
+    background-color: #4BC793;
 }
+
+/* お気に入りボタン */
+.star {
+    display: none;
+  }
+#star {
+    position: relative;
+    padding: 0 5px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 35px;
+  }
