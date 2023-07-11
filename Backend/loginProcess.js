@@ -24,10 +24,7 @@ app.use(cookieParser());
 
 //getリクエストの処理・ページを開いたときにhtmlが表示される
 router.get('/', function(req, res){
-    const filePath = path.join(__dirname,'../designDictionary' ,'html','login.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'login.html'));
 });
 
 //postリクエストの処理

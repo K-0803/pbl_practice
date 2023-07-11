@@ -30,20 +30,17 @@ const client = new Client({
 });
 
 router.get('/', function(req, res){
-    const filePath = path.join(__dirname, '../designDictionary/html/customList.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'customList.html'));
 })
 
 router.post('/', function(req, res){
-    const userName = req.cookies.userName;
+    // const userId = req.cookies.userId;
     //デバッグ用userId
-    // const userId = 1;
+    const userId = 1;
 
     const query = {
-        text: "SELECT chtml_code from web_create order by ($1) asc",
-        values: [userName],
+        text: "SELECT chtml_code, ccss_code from web_create where user_id = ($1)",
+        values: [userId],
     };
     client.connect();
     client
@@ -53,45 +50,31 @@ router.post('/', function(req, res){
             const resultArray = result.rows;
 
             const htmlCodes = resultArray.map(value => value.chtml_code );
-            
-            const pngTags = [];
-            
-            const readFilePromises = htmlCodes.map(function(htmlId){
-                // const pngFilePath = path.join(__dirname, `../designDictionary/saveFile/png/${htmlId}.png`);
-                
-                return Promise.all(htmlId)
-                    .then(function(){
-                        let pngTag = `<div class="htmlCode" oninput="preview" name="${htmlId}"><a href="postDetails.html"><img src="../saveFile/png/${htmlId}.png" alt="ここに画像が入る"></a>`;
-                        pngTag += `<input type="submit" value="詳細を見る"></div><br>`
-                        pngTags.push(pngTag);
+            const cssCodes = resultArray.map(value => value.ccss_code );
+
+            const htmlTags = [];
+            const cssTags = [];
+
+            const readFilePromises = htmlCodes.map(function(htmlCode, index){
+                const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
+                const cssFilePath = `../designDictionary/saveFile/css/${cssCodes[index]}.css`;
+
+                return Promise.all([
+                    fs.promises.readFile(htmlFilePath, 'utf8'),
+                    fs.promises.readFile(cssFilePath, 'utf8')
+                ])
+                    .then(function([htmlContent, cssContent]){
+                        let htmlTag = `<div class="viewArea${index}" contenteditable="true"></div><br>
+                                        <div class="htmlCode" oninput="preview">${htmlContent}`;
+                        htmlTag += `<style>${cssContent}</style></div>`;
+                        htmlTags.push(htmlTag);
                         // cssTags.push(cssTag);
                     })
                     .catch(function(err){
                         console.error(err);
                         res.status(500).send('Internal Server Error');
                     });
-            })
-
-            // const readFilePromises = htmlCodes.map(function(htmlCode, index){
-            //     const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
-            //     const cssFilePath = `../designDictionary/saveFile/css/${cssCodes[index]}.css`;
-
-            //     return Promise.all([
-            //         fs.promises.readFile(htmlFilePath, 'utf8'),
-            //         fs.promises.readFile(cssFilePath, 'utf8')
-            //     ])
-            //         .then(function([htmlContent, cssContent]){
-            //             let htmlTag = `<div class="viewArea${index}" contenteditable="true"></div><br>
-            //                             <div class="htmlCode" oninput="preview">${htmlContent}`;
-            //             htmlTag += `<style>${cssContent}</style></div>`;
-            //             htmlTags.push(htmlTag);
-            //             // cssTags.push(cssTag);
-            //         })
-            //         .catch(function(err){
-            //             console.error(err);
-            //             res.status(500).send('Internal Server Error');
-            //         });
-            // });
+            });
 
             Promise.all(readFilePromises)
                 .then(function(){
@@ -101,7 +84,7 @@ router.post('/', function(req, res){
                             res.statusCode = 500;
                             res.end();
                         }else{
-                            const renderedHTML = pngTags.join('');
+                            const renderedHTML = htmlTags.join('');
                             // const renderedCSS = cssTags.join('');
                             console.log(originContent);
                             htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
