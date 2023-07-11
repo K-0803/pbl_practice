@@ -40,6 +40,10 @@ app.listen(8080 , () => {
   console.log(`Server is listening on port 8080`);
 });
 
+// app.listen(3000,'172.31.92.167', () => {
+//   console.log(`Server is listening on port 8080`);
+// });
+
 // const server = http.createServer(app);
 // server.listen(8080, function() {
 //   console.log('サーバーがポート8080で起動しました。');
