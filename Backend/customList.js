@@ -30,20 +30,15 @@ const client = new Client({
 });
 
 router.get('/', function(req, res){
-    const filePath = path.join(__dirname, '../designDictionary/html/customList.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'customList.html'));
 })
 
 router.post('/', function(req, res){
-    const userName = req.cookies.userName;
-    //デバッグ用userId
-    // const userId = 1;
+    // const userName = req.cookies.userName;
 
     const query = {
-        text: "SELECT chtml_code from web_create order by ($1) asc",
-        values: [userName],
+        text: "SELECT chtml_code from web_create order by user_name asc",
+        // values: [userName],
     };
     client.connect();
     client
@@ -51,26 +46,26 @@ router.post('/', function(req, res){
         .then(function(result){
             console.log(result);
             const resultArray = result.rows;
-
+            
             const htmlCodes = resultArray.map(value => value.chtml_code );
-            
-            const pngTags = [];
-            
-            const readFilePromises = htmlCodes.map(function(htmlId){
-                // const pngFilePath = path.join(__dirname, `../designDictionary/saveFile/png/${htmlId}.png`);
-                
-                return Promise.all(htmlId)
+
+            const customTags = [];
+
+            const readFilePromises = htmlCodes.map(function(htmlCode){
+                const htmlId = `../saveFile/png/${htmlCode}.png`;
+
+                return Promise.all([htmlId, htmlCode])
                     .then(function(){
-                        let pngTag = `<div class="htmlCode" oninput="preview" name="${htmlId}"><a href="postDetails.html"><img src="../saveFile/png/${htmlId}.png" alt="ここに画像が入る"></a>`;
-                        pngTag += `<input type="submit" value="詳細を見る"></div><br>`
-                        pngTags.push(pngTag);
+                        let htmlTag = `<div class="createView" name="${htmlCode}"><a href="postDetails.html"><img src="${htmlId}" alt="WEBカスタム画像"></a>`;
+                        htmlTag += `<input type="submit"><label id="star">★</label></div><br>`;
+                        customTags.push(htmlTag);
                         // cssTags.push(cssTag);
                     })
                     .catch(function(err){
                         console.error(err);
                         res.status(500).send('Internal Server Error');
                     });
-            })
+            });
 
             // const readFilePromises = htmlCodes.map(function(htmlCode, index){
             //     const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
@@ -101,7 +96,7 @@ router.post('/', function(req, res){
                             res.statusCode = 500;
                             res.end();
                         }else{
-                            const renderedHTML = pngTags.join('');
+                            const renderedHTML = customTags.join('');
                             // const renderedCSS = cssTags.join('');
                             console.log(originContent);
                             htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)

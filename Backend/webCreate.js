@@ -18,12 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 
-app.get('/', function(req, res){
-  const filePath = path.join(__dirname, '../designDictionary/html/webCreate.html');
-  console.log(filePath);
-  res.sendFile(filePath);
-
-  res.end();
+router.get('/', function(req, res){
+  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'webCreate.html'));
 });
 
 app.post('/generate', function(req, res){
@@ -74,8 +70,8 @@ app.post('/generate', function(req, res){
 
 })
 
-// module.exports =router;
+module.exports =router;
 
-app.listen(8080, function(){
-  console.log('サーバーがポート8080で起動しました。');
-})
+// app.listen(8080, function(){
+//   console.log('サーバーがポート8080で起動しました。');
+// })

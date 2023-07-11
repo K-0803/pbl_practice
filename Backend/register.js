@@ -5,6 +5,8 @@ const { check, validationResult } = require('express-validator');
 const app = express();
 const router = express.Router();
 
+
+
 let messages = [];
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,6 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../designDictionary')));
 
+
+//ejsルート
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
@@ -69,6 +73,7 @@ function (req, res, next) {
         }
       });  
         }
+        //emailに重複確認
         InsData(sql,value)
         .then(function(over){
           if(over == false&&email!==''){
@@ -82,6 +87,7 @@ function (req, res, next) {
         console.log(e);
         })
 
+        //入力値すべてにエラーがなければinsertする[]
           if(errors.isEmpty()){
           sql ='INSERT INTO user_info (user_name, pwd, address) SELECT CAST($3 AS VARCHAR), CAST($2 AS VARCHAR), CAST($1 AS VARCHAR);',
           value = [email,password,name];;
@@ -95,8 +101,6 @@ function (req, res, next) {
           console.log(e);
         })
         }
-
-
 
 })
 // app.listen(8080, function() {

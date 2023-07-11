@@ -24,10 +24,7 @@ app.use(cookieParser());
 
 //getリクエストの処理・ページを開いたときにhtmlが表示される
 router.get('/', function(req, res){
-    const filePath = path.join(__dirname,'../designDictionary' ,'html','login.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'login.html'));
 });
 
 //postリクエストの処理
@@ -42,7 +39,7 @@ router.post('/', function(req, res){
                 console.log("userIdは" + redId[0]);
                 res.cookie('userName', redId[1]);
                 console.log("userNameは" + redId[1]);
-                res.redirect(req.baseUrl + '/html/index.html');
+                res.redirect('/html/index.html');
                 res.end();
             } else {
                 res.end(html);
