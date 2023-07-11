@@ -1,5 +1,4 @@
-body,
-.signin {
+body {
   color: #fff;
   font-size: 14px;
   letter-spacing: 1px;
@@ -8,6 +7,16 @@ body,
 .login {
   position: relative;
   height: 560px;
+  width: 405px;
+  margin: auto;
+  padding: 60px 60px;
+  background: url(https://picsum.photos/id/1004/5616/3744) no-repeat   center center #505050;   
+  background-size: cover;
+}
+
+.register {
+  position: relative;
+  height: 670px;
   width: 405px;
   margin: auto;
   padding: 60px 60px;
@@ -41,14 +50,21 @@ h2:first-child {
     display: flex;
 }
 
-span {
+.item {
   text-transform: uppercase;
   font-size: 12px;
-  opacity: 0.4; 
+  opacity: 0.75;
   display: inline-block;
-
   top: -65px;
   transition: all 0.5s ease-in-out;
+}
+
+.outside {
+  margin-top: 12px;
+}
+
+#gmiss, #pmiss, #repmiss, #namemiss {
+  color: #BDFF00;
 }
 
 .email {
@@ -82,7 +98,7 @@ span {
   background: rgba(0, 0, 0, 0);
 }
 
-.text:focus + span, .email:focus + span {
+.text:focus + .item, .email:focus + .item {
   opacity: 0.6;
 }
 
@@ -100,8 +116,7 @@ input {
   font-size: 14px;
 }
 
-h2,
-span{
+h2, .item{
   margin-left: 20px;
 }
 
@@ -111,9 +126,9 @@ label {
   padding-left: 5px;
 }
 
-.signin {
+.signin, .signup {
   background-color: #BDFF00;
-  color: #FFF;
+  color: #505050;
   width: 100%;
   padding: 10px 20px;
   display: block;
@@ -125,13 +140,7 @@ label {
   text-transform: uppercase;
 }
 
-.signin:hover {
-  background: #d6ff64;
-  box-shadow: 0px 4px 35px -5px #d6ff64;
-  cursor: pointer;
-}
-
-.signin:focus {
+.signin:focus, .signup:focus {
   outline: none;
 }
 
@@ -147,5 +156,5 @@ a {
   top: 120px;
   position: relative;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.61);
 }
