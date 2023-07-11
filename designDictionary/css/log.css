@@ -1,6 +1,9 @@
 .customList {
   width: 6.5em;
 }
+.customLog {
+  width: 5.1em;
+}
 
 .star {
     display: none;
