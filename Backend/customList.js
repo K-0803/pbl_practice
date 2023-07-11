@@ -17,9 +17,7 @@ app.use(express.static(path.join('../designDictionary')));
 app.use(express.json());
 app.use(cookieParser());
 
-// app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
-// app.engine('ejs', require('ejs').__express);
 
 const client = new Client({
     user: "postgres",//ユーザー名
@@ -56,8 +54,14 @@ router.post('/', function(req, res){
 
                 return Promise.all([htmlId, htmlCode])
                     .then(function(){
-                        let htmlTag = `<div class="createView" name="${htmlCode}"><a href="postDetails.html"><img src="${htmlId}" alt="WEBカスタム画像"></a>`;
-                        htmlTag += `<input type="submit"><label id="star">★</label></div><br>`;
+                        let htmlTag = `<form action="/postDetails" method="post">
+                                       <div class="createView" id="imgId">
+                                       <input type="hidden" name="htmlCode" value="${htmlCode}">
+                                       <img src="${htmlId}" alt="WEBカスタム画像">
+                                       <input type="submit" value="詳細を見る">
+                                       </div>
+                                       </form>`;
+                        htmlTag += `<input type="submit"><label id="star">★</label><br>`;
                         customTags.push(htmlTag);
                         // cssTags.push(cssTag);
                     })
@@ -97,17 +101,10 @@ router.post('/', function(req, res){
                             res.end();
                         }else{
                             const renderedHTML = customTags.join('');
-                            // const renderedCSS = cssTags.join('');
-                            console.log(originContent);
-                            htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
+                            
+                            const htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
                             // .replace('</head>', `${renderedCSS}\n</head>`);
 
-                            // fs.writeFile(filePath, modifiedHtmlContent, htmlTxt, 'utf8', (err) =>{
-                            //     if(err){
-                            //         console.error(err);
-                            //         return;
-                            //     }
-                            // })
                             res.setHeader('Content-Type', 'text/html');
                             res.statusCode = 200;
                             res.end(htmlTxt);

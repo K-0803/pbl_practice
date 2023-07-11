@@ -25,12 +25,13 @@
         <h1>詳細投稿</h1>
 
         <form method="post" action="/favorite">
+            <div>{{ここにrenderedhtml}}</div>
             <button class="button-copy" aria-label="copy">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="#f6f6f6" d="M16.5 21v1.9c0 .6-.5 1.1-1.1 1.1H2.6c-.6 0-1.1-.5-1.1-1.1V5.6c0-.6.5-1.1 1.1-1.1H6v13.9C6 19.8 7.2 21 8.6 21h7.9zm0-16.1V0H8.6C8 0 7.5.5 7.5 1.1v17.2c0 .6.5 1.1 1.1 1.1h12.8c.6 0 1.1-.5 1.1-1.1V6h-4.9c-.6 0-1.1-.5-1.1-1.1zm5.7-1.5L19.1.3c-.2-.2-.5-.3-.8-.3H18v4.5h4.5v-.3c0-.3-.1-.6-.3-.8z"/>
                 </svg>
             </button>
-            <textarea class="customCss" placeholder="customCss">カスタムされたCSSを表示</textarea>
+            <textarea class="customCss" placeholder="カスタムされたCSSを表示">{{カスタムされたCSSを表示}}</textarea>
             
             <button name="favorite"><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
 
@@ -39,10 +40,10 @@
                     <path fill="#f6f6f6" d="M16.5 21v1.9c0 .6-.5 1.1-1.1 1.1H2.6c-.6 0-1.1-.5-1.1-1.1V5.6c0-.6.5-1.1 1.1-1.1H6v13.9C6 19.8 7.2 21 8.6 21h7.9zm0-16.1V0H8.6C8 0 7.5.5 7.5 1.1v17.2c0 .6.5 1.1 1.1 1.1h12.8c.6 0 1.1-.5 1.1-1.1V6h-4.9c-.6 0-1.1-.5-1.1-1.1zm5.7-1.5L19.1.3c-.2-.2-.5-.3-.8-.3H18v4.5h4.5v-.3c0-.3-.1-.6-.3-.8z"/>
                 </svg>
             </button>
+        
+        <textarea class="textbox-webpost" placeholder="投稿文転記">{{投稿文転記}}</textarea> 
         </form>
-        
-        <textarea class="textbox-webpost" placeholder="投稿文転記"></textarea> 
-        
+
         <input type="text" class="textbox-comment" placeholder="コメントを記入"/>
         <button type="submit"><img src="画像url" alt="投稿" /></button>
 
