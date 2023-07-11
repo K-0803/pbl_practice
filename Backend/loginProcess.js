@@ -36,7 +36,7 @@ router.post('/', function(req, res){
             if (redId != null) {
                 res.cookie('userId', redId);
                 console.log("userIdは" + redId);
-                res.redirect(req.baseUrl + '/html/index.html');
+                res.redirect('/html/index.html');
                 res.end();
             } else {
                 res.end(html);
