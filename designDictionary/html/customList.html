@@ -39,44 +39,18 @@
 
         
         <a href="postDetails.html"><img src="画像url" alt="WEBカスタム"></a>
-        <button type="submit"><img src="画像url" alt="お気に入り" /></button>
+        <input type="submit">
+            <label id="star">★</label>
         
-        <form action="/customList" method="POST">
-            <input type="submit" value="送信">
+        <form action="/postDetails" method="POST">
             <div>
                 {{customhtml}}
-                <!-- {{customcss}} -->
             </div>
         </form>
 
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="../js/main.js"></script>
-        <script>
-            window.addEventListener('DOMContentLoaded', function(){
-                var htmlCode = document.getElementsByClassName("htmlCode").textContent;
-                var cssCode = document.getElementByClassName("cssCode").textContent;
-                var viewArea = document.getElementByClassName("viewArea");
-
-                preview(htmlCode, cssCode, viewArea);
-            });
-       
-            htmlCode.addEventListener("input",preview);
-            cssCode.addEventListener("input",preview);
-
-            function preview(htmlCode, cssCode, viewArea) {
-                // HTMLコードとCSSコードを取得
-                
-                // <div id="view"></div> 内にHTMLコードを挿入
-                viewArea.innerHTML = htmlCode;
-                // CSSルールを定義
-                var style = document.createElement("style");
-                style.innerHTML = cssCode;
-                // <div id="view"></div> 内にCSSルールを挿入
-                viewArea.appendChild(style);
-            }
-
-            
-        </script>
+        
     </body>
 </html>

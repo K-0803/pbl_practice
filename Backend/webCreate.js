@@ -22,11 +22,13 @@ router.get('/', function(req, res){
   res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'webCreate.html'));
 });
 
-router.post('/', function(req, res){
-  //cookieに保存されているuserIdを取得
+app.post('/generate', function(req, res){
+  //cookieに保存されているuserIdとuserNameを取得
   // const userId = req.cookies.userId;
+  // const userName = req.cookies.userName;
   //デバッグ用userId
-  const userId = 3;
+  const userId = 23;
+  const userName = 'sssss';
 
 
   //入力データの取得
@@ -38,8 +40,8 @@ router.post('/', function(req, res){
 
   //HTMLファイルとCSSファイルを生成して保存
   
-  const htmlFilePath = `../saveFile/html/${fileId}.html`;
-  const cssFilePath = `../saveFile/css/${fileId}.css`;
+  const htmlFilePath = `../designDictionary/saveFile/html/${fileId}.html`;
+  const cssFilePath = `../designDictionary/saveFile/css/${fileId}.css`;
   fs.writeFileSync(htmlFilePath, htmlContent);
   fs.writeFileSync(cssFilePath, cssContent);
   
@@ -52,8 +54,8 @@ router.post('/', function(req, res){
   });
   client.connect();
   const query = {
-    text: "INSERT INTO web_create (user_id, ccss_code, chtml_code, write_comment) VALUES ($1, $2, $3, $4)",
-    values: [userId, fileId, fileId, comment],
+    text: "INSERT INTO web_create (user_id, user_name, ccss_code, chtml_code, write_comment) VALUES ($1, $2, $3, $4, $5)",
+    values: [userId, userName, fileId, fileId, comment],
   };
   client.query(query, function(error, result){
     if(error){

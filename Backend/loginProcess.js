@@ -28,15 +28,18 @@ router.get('/', function(req, res){
 });
 
 //postリクエストの処理
+// app.post('/login', function(req, res){
 router.post('/', function(req, res){
     const {email, pass} = req.body; //リクエストボディのデータ取得
 
     getPass(email, pass)
         .then(function(redId){
             if (redId != null) {
-                res.cookie('userId', redId);
-                console.log("userIdは" + redId);
-                res.redirect(req.baseUrl + '/html/index.html');
+                res.cookie('userId', redId[0]);
+                console.log("userIdは" + redId[0]);
+                res.cookie('userName', redId[1]);
+                console.log("userNameは" + redId[1]);
+                res.redirect('/html/index.html');
                 res.end();
             } else {
                 res.end(html);
@@ -48,6 +51,7 @@ router.post('/', function(req, res){
         });
     
 })
+
 
 
 // app.listen(port,'107.22.226.32' ,()=>{
@@ -104,7 +108,7 @@ function getPass(email, pass){
                 console.log(resultId);
 
                 client.end();
-                resolve(resultId);
+                resolve([resultId, resultArray]); //返却値を配列にすることで1つの値とする
             })
             .catch(function(e){
                 console.error(e.stack);
@@ -115,6 +119,7 @@ function getPass(email, pass){
 }
 
 module.exports =router;
+
 // function getPass(email, pass){
 //     const {Client} = require("pg");
 //     const client = new Client({
