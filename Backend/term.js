@@ -45,7 +45,7 @@ router.get('/', function(req, res){
 
       // クエリの作成と実行
       const query = {
-        text: 'SELECT code , summary FROM term_model WHERE code = $1',
+        text: 'SELECT code , summary FROM term_model WHERE code ilike $1',
         values: [search],
       };
     
@@ -75,7 +75,7 @@ router.get('/', function(req, res){
             res.end('HTMLファイルの読み込みエラーが発生しました');
           } else if(result.rows != ''){
             // HTMLテーブルの作成
-            let tableHTML = '<table border="1">';
+            let tableHTML = '<table border="1" class="html_table">';
             tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
 
             result.rows.forEach((row) => {
@@ -90,7 +90,7 @@ router.get('/', function(req, res){
             res.statusCode = 200;
             res.end(htmlContent);
           }else{
-            let tableHTML = '<table border="1">';
+            let tableHTML = '<table border="1" class="html_table">';
           tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
             tableHTML += `<tr>検索結果:0件</tr>`;
           tableHTML += '</table>';
@@ -113,7 +113,7 @@ router.get('/', function(req, res){
           res.end('HTMLファイルの読み込みエラーが発生しました');
         } else {
           // HTMLテーブルの作成
-          let tableHTML = '<table border="1">';
+          let tableHTML = '<table border="1" class="html_table">';
           tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
             tableHTML += `<tr>検索結果:0件</tr>`;
           tableHTML += '</table>';
