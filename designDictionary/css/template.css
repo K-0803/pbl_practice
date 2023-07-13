@@ -1,3 +1,7 @@
+.Wtemplate {
+  width: 10.8em;
+}
+
 .button.download {
     --background: none;
     --rectangle: #242836;
