@@ -34,15 +34,22 @@ router.post('/', function(req, res){
 
     getPass(email, pass)
         .then(function(redId){
-            if (redId != null) {
+            const errcheck = redId[2];
+            if (errcheck != 0) {
                 res.cookie('userId', redId[0]);
                 console.log("userIdは" + redId[0]);
                 res.cookie('userName', redId[1]);
                 console.log("userNameは" + redId[1]);
-                res.redirect('/html/index.html');
-                res.end();
+                res.writeHead(302, {
+                    'Location': '/'
+                  });
+                  res.end();
             } else {
-                res.end(html);
+                console.log("log in失敗")
+                res.writeHead(302, {
+                    'Location': './login'
+                  });
+                  res.end();
             }
             })
         .catch((error) => {
@@ -108,7 +115,7 @@ function getPass(email, pass){
                 console.log(resultId);
 
                 client.end();
-                resolve([resultId, resultArray]); //返却値を配列にすることで1つの値とする
+                resolve([resultId, resultArray, resultCnt]); //返却値を配列にすることで1つの値とする
             })
             .catch(function(e){
                 console.error(e.stack);
