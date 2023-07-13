@@ -4,6 +4,9 @@
 .searchResult {
     width: 4.9em;
 }
+.termDictionary {
+    width: 3.8em;
+}
 
 .search {
     cursor: pointer;
