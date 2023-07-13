@@ -281,11 +281,19 @@
             var selectElement = document.getElementById("myfont");
             var textBoxElement = document.getElementById("ccode");
             var selectedValue = selectElement.value;
+            var existingStyles = textBoxElement.value;
 
             var newStyle = 'p{font-family:"' + selectedValue + '";}';
-             textBoxElement.value += newStyle;
-             element.style.fontFamily = selectElement;
+            
+            if (!existingStyles.includes(newStyle)) {
+                textBoxElement.value += newStyle;
             }
+
+            element.style.fontFamily = selectElement.value;
+            }
+
+             element.style.fontFamily = selectElement;
+            
             //センテンスカラー（仮）
             function getColorCode() {
             var colorSelect = document.getElementById("colorSelect");
@@ -310,14 +318,22 @@
 
             //揃え
             function getButtonText(buttonValue) {
-                var aliElement = document.getElementById("ccode");
-                var buttonText = buttonValue;
+            var aliElement = document.getElementById("ccode");
+            var buttonText = buttonValue;
 
-                var updatedStyl = aliElement.value; // 初期化
-                var newStyl1 = ".preview{ text-align: " + buttonText + "; }";
-                updatedStyl += newStyl1;
-                aliElement.value = updatedStyl;
+            var updatedStyl = aliElement.value;
+
+            // 特定のスタイルを削除するための正規表現パターン
+            var pattern = /\.preview\s*\{[^\}]*text-align:\s*[^;]*;\s*\}/g;
+            
+            // テキストボックス内の特定のスタイルを削除
+            updatedStyl = updatedStyl.replace(pattern, "");
+
+            var newStyl1 = ".preview{ text-align: " + buttonText + "; }";
+            updatedStyl += newStyl1;
+            aliElement.value = updatedStyl;
             }
+
 
 
             //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
