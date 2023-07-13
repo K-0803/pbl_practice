@@ -3,7 +3,6 @@ const path = require("path");
 const app = express();
 
 
-
 app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -38,6 +37,10 @@ app.use('/postDetails', require('./postDetails'));  //投稿履歴詳細ペー�
 app.listen(8080 , () => {
   console.log(`Server is listening on port 8080`);
 });
+
+// app.listen(3000,'172.31.92.167', () => {
+//   console.log(`Server is listening on port 8080`);
+// });
 
 // const server = http.createServer(app);
 // server.listen(8080, function() {
