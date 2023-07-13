@@ -1,6 +1,9 @@
 .searchGenre {
     width: 4.9em;
 }
+.searchResult {
+    width: 4.9em;
+}
 
 .search {
     cursor: pointer;
