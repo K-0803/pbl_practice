@@ -28,15 +28,15 @@
         <div class="acount item">
             <h2 class="active"> profile </h2>
             <section class="menu">
-                <p>username</p>
-                <p>gmail</p>
+                <p><%= acc.name%></p>
+                <p><%= acc.gmail%></p>
             </section>
             <hr>
             <!-- モーダルウィンドウ -->
-            <a href="#logout" class="logout">
+            <%- acc.log%>
                 <dl>sign out</dl>
             </a>
-            <section id="logout" class="hide-area">
+            <section id="#logout" class="hide-area">
                 <h2>sign out</h2><br>
                 <a href="/">yes</a>
                 <p>no</p>

@@ -4,41 +4,34 @@
         <meta charset="utf-8">
         <title>新規登録</title>
         <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
-        <link href="/css/login.css" rel="stylesheet" type="text/css">
+        <!-- <link href="/css/login.css" rel="stylesheet" type="text/css"> -->
     </head>
 
     <body>
         <form method="POST" id="myForm" action="/register">
         <label>
-            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= mail %></span><br>
+            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= from.email %></span><br>
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
-            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= pass %></span><br>
+            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= from.epass %></span><br>
             <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= repass %></span><br>
+            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= from.erepass %></span><br>
             <input id="textrepass" name="repass" type="password" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-name">UserName</span><br>
+            <span class="textbox-login-name">UserName</span><span id="namemiss"><%= from.name %></span><br>
             <input name="name" type="text" class="textbox-name" placeholder="username"/>
         </label><br>
 
-        <input type="hidden" id="boolean1" name="boolean1" value="">
-        <input type="hidden" id="boolean2" name="boolean2" value="">
-
         <p id="text1"></p>
-        <button type="submit">送信</button>
+        <button type="submit" onClick>送信</button>
         </form>
-        <button onclick="location.href='/'">戻る</button>
-    </body>
-    <script>
-
-document.getElementById('myForm').addEventListener('submit', function(event) {
-
-            this.submit();
-        })
+        <button onclick="location.href='index.html'">戻る</button>
+</body>
+<script>
+    
 </script>
 </html>
