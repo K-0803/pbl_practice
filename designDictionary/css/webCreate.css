@@ -1,0 +1,66 @@
+.shokika{
+
+    width: 30%
+
+ }
+ .allbox{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+     
+ }
+ .left{
+     float: left;
+     margin-left: 25%;
+     margin-right: auto;
+     width:30%
+  
+ }
+ .right{
+     
+     display: inline-block;
+     width: 30%
+
+ }
+ .clear{
+     clear: both;
+ }
+ .divcontainer {
+     text-align: left;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+ .preview{
+     padding: 0.5em 1em;
+     margin: 2em 0;
+     background: white;
+     border-top: solid 5px #5d627b;
+     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+     border-left: double 7px #bbff00;/*左線*/
+     border-right: double 7px #bbff00;/*右線*/
+     resize: vertical;
+     width: 80%;
+     display: inline-block; /* 必要に応じて追加 */
+
+ }
+ .container {
+     border: none;
+     margin-left: 20%;
+     margin-right: auto;
+     border-radius: 35px;
+     font-size: 1em;
+     line-height: 2.0;
+ }
+ textarea.html-webpost{
+     resize:vertical;
+     width: 40%;
+ }
+ textarea.css-webpost{
+     resize:vertical;
+     width: 40%;
+ }
+
+
+
