@@ -1,8 +1,8 @@
 const express = require('express');
-const http = require('http');
-
+const path = require("path");
 const app = express();
-const path = require('path');
+// const path = require('path');
+const notifier = require('node-notifier');
 
 app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.use(express.json());
@@ -38,6 +38,10 @@ app.use('/postDetails', require('./postDetails'));  //投稿履歴詳細ペー�
 app.listen(8080 , () => {
   console.log(`Server is listening on port 8080`);
 });
+
+// app.listen(3000,'172.31.92.167', () => {
+//   console.log(`Server is listening on port 8080`);
+// });
 
 // const server = http.createServer(app);
 // server.listen(8080, function() {
