@@ -15,7 +15,7 @@ app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 router.get('/', (req, res) => {
   const cookieHeader = req.headers.cookie;
   var data={
-    acc: {name:'',gmail:'',log:'<a href="/login" class="login">'}
+    acc: {name:'',gmail:'',account:'log in',log:'<a href="/login" class="login">'}
   }
   if (cookieHeader) {
     const cookiePairs = cookieHeader.split(';');
@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
       .then(function(mailid){
         let address = mailid;
         var data={
-          acc: {name:username,gmail:address,log:'<a href="#logout" class="logout">'}
+          acc: {name:username,gmail:address,account:'log out',log:'<a href="#logout" class="logout">'}
         }
         res.render('mypage',data);
       }).catch(function(e){
