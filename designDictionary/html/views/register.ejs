@@ -8,7 +8,7 @@
     </head>
 
     <body>
-        <form method="POST" id="myForm" action="/register">
+        <form id="registrationForm" >
         <label>
             <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= from.email %></span><br>
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
@@ -29,9 +29,34 @@
         <p id="text1"></p>
         <button type="submit" onClick>送信</button>
         </form>
+
+
+
+  <!-- JavaScriptの読み込み -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // フォームが送信された時の処理
+    $('#registrationForm').submit(function(e) {
+      e.preventDefault(); // ページ遷移を防止
+
+      // Ajaxリクエストを送信
+      $.ajax({
+        type: 'POST',
+        url: '/register', // サーバー側の新規登録ルートに合わせてURLを設定
+        data: $(this).serialize(), // フォームデータを送信
+        success: function(response) {
+          // ポップアップにメッセージを表示
+       
+          location.href = "login";
+          alert(response.message);
+
+        },
+        error: function(error) {
+          console.log('エラーが発生しました。', error);
+        }
+      });
+    });
+</script>
         <button onclick="location.href='index.html'">戻る</button>
 </body>
-<script>
-    
-</script>
 </html>
