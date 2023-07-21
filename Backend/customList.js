@@ -19,13 +19,6 @@ app.use(cookieParser());
 
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
-const client = new Client({
-    user: "postgres",//ユーザー名
-    host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
-    database: "postgres",//DB名
-    password: "shirokuma123",//ユーザーパスワード
-    port: 5432,
-});
 
 router.get('/', function(req, res){
     res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'customList.html'));
@@ -34,97 +27,89 @@ router.get('/', function(req, res){
 router.post('/', function(req, res){
     // const userName = req.cookies.userName;
 
-    const query = {
-        text: "SELECT chtml_code from web_create order by user_name asc",
-        // values: [userName],
-    };
-    client.connect();
-    client
-        .query(query)
-        .then(function(result){
-            console.log(result);
-            const resultArray = result.rows;
-            
-            const htmlCodes = resultArray.map(value => value.chtml_code );
+    async function executeDBOperations(){
+        const client = new Client({
+            user: "postgres",//ユーザー名
+            host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
+            database: "postgres",//DB名
+            password: "shirokuma123",//ユーザーパスワード
+            port: 5432,
+        });
 
-            const customTags = [];
+        const query = {
+            text: "SELECT chtml_code from web_create order by user_name asc",
+            // values: [userName],
+        };
+        
+        await client.connect();
+        client
+            .query(query)
+            .then(function(result){
+                console.log(result);
+                const resultArray = result.rows;
+                
+                const htmlCodes = resultArray.map(value => value.chtml_code );
 
-            const readFilePromises = htmlCodes.map(function(htmlCode){
-                const htmlId = `../saveFile/png/${htmlCode}.png`;
+                const customTags = [];
 
-                return Promise.all([htmlId, htmlCode])
+                const readFilePromises = htmlCodes.map(function(htmlCode){
+                    const htmlId = `../saveFile/png/${htmlCode}.png`;
+
+                    return Promise.all([htmlId, htmlCode])
+                        .then(function(){
+                            let htmlTag = `<form action="/postDetails" method="post">
+                                        <div class="createView" id="imgId">
+                                        <input type="hidden" name="htmlCode" value="${htmlCode}">
+                                        <img src="${htmlId}" alt="WEBカスタム画像">
+                                        <input type="submit" value="詳細を見る">
+                                        </div>
+                                        </form>`;
+                            htmlTag += `<input type="submit"><label id="star">★</label><br>`;
+                            customTags.push(htmlTag);
+                            // cssTags.push(cssTag);
+                        })
+                        .catch(function(err){
+                            console.error(err);
+                            res.status(500).send('Internal Server Error');
+                        });
+                });
+
+                Promise.all(readFilePromises)
                     .then(function(){
-                        let htmlTag = `<form action="/postDetails" method="post">
-                                       <div class="createView" id="imgId">
-                                       <input type="hidden" name="htmlCode" value="${htmlCode}">
-                                       <img src="${htmlId}" alt="WEBカスタム画像">
-                                       <input type="submit" value="詳細を見る">
-                                       </div>
-                                       </form>`;
-                        htmlTag += `<input type="submit"><label id="star">★</label><br>`;
-                        customTags.push(htmlTag);
-                        // cssTags.push(cssTag);
+                        fs.readFile('../designDictionary/html/customList.html', 'utf8', function(err, originContent){
+                            if(err){
+                                console.error(err);
+                                res.statusCode = 500;
+                                res.end();
+                            }else{
+                                const renderedHTML = customTags.join('');
+                                
+                                const htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
+                                // .replace('</head>', `${renderedCSS}\n</head>`);
+
+                                res.setHeader('Content-Type', 'text/html');
+                                res.statusCode = 200;
+                                res.end(htmlTxt);
+                            }
+                        });
                     })
                     .catch(function(err){
                         console.error(err);
                         res.status(500).send('Internal Server Error');
                     });
-            });
-
-            // const readFilePromises = htmlCodes.map(function(htmlCode, index){
-            //     const htmlFilePath = `../designDictionary/saveFile/html/${htmlCode}.html`;
-            //     const cssFilePath = `../designDictionary/saveFile/css/${cssCodes[index]}.css`;
-
-            //     return Promise.all([
-            //         fs.promises.readFile(htmlFilePath, 'utf8'),
-            //         fs.promises.readFile(cssFilePath, 'utf8')
-            //     ])
-            //         .then(function([htmlContent, cssContent]){
-            //             let htmlTag = `<div class="viewArea${index}" contenteditable="true"></div><br>
-            //                             <div class="htmlCode" oninput="preview">${htmlContent}`;
-            //             htmlTag += `<style>${cssContent}</style></div>`;
-            //             htmlTags.push(htmlTag);
-            //             // cssTags.push(cssTag);
-            //         })
-            //         .catch(function(err){
-            //             console.error(err);
-            //             res.status(500).send('Internal Server Error');
-            //         });
-            // });
-
-            Promise.all(readFilePromises)
-                .then(function(){
-                    fs.readFile('../designDictionary/html/customList.html', 'utf8', function(err, originContent){
-                        if(err){
-                            console.error(err);
-                            res.statusCode = 500;
-                            res.end();
-                        }else{
-                            const renderedHTML = customTags.join('');
-                            
-                            const htmlTxt = originContent.replace('{{customhtml}}', renderedHTML)
-                            // .replace('</head>', `${renderedCSS}\n</head>`);
-
-                            res.setHeader('Content-Type', 'text/html');
-                            res.statusCode = 200;
-                            res.end(htmlTxt);
-                        }
-                    });
-                })
-                .catch(function(err){
-                    console.error(err);
-                    res.status(500).send('Internal Server Error');
-                });
-        })
-        .catch(function(e){
-            console.error(e);
-            res.status(500).send('Internal Server Error');
-        })
-        .finally(function(){
-            client.end();
-        })       
-            
-})
+            })
+            .catch(function(e){
+                console.error(e);
+                res.status(500).send('Internal Server Error');
+            })
+            .finally(function(){
+                client.end();
+            })
+    }       
+    
+    executeDBOperations();
+    
+});
 
 module.exports =router;
 

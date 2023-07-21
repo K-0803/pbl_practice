@@ -22,51 +22,65 @@ router.get('/', function(req, res){
   res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'webCreate.html'));
 });
 
-app.post('/generate', function(req, res){
+router.post('/', function(req, res){
   //cookieに保存されているuserIdとuserNameを取得
-  // const userId = req.cookies.userId;
-  // const userName = req.cookies.userName;
-  //デバッグ用userId
-  const userId = 23;
-  const userName = 'sssss';
-
-
-  //入力データの取得
-  const {htmlContent, cssContent, comment} = req.body;
-
-
-  //ファイル名を一意なIDとして生成
-  const fileId = uuidv4();
-
-  //HTMLファイルとCSSファイルを生成して保存
-  
-  const htmlFilePath = `../designDictionary/saveFile/html/${fileId}.html`;
-  const cssFilePath = `../designDictionary/saveFile/css/${fileId}.css`;
-  fs.writeFileSync(htmlFilePath, htmlContent);
-  fs.writeFileSync(cssFilePath, cssContent);
-  
-  const client = new Client({
-      user: "postgres",//ユーザー名
-      host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
-      database: "postgres",//DB名
-      password: "shirokuma123",//ユーザーパスワード
-      port: 5432, 
-  });
-  client.connect();
-  const query = {
-    text: "INSERT INTO web_create (user_id, user_name, ccss_code, chtml_code, write_comment) VALUES ($1, $2, $3, $4, $5)",
-    values: [userId, userName, fileId, fileId, comment],
-  };
-  client.query(query, function(error, result){
-    if(error){
-      console.error('データベースエラー：', error);
-      // res.status(500).send('データベースエラーが発生しました');
-      res.redirect(req.baseUrl + '/html/index.html');
-    }else{
-      // res.send('ファイルが生成され、データベースに保存されました');
-      res.redirect(req.baseUrl + '/html/webCreate.html');
+  const cookieHeader = req.headers.cookie;
+  var data={
+    acc: {name:'',gmail:'',account:'log in',log:'<a href="/login" class="login">'}
+  }
+  if (cookieHeader) {
+    const cookiePairs = cookieHeader.split(';');
+    const cookieData = {};
+    
+    for (const cookiePair of cookiePairs) {
+      const [name, value] = cookiePair.trim().split('=');
+      cookieData[name] = decodeURIComponent(value);
     }
-  });
+    const userid = cookieData['userId'];
+    const username = cookieData['userName'];
+
+    console.log(userid);
+
+
+      //入力データの取得
+      const {htmlContent, cssContent, comment} = req.body;
+
+      //ファイル名を一意なIDとして生成
+      const fileId = uuidv4();
+
+      //HTMLファイルとCSSファイルを生成して保存
+      
+      const htmlFilePath = `../designDictionary/saveFile/html/${fileId}.html`;
+      const cssFilePath = `../designDictionary/saveFile/css/${fileId}.css`;
+      fs.writeFileSync(htmlFilePath, htmlContent);
+      fs.writeFileSync(cssFilePath, cssContent);
+      
+      const client = new Client({
+          user: "postgres",//ユーザー名
+          host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
+          database: "postgres",//DB名
+          password: "shirokuma123",//ユーザーパスワード
+          port: 5432, 
+      });
+      client.connect();
+      const query = {
+        text: "INSERT INTO web_create (user_id, user_name, ccss_code, chtml_code, write_comment) VALUES ($1, $2, $3, $4, $5)",
+        values: [userid, username, fileId, fileId, comment],
+      };
+      client.query(query, function(error, result){
+        if(error){
+          console.error('データベースエラー：', error);
+          // res.status(500).send('データベースエラーが発生しました');
+          res.redirect('/html/index.html');
+        }else{
+          // res.send('ファイルが生成され、データベースに保存されました');
+          res.redirect('/html/webCreate.html');
+        }
+      });
+
+    }else{
+      res.render('mypage',data)
+    }
 
 })
 

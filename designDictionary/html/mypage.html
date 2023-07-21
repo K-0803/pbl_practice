@@ -36,15 +36,19 @@
             </a>
             <section id="#logout" class="hide-area">
                 <h2>sign out</h2><br>
-                <a href="/">yes</a>
-                <p>no</p>
+                <h4 href="/">yes</h4>>
+                <h4>no</h4>>
             </section>
-        </div> 
-        <div class="link item">
-            <a href="/favorite">お気に入り一覧</a>
-            <a href="/customLog">WEBサイトカスタマイズ履歴</a>
-            <a href="/postLog">投稿履歴</a>
         </div>
+        <form action="/postLog" method="post">
+        <div class="link item">
+            
+                <a href="/favorite">お気に入り一覧</a>
+                <a href="/customLog">WEBサイトカスタマイズ履歴</a>
+                <a onclick="location.href='/postLog'">投稿履歴</a>
+                <button type="submit">送信</button>
+        </div>
+        </form>
         
         <!-- ハンバーガーメニュー用JQuery,js -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
