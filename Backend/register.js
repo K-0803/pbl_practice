@@ -81,7 +81,7 @@ function (req, res) {
 
         //入力値すべてにエラーがなければinsertする[]
           if(errors.isEmpty()&&condition == false){
-          sql ='INSERT INTO user_info (user_name, pwd, address) SELECT $1, $2, $3;',
+          sql ='INSERT INTO user_info (user_name, pwd, address) VALUES( $1, $2, $3);',
           value = [name,password,email];
          InsData(sql,value)
          .then(function(over){
