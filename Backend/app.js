@@ -2,7 +2,10 @@ const express = require('express');
 const path = require("path");
 const app = express();
 const notifier = require('node-notifier');
+const cookieParser = require('cookie-parser')
 
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '../designDictionary')));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -32,6 +35,36 @@ app.use('/colorSample', require('./colorSample'));  //カラーサンプルペ�
 app.use('/customLog', require('./customLog'));  //カスタム履歴ページ遷移
 app.use('/mypage', require('./mypage'));  //マイページ遷移
 app.use('/postDetails', require('./postDetails'));  //投稿履歴詳細ページ遷移
+
+// ログイン状態をチェックする関数
+function isLoggedIn(req, res, next) {
+  const cookieHeader = req.headers.cookie;
+  if (cookieHeader) {
+    const cookiePairs = cookieHeader.split(';');
+    const cookieData = {};
+    for (const cookiePair of cookiePairs) {
+      const [name, value] = cookiePair.trim().split('=');
+      cookieData[name] = decodeURIComponent(value);
+    }
+    if (cookieData['userId'] && cookieData['userName']) {
+      // userIdとuserNameのクッキーがあればログイン済みと判定
+      req.isLoggedIn = true;
+    }
+  }
+  next();
+}
+
+// ログイン状態を確認するエンドポイント
+app.get('/checkLoginStatus', isLoggedIn, (req, res) => {
+  res.json({ isLoggedIn: req.isLoggedIn });
+});
+
+app.post('/logout', (req, res) => {
+  console.log("キャッシュclear");
+  res.clearCookie('userId'); // userIdクッキーを削除
+  res.clearCookie('userName'); // userNameクッキーを削除
+  res.redirect('/'); // ログアウト後にホームページにリダイレクト
+});
 
 
 app.listen(8080 , () => {

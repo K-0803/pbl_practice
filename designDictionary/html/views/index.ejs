@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>目次</title>
+        <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
+        <link href="../css/index.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <div class="outside">
+            <div class="insidep">
+                <button onclick="location.href='/mypage'" class="button-mypage">マイページ<br><%=acc%></button>
+                <button onclick="location.href='/webCreate'" class="button-webCreate">WEBサイト作成</button>
+            </div>
+            <div class="insideq">
+                <button onclick="location.href='/Ptemplate'" class="button-Ptemp">プレゼンテーションテンプレート</button>
+                <button onclick="location.href='/Wtemplate'" class="button-Wtemp">WEBサイトテンプレート</button>
+            </div>
+            <div class="insideq">
+                <form action="/customList" method="post">
+                    <button onclick="location.href='/customList'" class="button-postLog">カスタマイズ投稿一覧</button>
+                </form>
+
+                <form action="/termDictionary" method="post">
+                    <button  class="button-termDic">用語辞典</button>
+                </form>
+                
+            </div>
+            <div class="insider">
+                <button onclick="location.href='/colorSample'" class="button-colorSample">色見本</button>
+                
+                <form action="/postLog" method="post">
+                    <button class="button-null">投稿履歴</button>
+                </form>
+            </div>
+        </div>
+        <script>
+          </script>
+    </body>
+</html>
