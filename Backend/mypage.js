@@ -11,12 +11,12 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
-// ホームページの表示
 router.get('/', (req, res) => {
   const cookieHeader = req.headers.cookie;
   var data={
     acc: {name:'',gmail:'',account:'log in',log:'<a href="/login" class="login">'}
   }
+
   if (cookieHeader) {
     const cookiePairs = cookieHeader.split(';');
     const cookieData = {};
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
     const username = cookieData['userName'];
 
     console.log(username);
-
+    
       InsData(userid)
       .then(function(mailid){
         let address = mailid;
