@@ -45,10 +45,9 @@
         url: '/register', // サーバー側の新規登録ルートに合わせてURLを設定
         data: $(this).serialize(), // フォームデータを送信
         success: function(response) {
+          
           // ポップアップにメッセージを表示
-       
-          location.href = "login";
-          window.location.reload();
+          window.location.href = '/login';
           alert(response.message);
 
         },

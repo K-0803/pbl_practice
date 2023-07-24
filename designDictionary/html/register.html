@@ -31,12 +31,14 @@
         </form>
 
 
+
   <!-- JavaScriptの読み込み -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     // フォームが送信された時の処理
     $('#registrationForm').submit(function(e) {
       e.preventDefault(); // ページ遷移を防止
+
       // Ajaxリクエストを送信
       $.ajax({
         type: 'POST',
@@ -44,11 +46,10 @@
         data: $(this).serialize(), // フォームデータを送信
         success: function(response) {
           // ポップアップにメッセージを表示
-          
-          location.href = "login";
-          window.location.reload();
+          window.location.href = '/login';
           alert(response.message);
-        }, 
+
+        },
         error: function(error) {
           console.log('エラーが発生しました。', error);
         }

@@ -65,6 +65,7 @@ function (req, res) {
  
         }
         console.log(messages[3]);
+        condition = true;
         //emailに重複確認
         InsData(sql,value)
         .then(function(over){
@@ -86,8 +87,7 @@ function (req, res) {
          InsData(sql,value)
          .then(function(over){
           if(over==true){
-
-
+            console.log("登録");
          const message = "新規登録が成功しました！";
 
           //レスポンスとしてメッセージを返す
@@ -131,8 +131,8 @@ function (req, res) {
         return client.query(query);
       })
       .then(function(res) {
-         let redct  = true;
-      console.log(res.rows.length );
+         let redct  = Boolean;
+      console.log(res.rows);
       if(res.rows.length > 0){
         redct = false;
         client.end();
