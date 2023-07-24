@@ -12,22 +12,29 @@
     <body>
         <div class="outside">
             <div class="insidep">
-                <button onclick="location.href='mypage.html'" class="button-mypage">マイページ</button>
-                <button onclick="location.href='webCreate.html'" class="button-webCreate">WEBサイト作成</button>
+                <button onclick="location.href='/mypage'" class="button-mypage">マイページ</button>
+                <button onclick="location.href='/webCreate'" class="button-webCreate">WEBサイト作成</button>
             </div>
             <div class="insideq">
-                <button onclick="location.href='Ptemplate.html'" class="button-Ptemp">プレゼンテーションテンプレート</button>
-                <button onclick="location.href='Wtemplate.html'" class="button-Wtemp">WEBサイトテンプレート</button>
+                <button onclick="location.href='/Ptemplate'" class="button-Ptemp">プレゼンテーションテンプレート</button>
+                <button onclick="location.href='/Wtemplate'" class="button-Wtemp">WEBサイトテンプレート</button>
             </div>
             <div class="insideq">
-                <button onclick="location.href='postLog.html'" class="button-postLog">カスタマイズ投稿一覧</button>
+                <form action="/customList" method="post">
+                    <button onclick="location.href='/customList'" class="button-postLog">カスタマイズ投稿一覧</button>
+                </form>
+
                 <form action="/termDictionary" method="post">
                     <button  class="button-termDic">用語辞典</button>
                 </form>
+                
             </div>
             <div class="insider">
-                <button onclick="location.href='colorSample.html'" class="button-colorSample">色見本</button>
-                <button class="button-null">空きボタン</button>
+                <button onclick="location.href='/colorSample'" class="button-colorSample">色見本</button>
+                
+                <form action="/postLog" method="post">
+                    <button class="button-null">投稿履歴</button>
+                </form>
             </div>
         </div>
     </body>
