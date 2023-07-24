@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,40 +8,57 @@
     </head>
 
     <body>
-        <div class="register">
-            <h2 class="active"> sign up </h2>
-            <form method="POST" id="myForm" action="/register">
+        <form id="registrationForm" >
+            <div class="register">
+                <h2 class="active"> sign up </h2>
+                    <span class="item">gmail</span><span id="gmiss"><%= from.email %></span>
+                    <div class="mailblock">
+                        <input name="email" type="text" class="email"/>
+                        <p>@gmail.com</p>
+                    </div>
 
-                <span class="item">gmail</span><span id="gmiss"><%= mail %></span>
-                <div class="mailblock">
-                    <input name="email" type="text" class="email"/>
-                    <p>@gmail.com</p>
-                </div>
-
-                <span class="item" id="pass">password</span><span id="pmiss"><%= pass %></span>
-                <input id="textpass" name="pass" type="password" class="text"/>
+                    <span class="item" id="pass">password</span><span id="pmiss"><%= from.epass %></span>
+                    <input id="textpass" name="pass" type="password" class="text"/>
                     
-                <span class="item outside" id="repass">re:password</span><span id="repmiss"><%= repass %></span>
-                <input id="textrepass" name="repass" type="password" class="text"/>
+                    <span class="item outside" id="repass">re:password</span><span id="repmiss"><%= from.erepass %></span>
+                    <input id="textrepass" name="repass" type="password" class="text"/>
                     
-                <span class="item outside">UserName</span><span id="namemiss"><%= from.name %></span>
-                <input name="name" type="text" class="text"/>
+                    <span class="item outside">UserName</span><span id="namemiss"><%= from.name %></span>
+                    <input name="name" type="text" class="text"/>
 
-                <input type="hidden" id="boolean1" name="boolean1" value="">
-                <input type="hidden" id="boolean2" name="boolean2" value="">
+                    <input type="hidden" id="boolean1" name="boolean1" value="">
+                    <input type="hidden" id="boolean2" name="boolean2" value="">
 
-                <p id="text1"></p>
-                <input type="submit" class="signup" onclick="location.href='login.html'" value="sign up"/>
-            </form>
-            <hr>
-            <a href="index.html">cancel</a>
-        </div>
-    </body>
-    <script>
-
-document.getElementById('myForm').addEventListener('submit', function(event) {
-
-            this.submit();
-        })
+                    <p id="text1"></p>
+                    <input type="submit" class="signup" onclick="location.href='login.html'" value="sign up"/>
+                <hr>
+                <a href="index.html">cancel</a>
+            </div>  
+        </form>
+        
+    <!-- JavaScriptの読み込み -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // フォームが送信された時の処理
+    $('#registrationForm').submit(function(e) {
+      e.preventDefault(); // ページ遷移を防止
+      // Ajaxリクエストを送信
+      $.ajax({
+        type: 'POST',
+        url: '/register', // サーバー側の新規登録ルートに合わせてURLを設定
+        data: $(this).serialize(), // フォームデータを送信
+        success: function(response) {
+          // ポップアップにメッセージを表示
+          
+          location.href = "login";
+          alert(response.message);
+        }, 
+        error: function(error) {
+          console.log('エラーが発生しました。', error);
+        }
+      });
+    });
 </script>
+        <button onclick="location.href='index.html'">戻る</button>
+</body>
 </html>
