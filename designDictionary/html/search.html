@@ -9,24 +9,21 @@
 </head>
 
 <body>
-    <!-- ハンバーガーメニュー -->
+    
     <div class="openbtn"><span></span><span></span><span></span></div>
-    <nav id="g-nav">
-        <div id="g-nav-list">
-            <ul>
-                <li><a href="mypage.html">マイページ</a></li> 
-                <li><a href="index.html">目次</a></li> 
-                <li><a href="login.html">ログイン</a></li>
-            </ul>
-        </div>
-    </nav>
-    <!-- ハンバーガーメニュー押下後の背景 -->
+    <div id="hamburgermenu"></div>
     <div class="circle-bg"></div>
 
+<script>
+    $(function(){
+        $('#hamburgermenu').load('../html/template.html'); // #headerにheader.htmlを読み込む
+    });
+</script>
+
     <h1 class="searchGenre">ジャンル検索</h1>
-    <form action="サイトURL" method="get">
+    <form action="/search" method="post">
         <input type="search" name="search" placeholder="キーワードを入力">
-        <input type="submit" name="submit" class="search" value="検索">
+        <input type="submit" name="submit" value="検索">
     </form>
 
     <div class="genrebutton">
@@ -43,5 +40,13 @@
     <!-- ハンバーガーメニュー用JQuery,js -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="../js/main.js"></script>
+    <script>
+        $(function() {
+            // テンプレートファイルを読み込んで指定した要素に挿入する
+            $.get("../html/template.html", function(data) {
+                $("body").prepend(data);
+            });
+        });
+    </script>
 </body>
 </html>
