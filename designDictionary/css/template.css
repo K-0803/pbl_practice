@@ -155,3 +155,28 @@
       margin: 12px;
     }
   }
+  body {
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    color: #333;
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  a {
+    display: block;
+    padding: 10px;
+    background-color: #f0f0f0;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+  }
+  a:hover {
+    background-color: #ddd;
+  }
