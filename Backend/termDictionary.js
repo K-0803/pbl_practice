@@ -25,7 +25,7 @@ const dbConfig = {
 // データベース接続
 const pool = new Pool(dbConfig);
 
-router.get('/termDictionary', (req, res) => {
+router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'termDictionary.html'));
   console.log(sendFile);
 });
@@ -55,8 +55,8 @@ router.get('/termDictionary', (req, res) => {
             res.end('HTMLファイルの読み込みエラーが発生しました');
           } else {
             // CSSテーブルの作成
-            let cssTableHTML = '<table border="1">';
-            cssTableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
+            let cssTableHTML = '<table>';
+            cssTableHTML += '<tr><th>タグ</th><th>説明</th></tr>';
   
             cssRows.forEach((row) => {
               cssTableHTML += `<tr><td>${row.css_code}</td><td>${row.css_summary}</td></tr>`;
@@ -65,13 +65,17 @@ router.get('/termDictionary', (req, res) => {
             cssTableHTML += '</table>';
   
             // HTMLテーブルの作成
-            let htmlTableHTML = '<table border="1">';
-            htmlTableHTML += '<tr><th>タグ名</th><th>説明</th></tr>';
+            let htmlTableHTML = '<table>';
+            htmlTableHTML += '<thaed>';
+            htmlTableHTML += '<tr><th>タグ</th><th>説明</th></tr>';
+            htmlTableHTML += '<thaed>';
+            htmlTableHTML += '<tbody>';
   
             htmlRows.forEach((row) => {
               htmlTableHTML += `<tr><td>${row.html_code}</td><td>${row.html_summary}</td></tr>`;
             });
-  
+
+            htmlTableHTML += '</tbody>';
             htmlTableHTML += '</table>';
   
             // レスポンスとしてHTMLを返す
@@ -89,9 +93,10 @@ router.get('/termDictionary', (req, res) => {
         res.status(500).send('エラーが発生しました'); // エラーレスポンスを返す
       });
   });
+
   module.exports =router;
 
-// // サーバーの起動
+// サーバーの起動
 // app.listen(8080, () => {
 //   console.log('サーバーがポート8080で起動しました');
 // });

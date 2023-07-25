@@ -14,12 +14,8 @@ app.use(express.static(path.join('../designDictionary')));
 app.use(express.json());
 app.use(cookieParser());
 
-
 router.get('/', function(req, res){
-    const filePath = path.join('../designDictionary/html/postDetails.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'favorite.html'));
 })
 
 router.post('/', function(req, res){

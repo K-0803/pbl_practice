@@ -8,35 +8,38 @@
     </head>
 
     <body>
-        <form method="POST" id="myForm" action="/register">
+        <form method="POST" action="/register">
         <label>
-            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= mail %></span><br>
+            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= from.email %></span><br>
             <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
         </label><br>
         <label>
-            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= epass %></span><br>
+            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= from.epass %></span><br>
             <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= erepass %></span><br>
+            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= from.erepass %></span><br>
             <input id="textrepass" name="repass" type="password" class="textbox-re-pw" placeholder="password"/>
         </label><br>
         <label>
-            <span class="textbox-login-name">UserName</span><br>
+            <span class="textbox-login-name">UserName</span><span id="namemiss"><%= from.name %></span><br>
             <input name="name" type="text" class="textbox-name" placeholder="username"/>
         </label><br>
 
         <p id="text1"></p>
-        <button type="submit">送信</button>
+        <button type="submit" onclick>送信</button>
         </form>
-        <button onclick="location.href='index.html'">戻る</button>
-    </body>
-    <script>
 
-document.getElementById('myForm').addEventListener('submit', function(event) {
 
-            this.submit();
 
-        })
+  <!-- JavaScriptの読み込み -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    // フォームが送信された時の処理
+    $('#registrationForm').submit(function(e) {
+      e.preventDefault(); // ページ遷移を防止
+    });
 </script>
+        <button onclick="location.href='index.html'">戻る</button>
+</body>
 </html>

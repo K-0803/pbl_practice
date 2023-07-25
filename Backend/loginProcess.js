@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');  //req.bodyを使用できるよう�
 const app = express();
 const cookieParser = require('cookie-parser');
 const port = 80;
+const router = express.Router();
 
 var html = require('fs').readFileSync('../designDictionary/html/login.html');
 var resultArray = [];
@@ -22,26 +23,33 @@ app.use(express.json());
 app.use(cookieParser());
 
 //getリクエストの処理・ページを開いたときにhtmlが表示される
-app.get('/login', function(req, res){
-    const filePath = path.join('../designDictionary/html/login.html');
-    console.log(filePath);
-    res.sendFile(filePath);
-    res.end();
+router.get('/', function(req, res){
+    res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'login.html'));
 });
 
 //postリクエストの処理
-app.post('/login', function(req, res){
+// app.post('/login', function(req, res){
+router.post('/', function(req, res){
     const {email, pass} = req.body; //リクエストボディのデータ取得
 
     getPass(email, pass)
         .then(function(redId){
-            if (redId != null) {
-                res.cookie('userId', redId);
-                console.log("userIdは" + redId);
-                res.redirect(req.baseUrl + '/html/index.html');
-                res.end();
+            const errcheck = redId[2];
+            if (errcheck != 0) {
+                res.cookie('userId', redId[0]);
+                console.log("userIdは" + redId[0]);
+                res.cookie('userName', redId[1]);
+                console.log("userNameは" + redId[1]);
+                res.writeHead(302, {
+                    'Location': '/'
+                  });
+                  res.end();
             } else {
-                res.end(html);
+                console.log("log in失敗")
+                res.writeHead(302, {
+                    'Location': './login'
+                  });
+                  res.end();
             }
             })
         .catch((error) => {
@@ -52,13 +60,14 @@ app.post('/login', function(req, res){
 })
 
 
+
 // app.listen(port,'107.22.226.32' ,()=>{
 //     console.log('サーバーが起動しました。');
 // })
 
-app.listen(8080, function(){
-    console.log("aaaaa!");
-})
+// app.listen(8080, function(){
+//     console.log("aaaaa!");
+// })
 
 function getPass(email, pass){
     const {Client} = require("pg");
@@ -106,7 +115,7 @@ function getPass(email, pass){
                 console.log(resultId);
 
                 client.end();
-                resolve(resultId);
+                resolve([resultId, resultArray, resultCnt]); //返却値を配列にすることで1つの値とする
             })
             .catch(function(e){
                 console.error(e.stack);
@@ -115,6 +124,8 @@ function getPass(email, pass){
     });
     
 }
+
+module.exports =router;
 
 // function getPass(email, pass){
 //     const {Client} = require("pg");

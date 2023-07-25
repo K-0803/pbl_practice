@@ -29,7 +29,7 @@ const pool = new Pool(dbConfig);
 router.get('/', function(req, res){
 
   //ページが開かれたときにhtmlを表示する処理
-  const filePath = path.join('../designDictionary/html/searchResult.html');
+  res.sendFile(path.join(__dirname, '../designDictionary', 'html', 'searchResult.html'));
   console.log(filePath);
   res.sendFile(filePath);
 
@@ -37,16 +37,15 @@ router.get('/', function(req, res){
 });
 
   router.post('/',function(req,res){
+
     const {search} = req.body;//リクエストボディのデータ取得
-    console.log("serchの中身は:"+search);
-  //if文の条件を変更。キーワード入力エリアが空白でない場合に処理実行
-  if (search != '') {
+  
     
-      //console.log("serchの中身は:"+search);
+  if (search != '') { //if文の条件を変更。キーワード入力エリアが空白でない場合に処理実行
 
       // クエリの作成と実行
       const query = {
-        text: 'SELECT code , summary FROM term_model WHERE code = $1',
+        text: 'SELECT code , summary FROM term_model WHERE code ilike $1',
         values: [search],
       };
     
@@ -76,7 +75,7 @@ router.get('/', function(req, res){
             res.end('HTMLファイルの読み込みエラーが発生しました');
           } else if(result.rows != ''){
             // HTMLテーブルの作成
-            let tableHTML = '<table border="1">';
+            let tableHTML = '<table border="1" class="html_table">';
             tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
 
             result.rows.forEach((row) => {
@@ -91,7 +90,7 @@ router.get('/', function(req, res){
             res.statusCode = 200;
             res.end(htmlContent);
           }else{
-            let tableHTML = '<table border="1">';
+            let tableHTML = '<table border="1" class="html_table">';
           tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
             tableHTML += `<tr>検索結果:0件</tr>`;
           tableHTML += '</table>';
@@ -114,7 +113,7 @@ router.get('/', function(req, res){
           res.end('HTMLファイルの読み込みエラーが発生しました');
         } else {
           // HTMLテーブルの作成
-          let tableHTML = '<table border="1">';
+          let tableHTML = '<table border="1" class="html_table">';
           tableHTML += '<tr><th>カラーコード</th><th>説明</th></tr>';
             tableHTML += `<tr>検索結果:0件</tr>`;
           tableHTML += '</table>';
@@ -128,8 +127,12 @@ router.get('/', function(req, res){
       });
     }
   });
-  module.exports = router;
+// サーバーの起動
+// app.listen(8080, () => {
+//   console.log('サーバーがポート8080で起動しました');
+// });
 
+module.exports =router;
 
 
 
