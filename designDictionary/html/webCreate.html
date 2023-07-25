@@ -5,9 +5,8 @@
         <title>WEBサイト作成</title>
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <link href="../css/post.css" rel="stylesheet" type="text/css">
-        <!--このページ独自のスタイルシート-->
         <link href="../css/webCreate.css" rel="stylesheet" type="text/css">
-        <!--フォント適用のため　Googleフォントクラウド-->
+        <!--フォント適用のため-->
         <!--英語フォント取得-->
         <link href="https://fonts.googleapis.com/css?family=Ravi+Prakash" rel="stylesheet">
         <!--日本語フォント取得-->
@@ -16,153 +15,151 @@
     </head>
 
     <body>
-        <!-- ハンバーガーメニュー -->
         <div class="openbtn"><span></span><span></span><span></span></div>
-        <nav id="g-nav">
-            <div id="g-nav-list">
-                <ul>
-                    <li><a href="mypage.html">マイページ</a></li> 
-                    <li><a href="index.html">目次</a></li> 
-                    <li><a href="#">ログアウト</a></li>
-                </ul>
-            </div>
-        </nav>
-        <!-- ハンバーガーメニュー押下後の背景 -->
+        <div id="hamburgermenu"></div>
         <div class="circle-bg"></div>
-        <h1 class="webCreate">WEBサイト作成</h1>
-        <div class="left">
-        <div>
-            <label for="color-select">色Aを選択:</label>
-            <select id="color-select" onchange="updateColors()">
-                <option disabled selected hidden value="216,216,216">色Aを選択してください</option>
-                <option value="0,0,0">黒</option>
-                <option value="255,0,0">赤</option>
-                <option value="0,0,255">青</option>
-                <option value="0,255,0">緑</option>
-                <option value="255,165,0">オレンジ</option>
-                <option value="128,0,128">紫</option>
-            </select>
-        </div>
-
-        <div>
-            <h2>select colors</h2>
-            <p id="colorA" class="color"></p>
-            <p id="colorB" class="color"></p>
-            <p id="colorC" class="color"></p>
-            <p class="circle"></p>
-
-        </div>
-        <div>
-            <h2>select a sentence</h2>
-            <select id="sentence" onchange="sentenceValue()">
-                <option disabled selected hidden>文章を選択してください</option>
-                <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
-                <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
-                <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
-                <option value="Conviction trumps all"> Conviction trumps all</option>
-                <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
-            </select>
-        </div>
-        </div>
-        <div class="right">
-        <div>
-            <h2>font</h2>
-            <select id="myfont" onchange="setFont()">
-                <option disabled selected hidden>フォントを選択してください</option>
-                <option value="いろは角クラシック">いろは角クラシック Regular</option>
-                <option value="Old Standard">Old Standard</option>
-                <option value="けいふぉんと">けいふぉんと</option>
-                <option value="Times New Roman">Times New Roman</option>
-                
-            </select>
-        </div>
-
-        <div>
-            <!--仮でプルダウン式で作成しています-->
-            <h2>choose the sentence color</h2>
-            <select id="colorSelect" onchange="getColorCode()" >
-            <option value="" disabled selected hidden>色を選択してください</option>
-            <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
-            <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
-            <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
  
-            </select>
-
-         </div>
-        
-        </div>
-
-        <div>
-            <h2>typography</h2>
-            <button id="leftButton" value="left" onclick="getButtonText('left')">左揃え</button>
-            <button id="centerButton" value="center" onclick="getButtonText('center')">中央揃え</button>
-            <button id="rightButton" value="right" onclick="getButtonText('right')">右揃え</button>
-        </div>
-        </div>
-
-        <!--ココからTHML・CSSコ表示系統-->
-        <!--初期化ボタン-->
-        
-            <button onclick="resetTextAreas()" class="syokika">初期化</button>
-       
-        <div class="clear" >
-        <!--プレビュー画面-->
-        <div class="divcontainer">
-        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
-        </div>
-        </div>
-      
-        <div class="container">
-        <!--HTML入力部分-->
-        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" oninput="preview"></textarea>
-        
-        <!--CSS入力部分-->
-        <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" oninput="preview"></textarea></span></div>
-        <!--お気に入りボタン-->
-        <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
-        <!--投稿関係-->
-        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" required></textarea>
-
-        <button type="submit"><img src="画像url" alt="投稿" /></button>
-      
-
-        <!-- ハンバーガーメニュー用JQuery,js -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="../js/main.js"></script>
-        <script src="../js/webCreate.js"></script>
     <script>
-        //HTML・CSSコードのテキストボックスからPreviewに反映するためのスクリプト
-        var obj = document.activeElement;
-       
-
-       code.addEventListener("input",preview);
-       ccode.addEventListener("input",preview);
-
-
-   function preview() {
-   // HTMLコードとCSSコードを取得
-   var htmlCode = document.getElementById("code").value;
-   var cssCode = document.getElementById("ccode").value;
-   // <div id="view"></div> 内にHTMLコードを挿入
-   document.getElementById("view").innerHTML = htmlCode;
-   // CSSルールを定義
-   var style = document.createElement("style");
-   style.innerHTML = cssCode;
-   // <div id="view"></div> 内にCSSルールを挿入
-   document.getElementById("view").appendChild(style);
-
-   }
-   //セレクトのフォーカスを外す為のコード
-   const selectElement = document.querySelector('select');
-
-   selectElement.addEventListener('change', () => {
-   selectElement.blur();
-   });
-
+        $(function(){
+            $('#hamburgermenu').load('../html/template.html'); // #headerにheader.htmlを読み込む
+        });
     </script>
-        <!--プレビュー画面の枠のCSS-->
-        <style>
+
+<h1 class="webCreate">WEBサイト作成</h1>
+<div class="left">
+<div>
+    <label for="color-select">色Aを選択:</label>
+    <select id="color-select" onchange="updateColors()">
+        <option disabled selected hidden value="216,216,216">色Aを選択してください</option>
+        <option value="0,0,0">黒</option>
+        <option value="255,0,0">赤</option>
+        <option value="0,0,255">青</option>
+        <option value="0,255,0">緑</option>
+        <option value="255,165,0">オレンジ</option>
+        <option value="128,0,128">紫</option>
+    </select>
+</div>
+<div>
+    <h2>select colors</h2>
+    <p id="colorA" class="color"></p>
+    <p id="colorB" class="color"></p>
+    <p id="colorC" class="color"></p>
+    <p class="circle"></p>
+</div>
+<div>
+    <h2>select a sentence</h2>
+    <select id="sentence" onchange="sentenceValue()">
+        <option disabled selected hidden>文章を選択してください</option>
+        <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
+        <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
+        <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
+        <option value="Conviction trumps all"> Conviction trumps all</option>
+        <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
+    </select>
+</div>
+</div>
+<div class="right">
+<div>
+    <h2>font</h2>
+    <select id="myfont" onchange="setFont()">
+        <option disabled selected hidden>フォントを選択してください</option>
+        <option value="いろは角クラシック">いろは角クラシック Regular</option>
+        <option value="Old Standard">Old Standard</option>
+        <option value="けいふぉんと">けいふぉんと</option>
+        <option value="Times New Roman">Times New Roman</option>
+        
+    </select>
+</div>
+<div>
+    <!--仮でプルダウン式で作成しています-->
+    <h2>choose the sentence color</h2>
+    <select id="colorSelect" onchange="getColorCode()" >
+    <option value="" disabled selected hidden>色を選択してください</option>
+    <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+    <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+    <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
+
+    </select>
+ </div>
+
+</div>
+<div>
+    <h2>typography</h2>
+    <button id="leftButton" value="left" onclick="getButtonText('left')">左揃え</button>
+    <button id="centerButton" value="center" onclick="getButtonText('center')">中央揃え</button>
+    <button id="rightButton" value="right" onclick="getButtonText('right')">右揃え</button>
+</div>
+</div>
+
+            <form action="/generate" method="POST">
+                <!--ココからHTML・CSSコ表示系統-->
+                <!--初期化ボタン-->
+                <button onclick="resetTextAreas()" class="syokika">初期化</button>
+                <!--プレビュー画面-->
+                <div class="divcontainer">
+                    <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
+                    </div>
+                </div>
+                <div class="container">
+                    <!--HTML入力部分-->
+                    <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" name="htmlContent" oninput="preview"></textarea>
+                    <!--CSS入力部分-->
+                    <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" name="cssContent" oninput="preview"></textarea>
+                </div>
+                <!--お気に入りボタン-->
+                <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
+                <!--投稿関係-->
+                <textarea class="textbox-webpost" placeholder="投稿文" id="posting" name="comment" required></textarea>
+    
+                <button type="submit"><img src="画像url" alt="投稿" /></button>
+            </form>
             
-        </style>
-    </body>
-</html>
+            <!-- ハンバーガーメニュー用JQuery,js -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+            <script src="../js/main.js"></script>
+            <script src="../js/webCreate.js"></script>
+            <script>
+                $(function() {
+                    // テンプレートファイルを読み込んで指定した要素に挿入する
+                    $.get("../html/template.html", function(data) {
+                        $("body").prepend(data);
+                    });
+                });
+            </script>
+            
+            <script>
+                //HTML・CSSコードのテキストボックスからPreviewに反映するためのスクリプト
+                var obj = document.activeElement;
+               
+        
+               code.addEventListener("input",preview);
+               ccode.addEventListener("input",preview);
+        
+        
+           function preview() {
+           // HTMLコードとCSSコードを取得
+           var htmlCode = document.getElementById("code").value;
+           var cssCode = document.getElementById("ccode").value;
+           // <div id="view"></div> 内にHTMLコードを挿入
+           document.getElementById("view").innerHTML = htmlCode;
+           // CSSルールを定義
+           var style = document.createElement("style");
+           style.innerHTML = cssCode;
+           // <div id="view"></div> 内にCSSルールを挿入
+           document.getElementById("view").appendChild(style);
+        
+           }
+           //セレクトのフォーカスを外す為のコード
+           const selectElement = document.querySelector('select');
+        
+           selectElement.addEventListener('change', () => {
+           selectElement.blur();
+           });
+        
+            </script>
+                <!--プレビュー画面の枠のCSS-->
+                <style>
+                    
+                </style>
+            </body>
+        </html>
