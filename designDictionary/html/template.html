@@ -34,7 +34,6 @@
     // ページロード時にログイン状態をチェック
     window.onload = function () {
       checkLoginStatus();
-      
     };
 
     // ログアウトボタンのクリックイベント
@@ -48,13 +47,13 @@
           window.location.reload();
           alert("ログアウトしました");
           $.ajax({
-            type: "post",
-            url: window.location.href,
-            async: false,
-            cache : false,
-          }).done(function () {
-            window.location.reload(true);
-          });
+       type: "post",
+       url: window.location.href,
+       async: false,
+       cache : false,
+       }).done(function () {
+      window.location.reload(true);
+      });
         }
       };
       xhr.send();
