@@ -159,7 +159,7 @@ router.post('/', function(req, res){
       })();
 
     }else{
-      res.render('mypage',data)
+      res.redirect('/html/login.html');
     }
 
 })
