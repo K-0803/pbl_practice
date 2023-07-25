@@ -65,6 +65,7 @@ function (req, res) {
  
         }
         console.log(messages[3]);
+        condition = true;
         //emailに重複確認
         InsData(sql,value)
         .then(function(over){
@@ -72,6 +73,7 @@ function (req, res) {
             messages[0] = "重複したメールアドレスです";
             condition = false;
           }
+          console.log(over);
         }).catch(function(e){
         console.log(e);
         })
@@ -80,19 +82,15 @@ function (req, res) {
        
 
         //入力値すべてにエラーがなければinsertする[]
-          if(errors.isEmpty()&&condition == false){
+          if(errors.isEmpty()&&condition !== false){
           sql ='INSERT INTO user_info (user_name, pwd, address) VALUES( $1, $2, $3);',
           value = [name,password,email];
          InsData(sql,value)
          .then(function(over){
+          console.log(over);
           if(over==true){
-
-
-         const message = "新規登録が成功しました！";
-
-          //レスポンスとしてメッセージを返す
-         res.json({ message });
-         
+            console.log("登録");
+            res.redirect('/login');
           }
         }).catch(function(e){
           console.log(e);
@@ -131,9 +129,9 @@ function (req, res) {
         return client.query(query);
       })
       .then(function(res) {
-         let redct  = true;
-      console.log(res.rows.length );
-      if(res.rows.length > 0){
+         let redct  = Boolean;
+      console.log(res.rows);
+      if(res.rows.length !== 0){
         redct = false;
         client.end();
         resolve(redct);
