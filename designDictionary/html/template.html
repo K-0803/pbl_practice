@@ -34,14 +34,6 @@
     // ページロード時にログイン状態をチェック
     window.onload = function () {
       checkLoginStatus();
-      $.ajax({
-       type: "post",
-       url: window.location.href,
-       async: false,
-       cache : false,
-       }).done(function () {
-  window.location.reload(true);
-});
     };
 
     // ログアウトボタンのクリックイベント
@@ -54,6 +46,14 @@
           checkLoginStatus(); // ログアウト後にログイン状態を再度チェック
           window.location.reload();
           alert("ログアウトしました");
+          $.ajax({
+       type: "post",
+       url: window.location.href,
+       async: false,
+       cache : false,
+       }).done(function () {
+      window.location.reload(true);
+      });
         }
       };
       xhr.send();
