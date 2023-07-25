@@ -101,8 +101,8 @@ function getPath(update, smoothing, pointsNew) {
 
 /** お気に入りボタン */
 $(document).ready(function(){
-    $("#star").click(function(){
-        $("#star").css("color", "#BDFF00")
+    $(".star").click(function(){
+        $(".star").css("color", "#BDFF00")
     })
     
 })
