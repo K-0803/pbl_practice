@@ -306,8 +306,29 @@
             var obj = document.activeElement;
        
 
-            code.addEventListener("input",preview);
-            ccode.addEventListener("input",preview);
+        // // HTMLコードとCSSコードを取得
+        // const htmlCode = document.getElementById("code");
+        // const cssCode = document.getElementById("ccode");
+
+        // // <div id="view"></div> 内に初期値を挿入
+        // updatePreview();
+
+        // // ユーザーの入力があった場合にプレビューを更新するイベントリスナーを追加
+        // htmlCode.addEventListener("input", updatePreview);
+        // cssCode.addEventListener("input", updatePreview);
+
+        // function updatePreview() {
+        // // <div id="view"></div> 内にHTMLコードを挿入
+        // document.getElementById("view").innerHTML = htmlCode.value;
+
+        // // <style> タグ内にCSSルールを挿入
+        // const styleTag = document.querySelector("style");
+        // styleTag.innerHTML = cssCode.value;
+        // }
+
+        
+        code.addEventListener("input",preview);
+        ccode.addEventListener("input",preview);
 
 
         function preview() {

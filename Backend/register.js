@@ -36,12 +36,13 @@ function (req, res) {
   const password = req.body.pass;
 
   console.log(name,email,password);
-  let sql ='SELECT address FROM user_info WHERE address = $1;';
+
   let count=['email','pass','repass','name'];
   let i = 0;
   let condition = false;
   let messages = [];
   let value = [email];
+  let sql ='SELECT address FROM user_info WHERE address = $1;';
   //エラーオブジェクトをerrorsに格納。
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -64,15 +65,14 @@ function (req, res) {
  
         }
         console.log(messages[3]);
+        condition = true;
         //emailに重複確認
         InsData(sql,value)
         .then(function(over){
           if(over == false&&email!==''){
             messages[0] = "重複したメールアドレスです";
+            condition = false;
           }
-            console.log("2");
-            console.log(messages);
-            res.render('register',{from:{email:messages[0],epass:messages[1],erepass:messages[2],name:messages[3]}});
         }).catch(function(e){
         console.log(e);
         })
@@ -81,18 +81,26 @@ function (req, res) {
        
 
         //入力値すべてにエラーがなければinsertする[]
-          if(errors.isEmpty()){
-          sql ='INSERT INTO user_info (user_name, pwd, address) SELECT CAST($3 AS VARCHAR), CAST($2 AS VARCHAR), CAST($1 AS VARCHAR);',
-          value = [email,password,name];;
+          if(errors.isEmpty()&&condition == false){
+          sql ='INSERT INTO user_info (user_name, pwd, address) VALUES( $1, $2, $3);',
+          value = [name,password,email];
          InsData(sql,value)
          .then(function(over){
           if(over==true){
-         res.redirect(req.baseUrl + '/login.html');
-         res.end();
+            console.log("登録");
+         const message = "新規登録が成功しました！";
+
+          //レスポンスとしてメッセージを返す
+         res.json({ message });
+         
           }
         }).catch(function(e){
           console.log(e);
         })
+        }else{
+          console.log("2");
+          console.log(messages);
+          res.render('register',{from:{email:messages[0],epass:messages[1],erepass:messages[2],name:messages[3]}});
         }
 
 })
@@ -123,8 +131,8 @@ function (req, res) {
         return client.query(query);
       })
       .then(function(res) {
-         let redct  = true;
-      console.log(res.rows.length );
+         let redct  = Boolean;
+      console.log(res.rows);
       if(res.rows.length > 0){
         redct = false;
         client.end();

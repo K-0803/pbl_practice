@@ -36,7 +36,7 @@
             </a>
             <section id="logout" class="hide-area">
                 <h2>sign out</h2><br>
-                <a href="/">yes</a>
+                <a id="logoutButton" href="/">yes</a>
                 <p>no</p>
             </section>
         </div> 
@@ -51,6 +51,69 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Modaal/0.4.4/js/modaal.min.js"></script>
         <script src="../js/main.js"></script>
         <script>
+
+
+         // ページロード時にログイン状態をチェック
+    window.onload = function () {
+      checkLoginStatus();
+      
+    };
+
+    // ログイン状態をチェックして、ログアウトボタンを表示するか非表示にする
+    function checkLoginStatus() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/checkLoginStatus", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const isLoggedIn = JSON.parse(xhr.responseText).isLoggedIn;
+          const logoutButton = document.getElementById("logoutButton");
+          const logoutSection = document.getElementById("logout");
+          if (isLoggedIn) {
+            // ログイン済みの場合、ログアウトボタンを表示
+            logoutButton.style.display = "block";
+          } else {
+            // ログインしていない場合、ログアウトボタンを非表示
+            logoutButton.style.display = "none";
+          }
+          // ハンバーガーメニューをクリックしたときの処理を設定
+          document.querySelector(".openbtn").addEventListener("click", function () {
+            // ログイン済みの場合のみ、ログアウトメニューを表示
+            logoutSection.classList.toggle("hide-area", !isLoggedIn);
+          });
+        }
+      };
+      xhr.send();
+    }
+
+    document.getElementById("logoutButton").addEventListener("click", function () {
+      // Ajaxリクエストを作成
+      var xhr = new XMLHttpRequest();
+
+      // ログアウト処理を行うエンドポイントにリクエストを送信
+      xhr.open("POST", "/logout", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      // レスポンス受信時の処理
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          console.log(xhr.responseText); // サーバーからのレスポンスを表示
+          alert("ログアウトしました"); // ログアウト成功時の通知
+          $.ajax({
+       type: "post",
+       url: window.location.href,
+       async: false,
+       cache : false,
+       }).done(function () {
+        window.location.reload(true);
+            });// ログアウト後にページをリロード
+        }
+      };
+
+      // リクエストを送信
+      xhr.send();
+    });
+
             $(function() {
                 // テンプレートファイルを読み込んで指定した要素に挿入する
                 $.get("../html/template.html", function(data) {

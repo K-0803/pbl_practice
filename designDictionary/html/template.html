@@ -5,8 +5,58 @@
             <li><a href="/mypage">マイページ</a></li> 
             <li><a href="/">目次</a></li> 
             <li><a href="/login">ログイン</a></li>
-            <li><a>パワー</a></li>
+            <li><a id="logoutButton" style="display: none;" href="/" >Logout</a></li>
         </ul>
     </div>
 </nav>
+<script>
+    // Ajaxでログイン状態を確認し、ログアウトボタンの表示切り替えを行う
+    function checkLoginStatus() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "/checkLoginStatus", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const isLoggedIn = JSON.parse(xhr.responseText).isLoggedIn;
+          const logoutDiv = document.getElementById("logoutDiv");
+          if (isLoggedIn) {
+            // ログイン済みの場合、ログアウトボタンを表示
+            document.getElementById("logoutButton").style.display = "block";
+          } else {
+            // ログインしていない場合、ログアウトボタンを非表示
+            document.getElementById("logoutButton").style.display = "none";
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    // ページロード時にログイン状態をチェック
+    window.onload = function () {
+      checkLoginStatus();
+      $.ajax({
+       type: "post",
+       url: window.location.href,
+       async: false,
+       cache : false,
+       }).done(function () {
+  window.location.reload(true);
+});
+    };
+
+    // ログアウトボタンのクリックイベント
+    document.getElementById("logoutButton").addEventListener("click", function () {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/logout", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          checkLoginStatus(); // ログアウト後にログイン状態を再度チェック
+          window.location.reload();
+          alert("ログアウトしました");
+        }
+      };
+      xhr.send();
+    });
+  </script>
 <!-- ハンバーガーメニュー押下後の背景 -->
