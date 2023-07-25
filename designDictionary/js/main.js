@@ -99,13 +99,12 @@ function getPath(update, smoothing, pointsNew) {
     return `<path d="${d}" />`;
 }
 
-/** モーダルウィンドウ */
-$(".logout").modaal({
-	overlay_close:true,//モーダル背景クリック時に閉じるか
-	before_open:function(){// モーダルが開く前に行う動作
-		$('html').css('overflow-y','hidden');/*縦スクロールバーを出さない*/
-	},
-	after_close:function(){// モーダルが閉じた後に行う動作
-		$('html').css('overflow-y','scroll');/*縦スクロールバーを出す*/
-	}
-});
+/** お気に入りボタン */
+$(document).ready(function(){
+    $(".star").click(function(){
+        var star =$(this).attr('id')
+        $("#"+star).css("color", "#BDFF00")
+    })
+    
+})
+
