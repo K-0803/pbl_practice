@@ -11,10 +11,10 @@
   width: 3.8em;
 }
 
-.star {
+#star {
     display: none;
   }
-#star {
+.star {
     position: relative;
     padding: 0 5px;
     color: #ccc;

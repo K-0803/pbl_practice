@@ -38,12 +38,13 @@
 
         
         <a href="postDetails.html"><img src="画像url" alt="WEBカスタム"></a>
-        <input type="submit"　class="star">
-            <label id="star">★</label>
-        <form action="/customList" method="POST">
-            <input type="submit" value="送信">
-            <div id="viewArea" contenteditable="true">
-                
+
+        <input type="submit" id="star">
+            <label class="star">★</label>
+        
+        <!-- <form action="/postDetails" method="post"> -->
+            <div>
+                {{customhtml}}
             </div>
             {{customhtml}}
             {{customcss}}

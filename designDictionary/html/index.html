@@ -6,28 +6,46 @@
         <link href="../css/stylesheet.css" rel="stylesheet" type="text/css">
         <link href="../css/index.css" rel="stylesheet" type="text/css">
     </head>
-
-
     
     <body>
         <div class="outside">
             <div class="insidep">
-                <button onclick="location.href='mypage.html'" class="button-mypage">マイページ</button>
-                <button onclick="location.href='webCreate.html'" class="button-webCreate">WEBサイト作成</button>
+                <button onclick="location.href='/mypage'" class="button-mypage">マイページ</a>
+                </button>
+                <button onclick="location.href='/webCreate'" class="button-webCreate">WEBサイト作成
+                    <a href="/webCreate" class="arrow yg"></a>
+                </button>
             </div>
             <div class="insideq">
-                <button onclick="location.href='Ptemplate.html'" class="button-Ptemp">プレゼンテーションテンプレート</button>
-                <button onclick="location.href='Wtemplate.html'" class="button-Wtemp">WEBサイトテンプレート</button>
+                <button onclick="location.href='/Ptemplate'" class="button-Ptemp">プレゼンテーション<br>テンプレート
+                    <a href="/Ptemplate" class="arrow bl"></a>
+                </button>
+                <button onclick="location.href='/Wtemplate'" class="button-Wtemp">WEBサイト<br>テンプレート
+                    <a href="/Wtemplate" class="arrow wh"></a>
+                </button>
             </div>
             <div class="insideq">
-                <button onclick="location.href='postLog.html'" class="button-postLog">カスタマイズ投稿一覧</button>
+                <form action="/customList" method="post">
+                    <button onclick="location.href='/customList'" class="button-postLog">カスタマイズ<br>投稿一覧
+                        <a href="/customList" class="arrow wh"></a>
+                    </button>
+                </form>
+
                 <form action="/termDictionary" method="post">
-                    <button  class="button-termDic">用語辞典</button>
+                    <button  class="button-termDic">用語辞典
+                        <a href="/termDictionary" class="arrow yg"></a>
+                    </button>
                 </form>
             </div>
             <div class="insider">
-                <button onclick="location.href='colorSample.html'" class="button-colorSample">色見本</button>
-                <button class="button-null">空きボタン</button>
+                <button onclick="location.href='/colorSample'" class="button-colorSample">色見本
+                    <a href="/colorSample" class="arrow yg"></a>
+                </button>
+                <form action="/postLog" method="post">
+                    <button class="button-null">投稿履歴
+                        <a href="/postLog" class="arrow bl"></a>
+                    </button>
+                </form>
             </div>
         </div>
     </body>

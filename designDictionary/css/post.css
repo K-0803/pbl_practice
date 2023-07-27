@@ -85,10 +85,10 @@
 }
 
 /* お気に入りボタン */
-.star {
+#star {
     display: none;
   }
-#star {
+.star {
     position: relative;
     padding: 0 5px;
     color: #ccc;
