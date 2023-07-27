@@ -69,7 +69,7 @@ function (req, res) {
         //emailに重複確認
         InsData(sql,value)
         .then(function(over){
-          if(over == false&&email!==''){
+          if(over == false||email!==''){
             messages[0] = "重複したメールアドレスです";
             condition = false;
           }
