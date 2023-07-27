@@ -22,409 +22,74 @@
     <script>
         $(function(){
             $('#hamburgermenu').load('../html/template.html'); // #headerにheader.htmlを読み込む
-
-        <div class="openbtn"><span></span><span></span><span></span></div>
-        <div id="hamburgermenu"></div>
-        <div class="circle-bg"></div>
- 
-    <script>
-        $(function(){
-            $('#hamburgermenu').load('../html/template.html'); // #headerにheader.htmlを読み込む
         });
     </script>
 
-
-        <h1>WEBサイト作成</h1>
-        <div>
-            <label for="color-select">色Aを選択:</label>
-            <select id="color-select" onchange="updateColors()">
-                <option value="0,0,0">黒</option>
-                <option value="255,0,0">赤</option>
-                <option value="0,0,255">青</option>
-                <option value="0,255,0">緑</option>
-                <option value="255,165,0">オレンジ</option>
-                <option value="128,0,128">紫</option>
-            </select>
-        </div>
-
-        <div>
-            <h2>select colors</h2>
-            <p id="colorA" class="color"></p>
-            <p id="colorB" class="color"></p>
-            <p id="colorC" class="color"></p>
-            <p class="circle"></p>
-
-        </div>
-
-        <div>
-            <h2>select a sentence</h2>
-            <select id="sentence" onchange="sentenceValue()">
-                <option disabled selected hidden>文章を選択してください</option>
-                <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
-                <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
-                <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
-                <option value="Conviction trumps all"> Conviction trumps all</option>
-                <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
-            </select>
-        </div>
-
-        <div>
-            <h2>font</h2>
-            <select id="myfont" onchange="setFont()">
-                <option disabled selected hidden>フォントを選択してください</option>
-                <option value="いろは角クラシック">いろは角クラシック Regular</option>
-                <option value="Old Standard">Old Standard</option>
-                <option value="">#サイコ～フォント</option>
-                <option value="">#フォントにほんと？</option>
-            </select>
-        </div>
-
-        <div>
-            <!--仮でプルダウン式で作成しています-->
-            <h2>choose the sentence color</h2>
-            <select id="colorSelect" onchange="getColorCode()" >
-            <option value="" disabled selected hidden>色を選択してください</option>
-            <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
-            <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
-            <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
- 
-            </select>
-
-        </div>
-
-        <div>
-            <h2>typography</h2>
-            <button id="buttonId" value="left" onclick="getButtonText()">左揃え</button>
-            <button id="buttonId" value="center" onclick="getButtonText()">中央揃え</button>
-            <button id="buttonId" value="right" onclick="getButtonText()">右揃え</button>
-        </div>
-
-        <form action="/generate" method="POST">
-        <!--ココからHTML・CSSコ表示系統-->
-        <!--プレビュー画面-->
-        <div id="view" contenteditable="true" placeholder="HTMLコード・CSSコードの描画結果が表示されるよ" class="preview">
-        </div>
-        <div class="container"><span>
-        <!--HTML入力部分-->
-        <textarea class="html-webpost" rows="12" placeholder="HTML文" id="code" name="htmlContent" oninput="preview"></textarea></span>
-        <span>
-        <!--CSS入力部分-->
-        <textarea class="css-webpost" rows="12" placeholder="CSSコード" id="ccode" name="cssContent" oninput="preview"></textarea></span></div>
-        <!--お気に入りボタン-->
-        <button><img src="C:\Users\mania\Downloads\お気に入り用星.png" width="24" height="24" style="background-color: transparent"></button>
-        <!--投稿関係-->
-        <textarea class="textbox-webpost" placeholder="投稿文" id="posting" name="comment" required></textarea>
-
-        <button type="submit"><img src="画像url" alt="投稿" /></button>
-        </form>
+<h1 class="webCreate">WEBサイト作成</h1>
+<div class="left">
+<div>
+    <label for="color-select">色Aを選択:</label>
+    <select id="color-select" onchange="updateColors()">
+        <option disabled selected hidden value="216,216,216">色Aを選択してください</option>
+        <option value="0,0,0">黒</option>
+        <option value="255,0,0">赤</option>
+        <option value="0,0,255">青</option>
+        <option value="0,255,0">緑</option>
+        <option value="255,165,0">オレンジ</option>
+        <option value="128,0,128">紫</option>
+    </select>
+</div>
+<div>
+    <h2>select colors</h2>
+    <p id="colorA" class="color"></p>
+    <p id="colorB" class="color"></p>
+    <p id="colorC" class="color"></p>
+    <p class="circle"></p>
+</div>
+<div>
+    <h2>select a sentence</h2>
+    <select id="sentence" onchange="sentenceValue()">
+        <option disabled selected hidden>文章を選択してください</option>
+        <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
+        <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
+        <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
+        <option value="Conviction trumps all"> Conviction trumps all</option>
+        <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
+    </select>
+</div>
+</div>
+<div class="right">
+<div>
+    <h2>font</h2>
+    <select id="myfont" onchange="setFont()">
+        <option disabled selected hidden>フォントを選択してください</option>
+        <option value="いろは角クラシック">いろは角クラシック Regular</option>
+        <option value="Old Standard">Old Standard</option>
+        <option value="けいふぉんと">けいふぉんと</option>
+        <option value="Times New Roman">Times New Roman</option>
         
-        <!-- ハンバーガーメニュー用JQuery,js -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-        <script src="../js/main.js"></script>
-        <script>
-            $(function() {
-                // テンプレートファイルを読み込んで指定した要素に挿入する
-                $.get("../html/template.html", function(data) {
-                    $("body").prepend(data);
-                });
-            });
-        </script>
-        
-        <script>
-            // 初期選択の色AのRGB値を取得
-            var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
-            var colorA = {
-                red: selectedColor[0],
-                green: selectedColor[1],
-                blue: selectedColor[2]
-            };
+    </select>
+</div>
+<div>
+    <!--仮でプルダウン式で作成しています-->
+    <h2>choose the sentence color</h2>
+    <select id="colorSelect" onchange="getColorCode()" >
+    <option value="" disabled selected hidden>色を選択してください</option>
+    <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
+    <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
+    <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
 
-            // 反対色Bと中間色Cを計算する関数
-            function calculateColors() {
-              // 反対色Bを計算
-              var colorB = {
-                red: 255 - colorA.red,
-                green: 255 - colorA.green,
-                blue: 255 - colorA.blue
-              };
-              
-              // 中間色Cを計算
-              var colorC = {
-                red: Math.round((colorA.red + colorB.red) / 2),
-                green: Math.round((colorA.green + colorB.green) / 2),
-                blue: Math.round((colorA.blue + colorB.blue) / 2)
-              };
-              
-              // 結果を表示
-              document.getElementById("colorA").textContent = "色A" + getColorCode(colorA);
-              document.getElementById("colorA").style.color = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
+    </select>
+ </div>
 
-              document.getElementById("colorB").textContent = "反対色B"+ getColorCode(colorB);
-              document.getElementById("colorB").style.color = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
-
-              document.getElementById("colorC").textContent = "中間色C"+ getColorCode(colorB);
-              document.getElementById("colorC").style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
-
-              optionA.style.backgroundColor = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
-                optionA.style.color = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
-                optionA.value = "rgb(" + colorA.red + ", " + colorA.green + ", " + colorA.blue + ")";
-
-                optionB.style.backgroundColor = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
-                optionB.style.color = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
-                optionB.value = "rgb(" + colorB.red + ", " + colorB.green + ", " + colorB.blue + ")";
-
-                optionC.style.backgroundColor = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
-                optionC.style.color = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
-                optionC.value = "rgb(" + colorC.red + ", " + colorC.green + ", " + colorC.blue + ")";
-            }
-
-            // プルダウンの選択が変更された時に呼ばれる関数
-            function updateColors() {
-              // 選択された色AのRGB値を更新
-              var selectedColor = document.getElementById("color-select").value.split(",").map(Number);
-              colorA.red = selectedColor[0];
-              colorA.green = selectedColor[1];
-              colorA.blue = selectedColor[2];
-
-              // 反対色Bと中間色Cを再計算して表示
-              calculateColors();
-            }
-
-            // 初期表示時に色を計算して表示
-            document.addEventListener("DOMContentLoaded", function() {
-              calculateColors();
-            });
-
-            // カラーコードを取得する関数
-            function getColorCode(color) {
-             var red = color.red.toString(16).padStart(2, "0");
-             var green = color.green.toString(16).padStart(2, "0");
-             var blue = color.blue.toString(16).padStart(2, "0");
-             return "#" + red + green + blue;
-            }
-
-            var colorCircleClass = "color-circle";
-            //プルダウン内のカラーを変動させるためのコード
-            // var colorSelect = document.getElementById("colorSelect");
-            // colorSelect.addEventListener("change", updatColors);
-
-            //プルダウンメニューを反映する場合
-    //         document.addEventListener("DOMContentLoaded", function() {
-    //     var selectElement = document.getElementById("sentence");
-    //     var inputElement = document.getElementById("code");
-
-    //     selectElement.addEventListener("change", function() {
-    //         var selectedValue = selectElement.value;
-    //         var prefix = "<p> ";
-    //         var suffix = " </p>";
-    //         var modifiedValue = prefix + selectedValue + suffix;
-
-    //         inputElement.value += modifiedValue;
-    //         selectElement.selectedIndex = 0; // 選択肢の初期化
-    //     });
-    // });
-    function sentenceValue() {
-        var selectElement = document.getElementById("sentence");
-     var inputElement = document.getElementById("code");
-    var selectedValue = selectElement.value;
-    
-    // 選択された文に基づく処理を実行する
-    if (selectedValue === "働くか死ぬか、それが問題だ。") {
-       var prefix = "<p> ";
-        var suffix = " </p>";
-        var modifiedValue = prefix + selectedValue + suffix;
-
-        inputElement.value += modifiedValue;
-        selectElement.selectedIndex = 0; // 選択肢の初期化
-
-            } else if (selectedValue === "be , or not to be , that is the question.") {
-                var prefix = "<p> ";
-        var suffix = " </p>";
-        var modifiedValue = prefix + selectedValue + suffix;
-
-        inputElement.value += modifiedValue;
-        selectElement.selectedIndex = 0; // 選択肢の初期化
-
-            } else if (selectedValue === "納得はすべてに優先される。") {
-                var prefix = "<p> ";
-        var suffix = " </p>";
-        var modifiedValue = prefix + selectedValue + suffix;
-
-        inputElement.value += modifiedValue;
-        selectElement.selectedIndex = 0; // 選択肢の初期化
-
-            } else if (selectedValue === "Conviction trumps all") {
-                var prefix = "<p> ";
-        var suffix = " </p>";
-        var modifiedValue = prefix + selectedValue + suffix;
-
-        inputElement.value += modifiedValue;
-        selectElement.selectedIndex = 0; // 選択肢の初期化
-
-            } else if (selectedValue === "この社会には変革が必要だ") {
-            var prefix = "<p> ";
-        var suffix = " </p>";
-        var modifiedValue = prefix + selectedValue + suffix;
-
-        inputElement.value += modifiedValue;
-        selectElement.selectedIndex = 0; // 選択肢の初期化
-
-            }
-        }
-
-            //フォントを反映
-            function setFont() {
-            var selectElement = document.getElementById("myfont");
-            var textBoxElement = document.getElementById("ccode");
-            var selectedValue = selectElement.value;
-
-            var newStyle = 'p{font-family:"' + selectedValue + '";}';
-             textBoxElement.value += newStyle;
-            }
-            //センテンスカラー（仮）
-            function getColorCode() {
-            var colorSelect = document.getElementById("colorSelect");
-            var colorCodeElement = document.getElementById("ccode");
-            var selectedColorCode = colorSelect.value;
-
-            var currentStyles = colorCodeElement.value;
-            var newStyles = "p { color: " + selectedColorCode + "; }";
-            
-            // 「p{color: }」の部分を削除
-            var updatedStyles = currentStyles.replace(/p\s*\{\s*color:\s*[^;]*;\s*\}/g, "");
-            
-            // テキストの末尾に新しいスタイル定義を追加
-            updatedStyles += newStyles;
-            
-            colorCodeElement.value = updatedStyles;
-            }
-
-
-            //揃え
-            function getButtonText() {
-            var aliElement = document.getElementById("ccode");
-            var buttonElement = document.getElementById("buttonId");
-            var buttonText = buttonElement.value;
-
-            var newStyl1 = "p { text-align: " + buttonText + "; }";
-           updatedStyl += newStyl1;
-           aliElement.value=updatedStyl;
-            }
-
-            //ここから下、ＨＴＭＬとＣＳＳのテキストボックス内容をPreviewできるようにする為のコード
-        
-            var obj = document.activeElement;
-       
-
-        // // HTMLコードとCSSコードを取得
-        // const htmlCode = document.getElementById("code");
-        // const cssCode = document.getElementById("ccode");
-
-        // // <div id="view"></div> 内に初期値を挿入
-        // updatePreview();
-
-        // // ユーザーの入力があった場合にプレビューを更新するイベントリスナーを追加
-        // htmlCode.addEventListener("input", updatePreview);
-        // cssCode.addEventListener("input", updatePreview);
-
-        // function updatePreview() {
-        // // <div id="view"></div> 内にHTMLコードを挿入
-        // document.getElementById("view").innerHTML = htmlCode.value;
-
-        // // <style> タグ内にCSSルールを挿入
-        // const styleTag = document.querySelector("style");
-        // styleTag.innerHTML = cssCode.value;
-        // }
-
-        
-        code.addEventListener("input",preview);
-        ccode.addEventListener("input",preview);
-
-
-        function preview() {
-        // HTMLコードとCSSコードを取得
-        var htmlCode = document.getElementById("code").value;
-        var cssCode = document.getElementById("ccode").value;
-        // <div id="view"></div> 内にHTMLコードを挿入
-        document.getElementById("view").innerHTML = htmlCode;
-        // CSSルールを定義
-        var style = document.createElement("style");
-        style.innerHTML = cssCode;
-        // <div id="view"></div> 内にCSSルールを挿入
-        document.getElementById("view").appendChild(style);
-
-        }
-        //セレクトのフォーカスを外す為のコード
-        const selectElement = document.querySelector('select');
-
-        selectElement.addEventListener('change', () => {
-        selectElement.blur();
-        });
-    </script>
-
-        <h1 class="webCreate">WEBサイト作成</h1>
-        <div class="left">
-            <div>
-                <label for="color-select">色Aを選択:</label>
-                <select id="color-select" onchange="updateColors()">
-                    <option disabled selected hidden value="216,216,216">色Aを選択してください</option>
-                    <option value="0,0,0">黒</option>
-                    <option value="255,0,0">赤</option>
-                    <option value="0,0,255">青</option>
-                    <option value="0,255,0">緑</option>
-                    <option value="255,165,0">オレンジ</option>
-                    <option value="128,0,128">紫</option>
-                </select>
-            </div>
-
-            <div>
-                <h2>select colors</h2>
-                <p id="colorA" class="color"></p>
-                <p id="colorB" class="color"></p>
-                <p id="colorC" class="color"></p>
-                <p class="circle"></p>
-            </div>
-
-            <div>
-                <h2>select a sentence</h2>
-                <select id="sentence" onchange="sentenceValue()">
-                    <option disabled selected hidden>文章を選択してください</option>
-                    <option value="働くか死ぬか、それが問題だ。">働くか死ぬか、それが問題だ。</option>
-                    <option value="be , or not to be , that is the question."> be , or not to be , that is the question.</option>
-                    <option value="納得はすべてに優先される。">納得はすべてに優先される。</option>
-                    <option value="Conviction trumps all"> Conviction trumps all</option>
-                    <option value="この社会には変革が必要だ">この社会には変革が必要だ</option>
-                </select>
-            </div>
-
-            <div>
-                <h2>font</h2>
-                <select id="myfont" onchange="setFont()">
-                    <option disabled selected hidden>フォントを選択してください</option>
-                    <option value="いろは角クラシック">いろは角クラシック Regular</option>
-                    <option value="Old Standard">Old Standard</option>
-                    <option value="けいふぉんと">けいふぉんと</option>
-                    <option value="Times New Roman">Times New Roman</option>
-                </select>
-            </div>
-
-            <div>
-                <!--仮でプルダウン式で作成しています-->
-                <h2>choose the sentence color</h2>
-                <select id="colorSelect" onchange="getColorCode()" >
-                    <option value="" disabled selected hidden>色を選択してください</option>
-                    <option id="optionA" value="hsl(41, 100%, 50%)" style="background-color: hsl(41, 100%, 50%); color: #ffffff;"></option>
-                    <option id="optionB" value="hsl(288, 100%, 64%)" style="background-color: hsl(288, 100%, 64%); color: #000000;"></option>
-                    <option id="optionC" value="#ffffff" style="background-color: #ffffff; color: #ffffff;"></option>
-                </select>
-            </div>
-
-            <div>
-                <h2>typography</h2>
-                <button id="leftButton" value="left" onclick="getButtonText('left')">左揃え</button>
-                <button id="centerButton" value="center" onclick="getButtonText('center')">中央揃え</button>
-                <button id="rightButton" value="right" onclick="getButtonText('right')">右揃え</button>
-            </div>
+</div>
+<div>
+    <h2>typography</h2>
+    <button id="leftButton" value="left" onclick="getButtonText('left')">左揃え</button>
+    <button id="centerButton" value="center" onclick="getButtonText('center')">中央揃え</button>
+    <button id="rightButton" value="right" onclick="getButtonText('right')">右揃え</button>
+</div>
+</div>
 
             <form action="/generate" method="POST">
                 <!--ココからHTML・CSSコ表示系統-->

@@ -13,6 +13,7 @@ app.set('views', path.join(__dirname, '../designDictionary/html/views'));
 
 // ホームページの表示
 router.get('/', async(req, res) => {  
+  
     const cookieHeader = req.headers.cookie;
     if (cookieHeader) {
       const cookiePairs = cookieHeader.split(';');

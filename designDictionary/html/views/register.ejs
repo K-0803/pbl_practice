@@ -8,27 +8,35 @@
     </head>
 
     <body>
-        <form method="POST" action="/register">
-        <label>
-            <span class="textbox-login-gmail">Gmail</span> <span id="gmiss"><%= from.email %></span><br>
-            <input name="email" type="text" class="textbox-gmail" placeholder="***@gmail.com"/>
-        </label><br>
-        <label>
-            <span class="textbox-login-pw" id="pass">password </span><span id="pmiss"><%= from.epass %></span><br>
-            <input id="textpass" name="pass" type="password" class="textbox-pw" placeholder="password"/>
-        </label><br>
-        <label>
-            <span class="textbox-login-repw" id="repass">re:password </span><span id="repmiss"><%= from.erepass %></span><br>
-            <input id="textrepass" name="repass" type="password" class="textbox-re-pw" placeholder="password"/>
-        </label><br>
-        <label>
-            <span class="textbox-login-name">UserName</span><span id="namemiss"><%= from.name %></span><br>
-            <input name="name" type="text" class="textbox-name" placeholder="username"/>
-        </label><br>
+        <div class="register">
+            <form method="POST" action="/register">
+        
+                <h2 class="active"> sign up </h2>
+                    <span class="item">gmail</span><span id="gmiss"><%= from.email %></span>
+                    <div class="mailblock">
+                        <input name="email" type="text" class="email"/>
+                        <p>@gmail.com</p>
+                    </div>
 
-        <p id="text1"></p>
-        <button type="submit" onclick>送信</button>
-        </form>
+                    <span class="item" id="pass">password</span><span id="pmiss"><%= from.epass %></span>
+                    <input id="textpass" name="pass" type="password" class="text"/>
+                    
+                    <span class="item outside" id="repass">re:password</span><span id="repmiss"><%= from.erepass %></span>
+                    <input id="textrepass" name="repass" type="password" class="text"/>
+                    
+                    <span class="item outside">UserName</span><span id="namemiss"><%= from.name %></span>
+                    <input name="name" type="text" class="text"/>
+
+                    <input type="hidden" id="boolean1" name="boolean1" value="">
+                    <input type="hidden" id="boolean2" name="boolean2" value="">
+
+                    <p id="text1"></p>
+                    <input type="submit" class="signup" onclick="location.href='login.html'" value="sign up"/>
+                <hr>
+            </form>
+            <a href="/html/index.html">cancel</a>
+        </div> 
+        
 
 
 
