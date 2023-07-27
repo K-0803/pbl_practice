@@ -52,10 +52,12 @@ router.post('/', function(req, res){
 
                 const customTags = [];
 
+                let i = 0;
+
                 const readFilePromises = htmlCodes.map(function(htmlCode){
                     const htmlId = `../saveFile/png/${htmlCode}.png`;
-
-                    return Promise.all([htmlId, htmlCode])
+                    
+                    return Promise.all([htmlId, htmlCode,i])
                         .then(function(){
                             let htmlTag = `<form action="/postDetails" method="post">
                                         <div class="createView" id="imgId">
@@ -64,8 +66,9 @@ router.post('/', function(req, res){
                                         <input type="submit" value="詳細を見る">
                                         </div>
                                         </form>`;
-                            htmlTag += `<input type="submit"><label id="star">★</label><br>`;
+                            htmlTag += `<input type="submit" id="star" ><label class="star" id="${i}">★</label><br>`;
                             customTags.push(htmlTag);
+                            i++;
                             // cssTags.push(cssTag);
                         })
                         .catch(function(err){

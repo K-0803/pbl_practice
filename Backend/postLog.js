@@ -124,7 +124,7 @@ router.post('/', function(req, res){
             })
 
       }else{
-        res.redirect('/html/login.html');
+        res.redirect('login');
       }
     }       
     
