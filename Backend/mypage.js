@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
       .then(function(mailid){
         let address = mailid;
         var data={
-          acc: {name:username,gmail:address,account:'log out',log:'<a href="#logout" class="logout">'}
+          acc: {name:username,gmail:address,account:'logout',log:'<a href="#logout" class="logout">'}
         }
         res.render('mypage',data);
       }).catch(function(e){
