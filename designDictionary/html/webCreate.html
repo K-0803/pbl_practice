@@ -156,8 +156,18 @@
            selectElement.blur();
            });
         
+           document.addEventListener('DOMContentLoaded', () => {
+  const rows = document.querySelectorAll('tbody tr');
+  rows.forEach((row) => {
+    row.addEventListener('click', () => {
+      const columns = row.getElementsByTagName('td');
+      const rowData = Array.from(columns).map((column) => column.textContent);
+      console.log('クリックされた行の内容:', rowData.join(', '));
+    });
+  });
+});
             </script>
-                <!--プレビュー画面の枠のCSS-->
+                
                 <style>
                     
                 </style>

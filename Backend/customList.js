@@ -30,7 +30,7 @@ router.post('/', function(req, res){
     async function executeDBOperations(){
         const client = new Client({
             user: "postgres",//ユーザー名
-            host: "database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com",//ホスト
+            host: "database-1.c8lfh7qeqrkx.us-east-1.rds.amazonaws.com",//ホスト
             database: "postgres",//DB名
             password: "shirokuma123",//ユーザーパスワード
             port: 5432,
