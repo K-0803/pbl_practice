@@ -111,7 +111,7 @@ function (req, res) {
   const { Client } = require('pg');
   const client = new Client({
     user: 'postgres', // ユーザー名
-    host: 'database-2.cgz0heptpctb.us-east-1.rds.amazonaws.com', // ホスト
+    host: 'database-1.cxtqqck72ahf.us-east-1.rds.amazonaws.com', // ホスト
     database: 'postgres', // DB名
     password: 'shirokuma123', // ユーザーパスワード
     port: 5432,
